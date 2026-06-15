@@ -1,0 +1,66 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-recommendation-r4-3-premenopausal",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-3-premenopausal",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineRecommendationR43Premenopausal",
+  "title": "Do not routinely offer neoadjuvant endocrine therapy to premenopausal patients",
+  "description": "Choose chemotherapy or endocrine downstaging approach for HR-positive HER2-negative disease.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "action": [
+    {
+      "condition": [
+        {
+          "expression": {
+            "expression": "HrPositiveHer2NegativeSubtype",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        },
+        {
+          "expression": {
+            "expression": "PatientIsPremenopausal",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/avoid-premenopausal-neoadjuvant-endocrine-therapy",
+      "description": "Avoid routine neoadjuvant endocrine therapy outside a clinical trial in premenopausal HR-positive HER2-negative early-stage disease.",
+      "documentation": [
+        {
+          "citation": "Premenopausal patients with HR-positive HER2-negative early-stage disease should not routinely receive neoadjuvant endocrine therapy outside a clinical trial. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 4.3",
+          "label": "claim-r4-3",
+          "type": "citation"
+        }
+      ],
+      "id": "avoid-premenopausal-neoadjuvant-endocrine-therapy",
+      "title": "Do not routinely offer neoadjuvant endocrine therapy to premenopausal patients",
+      "trigger": [
+        {
+          "name": "hr-positive-her2-negative-treatment-selection",
+          "source": "subtype-directed-oncology-planning",
+          "type": "named-event"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,524 @@
+{
+  "definition": {
+    "resource": [
+      {
+        "description": "Do not use blood-based or tissue-based biomarkers to monitor patients receiving neoadjuvant therapy.",
+        "exampleBoolean": true,
+        "name": "AvoidBloodAndTissueBiomarkerMonitoring",
+        "reference": {
+          "reference": "ActivityDefinition/avoid-blood-and-tissue-biomarker-monitoring"
+        }
+      },
+      {
+        "description": "Avoid routine neoadjuvant chemotherapy or anti-HER2 agents outside a clinical trial for small node-negative HER2-positive disease.",
+        "exampleBoolean": true,
+        "name": "AvoidNeoadjuvantTherapyForSmallHer2Positive",
+        "reference": {
+          "reference": "ActivityDefinition/avoid-neoadjuvant-therapy-for-small-her2-positive"
+        }
+      },
+      {
+        "description": "Avoid routine neoadjuvant therapy outside a clinical trial for small node-negative TNBC.",
+        "exampleBoolean": true,
+        "name": "AvoidNeoadjuvantTherapyForSmallTnbc",
+        "reference": {
+          "reference": "ActivityDefinition/avoid-neoadjuvant-therapy-for-small-tnbc"
+        }
+      },
+      {
+        "description": "Do not use other immunochemical markers, morphologic markers, or genomic profiles to decide whether to pursue neoadjuvant chemotherapy.",
+        "exampleBoolean": true,
+        "name": "AvoidOtherMarkers",
+        "reference": {
+          "reference": "ActivityDefinition/avoid-other-markers"
+        }
+      },
+      {
+        "description": "Avoid routine neoadjuvant endocrine therapy outside a clinical trial in premenopausal HR-positive HER2-negative early-stage disease.",
+        "exampleBoolean": true,
+        "name": "AvoidPremenopausalNeoadjuvantEndocrineTherapy",
+        "reference": {
+          "reference": "ActivityDefinition/avoid-premenopausal-neoadjuvant-endocrine-therapy"
+        }
+      },
+      {
+        "description": "Do not routinely add immune checkpoint inhibitors to standard neoadjuvant chemotherapy for early-stage TNBC.",
+        "exampleBoolean": true,
+        "name": "AvoidRoutineImmuneCheckpointInhibitors",
+        "reference": {
+          "reference": "ActivityDefinition/avoid-routine-immune-checkpoint-inhibitors"
+        }
+      },
+      {
+        "description": "Carboplatin may be added as part of a neoadjuvant TNBC regimen after weighing potential benefits and harms.",
+        "exampleBoolean": true,
+        "name": "ConsiderCarboplatinForTnbc",
+        "reference": {
+          "reference": "ActivityDefinition/consider-carboplatin-for-tnbc"
+        }
+      },
+      {
+        "description": "Pertuzumab may be used with trastuzumab in the neoadjuvant setting for HER2-positive disease.",
+        "exampleBoolean": true,
+        "name": "ConsiderPertuzumabWithTrastuzumab",
+        "reference": {
+          "reference": "ActivityDefinition/consider-pertuzumab-with-trastuzumab"
+        }
+      },
+      {
+        "description": "Manage the patient through a multidisciplinary care team while planning and delivering neoadjuvant therapy.",
+        "exampleBoolean": true,
+        "name": "CoordinateMultidisciplinaryManagement",
+        "reference": {
+          "reference": "ActivityDefinition/coordinate-multidisciplinary-management"
+        }
+      },
+      {
+        "description": "Use regular clinical examination to monitor patients receiving neoadjuvant therapy.",
+        "exampleBoolean": true,
+        "name": "MonitorWithClinicalExamination",
+        "reference": {
+          "reference": "ActivityDefinition/monitor-with-clinical-examination"
+        }
+      },
+      {
+        "description": "Offer an anthracycline-containing and taxane-containing neoadjuvant regimen for TNBC with clinically node-positive disease and-or at least T1c disease.",
+        "exampleBoolean": true,
+        "name": "OfferAnthracyclineTaxaneForTnbc",
+        "reference": {
+          "reference": "ActivityDefinition/offer-anthracycline-taxane-for-tnbc"
+        }
+      },
+      {
+        "description": "Offer anthracycline and taxane or non-anthracycline regimen in combination with trastuzumab for node-positive or high-risk node-negative HER2-positive disease.",
+        "exampleBoolean": true,
+        "name": "OfferHer2DirectedNeoadjuvantRegimen",
+        "reference": {
+          "reference": "ActivityDefinition/offer-her2-directed-neoadjuvant-regimen"
+        }
+      },
+      {
+        "description": "Use neoadjuvant chemotherapy as the treatment of choice for inflammatory breast cancer or unresectable locally advanced disease that may become resectable.",
+        "exampleBoolean": true,
+        "name": "OfferNeoadjuvantChemotherapyForAdvancedDisease",
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-chemotherapy-for-advanced-disease"
+        }
+      },
+      {
+        "description": "Use chemotherapy with or without targeted therapy, or endocrine therapy when HR-positive, to reduce the extent of local therapy.",
+        "exampleBoolean": true,
+        "name": "OfferNeoadjuvantForDownstaging",
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-for-downstaging"
+        }
+      },
+      {
+        "description": "Offer neoadjuvant systemic therapy to high-risk HER2-positive or triple-negative disease when residual disease findings will change adjuvant therapy.",
+        "exampleBoolean": true,
+        "name": "OfferNeoadjuvantForResidualDiseaseGuidedAdjuvantPlanning",
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning"
+        }
+      },
+      {
+        "description": "Use neoadjuvant systemic therapy when delaying surgery is preferable or unavoidable.",
+        "exampleBoolean": true,
+        "name": "OfferNeoadjuvantForSurgeryDelay",
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-for-surgery-delay"
+        }
+      },
+      {
+        "description": "Use neoadjuvant endocrine therapy with an aromatase inhibitor in postmenopausal HR-positive HER2-negative disease to increase locoregional treatment options.",
+        "exampleBoolean": true,
+        "name": "OfferPostmenopausalNeoadjuvantEndocrineTherapy",
+        "reference": {
+          "reference": "ActivityDefinition/offer-postmenopausal-neoadjuvant-endocrine-therapy"
+        }
+      },
+      {
+        "description": "Use mammography, ultrasound, or MRI that was most informative at baseline to confirm progression or support surgical planning.",
+        "exampleBoolean": true,
+        "name": "UseBaselineInformativeImaging",
+        "reference": {
+          "reference": "ActivityDefinition/use-baseline-informative-imaging"
+        }
+      },
+      {
+        "description": "Use endocrine therapy for disease control if there is no intent to proceed to surgery.",
+        "exampleBoolean": true,
+        "name": "UseEndocrineTherapyForDiseaseControl",
+        "reference": {
+          "reference": "ActivityDefinition/use-endocrine-therapy-for-disease-control"
+        }
+      },
+      {
+        "description": "Neoadjuvant chemotherapy can substitute for adjuvant chemotherapy in HR-positive HER2-negative disease when surgical pathology or genomic testing is not required for the decision.",
+        "exampleBoolean": true,
+        "name": "UseNeoadjuvantChemotherapyWithoutSurgicalData",
+        "reference": {
+          "reference": "ActivityDefinition/use-neoadjuvant-chemotherapy-without-surgical-data"
+        }
+      },
+      {
+        "description": "Use pathologic complete response, defined as absence of invasive disease in breast and lymph nodes, to guide clinical decision-making.",
+        "exampleBoolean": true,
+        "name": "UsePcrToGuideDecisions",
+        "reference": {
+          "reference": "ActivityDefinition/use-pcr-to-guide-decisions"
+        }
+      },
+      {
+        "description": "Use tumor histology, grade, stage, and ER PR HER2 expression to guide the decision to pursue neoadjuvant chemotherapy.",
+        "exampleBoolean": true,
+        "name": "UseStandardTumorFeatures",
+        "reference": {
+          "reference": "ActivityDefinition/use-standard-tumor-features"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationLogic",
+        "reference": {
+          "reference": "Library/asco-breast-cancer-guideline-recommendation-logic"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocol",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol"
+        }
+      },
+      {
+        "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolCandidacyAssessmentStep",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-assessment-step"
+        }
+      },
+      {
+        "description": "Determine whether neoadjuvant therapy is indicated and what clinical goal it serves.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolCandidacyPhase",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-phase"
+        }
+      },
+      {
+        "description": "Choose trastuzumab-based neoadjuvant therapy for high-risk disease and avoid routine use in small node-negative disease.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolHer2PositivePlanningStep",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-her2-positive-planning-step"
+        }
+      },
+      {
+        "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolHrHer2NegativePlanningStep",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step"
+        }
+      },
+      {
+        "description": "Monitor the patient during therapy and use response findings to guide ongoing decisions.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolMonitoringPhase",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-monitoring-phase"
+        }
+      },
+      {
+        "description": "Select a neoadjuvant regimen according to biologic subtype and clinical risk.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolSubtypePlanningPhase",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-subtype-planning-phase"
+        }
+      },
+      {
+        "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolTnbcPlanningStep",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-tnbc-planning-step"
+        }
+      },
+      {
+        "description": "Use histology, grade, stage, and receptor status to anchor treatment planning and avoid unsupported markers.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineProtocolTumorFeatureReviewStep",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-tumor-feature-review-step"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendation",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation"
+        }
+      },
+      {
+        "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationMultidisciplinaryManagement",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-multidisciplinary-management"
+        }
+      },
+      {
+        "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR11AdvancedDisease",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-1-advanced-disease"
+        }
+      },
+      {
+        "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR12StandardFeatures",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-2-standard-features"
+        }
+      },
+      {
+        "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR13ResidualDiseaseGuided",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided"
+        }
+      },
+      {
+        "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR14Downstaging",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-4-downstaging"
+        }
+      },
+      {
+        "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR15SurgeryDelay",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-5-surgery-delay"
+        }
+      },
+      {
+        "description": "Ongoing assessment while the patient is receiving neoadjuvant therapy.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR21Monitoring",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-1-monitoring"
+        }
+      },
+      {
+        "description": "Ongoing assessment while the patient is receiving neoadjuvant therapy.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR22NoBiomarkers",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers"
+        }
+      },
+      {
+        "description": "Ongoing assessment while the patient is receiving neoadjuvant therapy.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR23UsePcr",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-3-use-pcr"
+        }
+      },
+      {
+        "description": "Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR31TnbcEligible",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-1-tnbc-eligible"
+        }
+      },
+      {
+        "description": "Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR32TnbcSmallNodeNegative",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative"
+        }
+      },
+      {
+        "description": "Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR33Carboplatin",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-3-carboplatin"
+        }
+      },
+      {
+        "description": "Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR34NoIci",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-4-no-ici"
+        }
+      },
+      {
+        "description": "Choose chemotherapy or endocrine downstaging approach for HR-positive HER2-negative disease.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR41UseChemo",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-1-use-chemo"
+        }
+      },
+      {
+        "description": "Choose chemotherapy or endocrine downstaging approach for HR-positive HER2-negative disease.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR42NoSurgery",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-2-no-surgery"
+        }
+      },
+      {
+        "description": "Choose chemotherapy or endocrine downstaging approach for HR-positive HER2-negative disease.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR42PostmenopausalEndocrine",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-2-postmenopausal-endocrine"
+        }
+      },
+      {
+        "description": "Choose chemotherapy or endocrine downstaging approach for HR-positive HER2-negative disease.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR43Premenopausal",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-3-premenopausal"
+        }
+      },
+      {
+        "description": "Choose anti-HER2-based neoadjuvant therapy for HER2-positive disease.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR51Her2HighRisk",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk"
+        }
+      },
+      {
+        "description": "Choose anti-HER2-based neoadjuvant therapy for HER2-positive disease.",
+        "exampleBoolean": true,
+        "name": "AscoBreastCancerGuidelineRecommendationR52SmallHer2Positive",
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "BreastConservingSurgery",
+        "reference": {
+          "reference": "ValueSet/breast-conserving-surgery"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "Carboplatin",
+        "reference": {
+          "reference": "ValueSet/carboplatin"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "Her2PositiveBreastCancer",
+        "reference": {
+          "reference": "ValueSet/her2-positive-breast-cancer"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "HrPositiveHer2NegativeBreastCancer",
+        "reference": {
+          "reference": "ValueSet/hr-positive-her2-negative-breast-cancer"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "InflammatoryBreastCancer",
+        "reference": {
+          "reference": "ValueSet/inflammatory-breast-cancer"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "LocallyAdvancedBreastCancer",
+        "reference": {
+          "reference": "ValueSet/locally-advanced-breast-cancer"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "NeoadjuvantChemotherapy",
+        "reference": {
+          "reference": "ValueSet/neoadjuvant-chemotherapy"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "PathologicCompleteResponse",
+        "reference": {
+          "reference": "ValueSet/pathologic-complete-response"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "ResidualDisease",
+        "reference": {
+          "reference": "ValueSet/residual-disease"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "Trastuzumab",
+        "reference": {
+          "reference": "ValueSet/trastuzumab"
+        }
+      },
+      {
+        "exampleBoolean": true,
+        "name": "TripleNegativeBreastCancer",
+        "reference": {
+          "reference": "ValueSet/triple-negative-breast-cancer"
+        }
+      }
+    ]
+  },
+  "dependsOn": [
+    {
+      "id": "hl7_fhir_us_core",
+      "packageId": "hl7.fhir.us.core",
+      "version": "6.1.0"
+    },
+    {
+      "id": "hl7_fhir_uv_cql",
+      "packageId": "hl7.fhir.uv.cql",
+      "version": "2.0.0"
+    },
+    {
+      "id": "hl7_fhir_uv_crmi",
+      "packageId": "hl7.fhir.uv.crmi",
+      "version": "1.0.0"
+    }
+  ],
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "id": "asco-breast-cancer-guideline",
+  "name": "AscoBreastCancerGuideline",
+  "packageId": "reason.asco-breast-cancer-guideline",
+  "resourceType": "ImplementationGuide",
+  "status": "active",
+  "title": "Asco Breast Cancer Guideline",
+  "url": "http://example.org/fhir/ImplementationGuide/asco-breast-cancer-guideline",
+  "version": "1.0.0"
+}

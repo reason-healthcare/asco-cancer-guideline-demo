@@ -1,0 +1,24 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  },
+  "date": "2026-06-15",
+  "description": "Do not routinely add immune checkpoint inhibitors to standard neoadjuvant chemotherapy for early-stage TNBC.",
+  "doNotPerform": true,
+  "id": "avoid-routine-immune-checkpoint-inhibitors",
+  "intent": "proposal",
+  "kind": "MedicationRequest",
+  "name": "AvoidRoutineImmuneCheckpointInhibitors",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Do not routinely add immune checkpoint inhibitors to neoadjuvant chemotherapy",
+  "url": "http://example.org/fhir/ActivityDefinition/avoid-routine-immune-checkpoint-inhibitors",
+  "version": "1.0.0"
+}

@@ -1,0 +1,66 @@
+{
+  "action": [
+    {
+      "condition": [
+        {
+          "expression": {
+            "expression": "HrPositiveHer2NegativeSubtype",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        },
+        {
+          "expression": {
+            "expression": "ChemotherapyDecisionCanBeMadeWithoutSurgicalPathologyOrGenomicTesting",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/use-neoadjuvant-chemotherapy-without-surgical-data",
+      "description": "Neoadjuvant chemotherapy can substitute for adjuvant chemotherapy in HR-positive HER2-negative disease when surgical pathology or genomic testing is not required for the decision.",
+      "documentation": [
+        {
+          "citation": "Neoadjuvant chemotherapy can be used in HR-positive HER2-negative disease when the chemotherapy decision can be made without surgical pathology or genomic testing. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 4.1",
+          "label": "claim-r4-1",
+          "type": "citation"
+        }
+      ],
+      "id": "use-neoadjuvant-chemotherapy-without-surgical-data",
+      "title": "Use neoadjuvant chemotherapy when the chemotherapy decision does not require surgical data",
+      "trigger": [
+        {
+          "name": "hr-positive-her2-negative-treatment-selection",
+          "source": "subtype-directed-oncology-planning",
+          "type": "named-event"
+        }
+      ]
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Choose chemotherapy or endocrine downstaging approach for HR-positive HER2-negative disease.",
+  "id": "asco-breast-cancer-guideline-recommendation-r4-1-use-chemo",
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineRecommendationR41UseChemo",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Use neoadjuvant chemotherapy when the chemotherapy decision does not require surgical data",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-1-use-chemo",
+  "version": "1.0.0"
+}

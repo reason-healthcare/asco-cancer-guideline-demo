@@ -1,0 +1,687 @@
+{
+  "library": {
+    "identifier": {
+      "id": "AscoBreastCancerGuidelineRecommendationLogic",
+      "version": "1.0.0"
+    },
+    "schemaIdentifier": {
+      "id": "urn:hl7-org:elm",
+      "version": "r1"
+    },
+    "usings": {
+      "def": [
+        {
+          "localIdentifier": "FHIR",
+          "version": "4.0.1"
+        }
+      ]
+    },
+    "includes": {
+      "def": [
+        {
+          "localIdentifier": "FHIRHelpers",
+          "path": "FHIRHelpers",
+          "version": "4.0.1"
+        }
+      ]
+    },
+    "parameters": {
+      "def": [
+        {
+          "name": "ResidualDiseaseWouldChangeAdjuvantTherapyInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "DownstagingGoalInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "SurgeryDelayContextInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "StandardTumorFeaturesAvailableInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "TnbcNodePositiveOrAtLeastT1cInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "TnbcCt1aOrCt1bN0Input",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "BenefitHarmFavorsCarboplatinInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "ChemotherapyDecisionWithoutSurgicalDataInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "PatientIsPostmenopausalInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "NoSurgeryIntendedInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "PatientIsPremenopausalInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "Her2PositiveHighRiskInput",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "Her2PositiveT1aOrT1bN0Input",
+          "accessLevel": "Public"
+        }
+      ]
+    },
+    "valueSets": {
+      "def": [
+        {
+          "name": "InflammatoryBreastCancer",
+          "id": "http://example.org/fhir/ValueSet/inflammatory-breast-cancer",
+          "version": "1.0.0",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "LocallyAdvancedBreastCancer",
+          "id": "http://example.org/fhir/ValueSet/locally-advanced-breast-cancer",
+          "version": "1.0.0",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "TripleNegativeBreastCancer",
+          "id": "http://example.org/fhir/ValueSet/triple-negative-breast-cancer",
+          "version": "1.0.0",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "Her2PositiveBreastCancer",
+          "id": "http://example.org/fhir/ValueSet/her2-positive-breast-cancer",
+          "version": "1.0.0",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "HrPositiveHer2NegativeBreastCancer",
+          "id": "http://example.org/fhir/ValueSet/hr-positive-her2-negative-breast-cancer",
+          "version": "1.0.0",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "PathologicCompleteResponse",
+          "id": "http://example.org/fhir/ValueSet/pathologic-complete-response",
+          "version": "1.0.0",
+          "accessLevel": "Public"
+        },
+        {
+          "name": "ResidualDisease",
+          "id": "http://example.org/fhir/ValueSet/residual-disease",
+          "version": "1.0.0",
+          "accessLevel": "Public"
+        }
+      ]
+    },
+    "contexts": {
+      "def": [
+        {
+          "name": "Patient"
+        }
+      ]
+    },
+    "statements": {
+      "def": [
+        {
+          "name": "Inflammatory Breast Cancer Conditions",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Retrieve",
+            "localId": "1",
+            "locator": "0-0:0-0",
+            "dataType": "{http://hl7.org/fhir}Condition",
+            "codeProperty": "code",
+            "codes": {
+              "type": "ValueSetRef",
+              "localId": "2",
+              "locator": "0-0:0-0",
+              "name": "InflammatoryBreastCancer"
+            },
+            "include": [],
+            "codeFilter": [],
+            "dateFilter": [],
+            "otherFilter": []
+          }
+        },
+        {
+          "name": "Locally Advanced Breast Cancer Conditions",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Retrieve",
+            "localId": "3",
+            "locator": "0-0:0-0",
+            "dataType": "{http://hl7.org/fhir}Condition",
+            "codeProperty": "code",
+            "codes": {
+              "type": "ValueSetRef",
+              "localId": "4",
+              "locator": "0-0:0-0",
+              "name": "LocallyAdvancedBreastCancer"
+            },
+            "include": [],
+            "codeFilter": [],
+            "dateFilter": [],
+            "otherFilter": []
+          }
+        },
+        {
+          "name": "Triple-negative Breast Cancer Conditions",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Retrieve",
+            "localId": "5",
+            "locator": "0-0:0-0",
+            "dataType": "{http://hl7.org/fhir}Condition",
+            "codeProperty": "code",
+            "codes": {
+              "type": "ValueSetRef",
+              "localId": "6",
+              "locator": "0-0:0-0",
+              "name": "TripleNegativeBreastCancer"
+            },
+            "include": [],
+            "codeFilter": [],
+            "dateFilter": [],
+            "otherFilter": []
+          }
+        },
+        {
+          "name": "HER2-positive Breast Cancer Conditions",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Retrieve",
+            "localId": "7",
+            "locator": "0-0:0-0",
+            "dataType": "{http://hl7.org/fhir}Condition",
+            "codeProperty": "code",
+            "codes": {
+              "type": "ValueSetRef",
+              "localId": "8",
+              "locator": "0-0:0-0",
+              "name": "Her2PositiveBreastCancer"
+            },
+            "include": [],
+            "codeFilter": [],
+            "dateFilter": [],
+            "otherFilter": []
+          }
+        },
+        {
+          "name": "HR-positive HER2-negative Breast Cancer Conditions",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Retrieve",
+            "localId": "9",
+            "locator": "0-0:0-0",
+            "dataType": "{http://hl7.org/fhir}Condition",
+            "codeProperty": "code",
+            "codes": {
+              "type": "ValueSetRef",
+              "localId": "10",
+              "locator": "0-0:0-0",
+              "name": "HrPositiveHer2NegativeBreastCancer"
+            },
+            "include": [],
+            "codeFilter": [],
+            "dateFilter": [],
+            "otherFilter": []
+          }
+        },
+        {
+          "name": "Residual Disease Findings",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Retrieve",
+            "localId": "11",
+            "locator": "0-0:0-0",
+            "dataType": "{http://hl7.org/fhir}Observation",
+            "codeProperty": "code",
+            "codes": {
+              "type": "ValueSetRef",
+              "localId": "12",
+              "locator": "0-0:0-0",
+              "name": "ResidualDisease"
+            },
+            "include": [],
+            "codeFilter": [],
+            "dateFilter": [],
+            "otherFilter": []
+          }
+        },
+        {
+          "name": "Pathologic Complete Response Findings",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Retrieve",
+            "localId": "13",
+            "locator": "0-0:0-0",
+            "dataType": "{http://hl7.org/fhir}Observation",
+            "codeProperty": "code",
+            "codes": {
+              "type": "ValueSetRef",
+              "localId": "14",
+              "locator": "0-0:0-0",
+              "name": "PathologicCompleteResponse"
+            },
+            "include": [],
+            "codeFilter": [],
+            "dateFilter": [],
+            "otherFilter": []
+          }
+        },
+        {
+          "name": "Any Managed Breast Cancer Subtype",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Or",
+            "localId": "15",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "Or",
+                "localId": "16",
+                "locator": "0-0:0-0",
+                "operand": [
+                  {
+                    "type": "Or",
+                    "localId": "17",
+                    "locator": "0-0:0-0",
+                    "operand": [
+                      {
+                        "type": "Or",
+                        "localId": "18",
+                        "locator": "0-0:0-0",
+                        "operand": [
+                          {
+                            "type": "Exists",
+                            "localId": "19",
+                            "locator": "0-0:0-0",
+                            "operand": {
+                              "type": "ExpressionRef",
+                              "localId": "20",
+                              "locator": "0-0:0-0",
+                              "name": "Inflammatory Breast Cancer Conditions"
+                            }
+                          },
+                          {
+                            "type": "Exists",
+                            "localId": "21",
+                            "locator": "0-0:0-0",
+                            "operand": {
+                              "type": "ExpressionRef",
+                              "localId": "22",
+                              "locator": "0-0:0-0",
+                              "name": "Locally Advanced Breast Cancer Conditions"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Exists",
+                        "localId": "23",
+                        "locator": "0-0:0-0",
+                        "operand": {
+                          "type": "ExpressionRef",
+                          "localId": "24",
+                          "locator": "0-0:0-0",
+                          "name": "Triple-negative Breast Cancer Conditions"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Exists",
+                    "localId": "25",
+                    "locator": "0-0:0-0",
+                    "operand": {
+                      "type": "ExpressionRef",
+                      "localId": "26",
+                      "locator": "0-0:0-0",
+                      "name": "HER2-positive Breast Cancer Conditions"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Exists",
+                "localId": "27",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "28",
+                  "locator": "0-0:0-0",
+                  "name": "HR-positive HER2-negative Breast Cancer Conditions"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "InflammatoryOrLocallyAdvancedUnresectableDisease",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Or",
+            "localId": "29",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "Exists",
+                "localId": "30",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "31",
+                  "locator": "0-0:0-0",
+                  "name": "Inflammatory Breast Cancer Conditions"
+                }
+              },
+              {
+                "type": "Exists",
+                "localId": "32",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "33",
+                  "locator": "0-0:0-0",
+                  "name": "Locally Advanced Breast Cancer Conditions"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "ResidualDiseaseResultWouldChangeAdjuvantTherapy",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Or",
+            "localId": "34",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "ExpressionRef",
+                "localId": "35",
+                "locator": "0-0:0-0",
+                "name": "ResidualDiseaseWouldChangeAdjuvantTherapyInput"
+              },
+              {
+                "type": "Exists",
+                "localId": "36",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "37",
+                  "locator": "0-0:0-0",
+                  "name": "Residual Disease Findings"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "DownstagingOrSurgeryExtentReductionIsATreatmentGoal",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "ExpressionRef",
+            "localId": "38",
+            "locator": "0-0:0-0",
+            "name": "DownstagingGoalInput"
+          }
+        },
+        {
+          "name": "SurgeryDelayIsPreferableOrUnavoidable",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "ExpressionRef",
+            "localId": "39",
+            "locator": "0-0:0-0",
+            "name": "SurgeryDelayContextInput"
+          }
+        },
+        {
+          "name": "HistologyGradeStageAndErPrHer2AreAvailable",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "And",
+            "localId": "40",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "ExpressionRef",
+                "localId": "41",
+                "locator": "0-0:0-0",
+                "name": "StandardTumorFeaturesAvailableInput"
+              },
+              {
+                "type": "ExpressionRef",
+                "localId": "42",
+                "locator": "0-0:0-0",
+                "name": "Any Managed Breast Cancer Subtype"
+              }
+            ]
+          }
+        },
+        {
+          "name": "TnbcIsNodePositiveOrAtLeastT1c",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "And",
+            "localId": "43",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "Exists",
+                "localId": "44",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "45",
+                  "locator": "0-0:0-0",
+                  "name": "Triple-negative Breast Cancer Conditions"
+                }
+              },
+              {
+                "type": "ExpressionRef",
+                "localId": "46",
+                "locator": "0-0:0-0",
+                "name": "TnbcNodePositiveOrAtLeastT1cInput"
+              }
+            ]
+          }
+        },
+        {
+          "name": "TnbcIsCt1aOrCt1bN0",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "And",
+            "localId": "47",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "Exists",
+                "localId": "48",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "49",
+                  "locator": "0-0:0-0",
+                  "name": "Triple-negative Breast Cancer Conditions"
+                }
+              },
+              {
+                "type": "ExpressionRef",
+                "localId": "50",
+                "locator": "0-0:0-0",
+                "name": "TnbcCt1aOrCt1bN0Input"
+              }
+            ]
+          }
+        },
+        {
+          "name": "BenefitHarmBalanceFavorsCarboplatin",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "ExpressionRef",
+            "localId": "51",
+            "locator": "0-0:0-0",
+            "name": "BenefitHarmFavorsCarboplatinInput"
+          }
+        },
+        {
+          "name": "HrPositiveHer2NegativeSubtype",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Exists",
+            "localId": "52",
+            "locator": "0-0:0-0",
+            "operand": {
+              "type": "ExpressionRef",
+              "localId": "53",
+              "locator": "0-0:0-0",
+              "name": "HR-positive HER2-negative Breast Cancer Conditions"
+            }
+          }
+        },
+        {
+          "name": "ChemotherapyDecisionCanBeMadeWithoutSurgicalPathologyOrGenomicTesting",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "ExpressionRef",
+            "localId": "54",
+            "locator": "0-0:0-0",
+            "name": "ChemotherapyDecisionWithoutSurgicalDataInput"
+          }
+        },
+        {
+          "name": "PatientIsPostmenopausal",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "ExpressionRef",
+            "localId": "55",
+            "locator": "0-0:0-0",
+            "name": "PatientIsPostmenopausalInput"
+          }
+        },
+        {
+          "name": "NoSurgeryIsIntended",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "ExpressionRef",
+            "localId": "56",
+            "locator": "0-0:0-0",
+            "name": "NoSurgeryIntendedInput"
+          }
+        },
+        {
+          "name": "PatientIsPremenopausal",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "ExpressionRef",
+            "localId": "57",
+            "locator": "0-0:0-0",
+            "name": "PatientIsPremenopausalInput"
+          }
+        },
+        {
+          "name": "Her2PositiveWithNodePositiveOrHighRiskNodeNegativeDisease",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "And",
+            "localId": "58",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "Exists",
+                "localId": "59",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "60",
+                  "locator": "0-0:0-0",
+                  "name": "HER2-positive Breast Cancer Conditions"
+                }
+              },
+              {
+                "type": "ExpressionRef",
+                "localId": "61",
+                "locator": "0-0:0-0",
+                "name": "Her2PositiveHighRiskInput"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Her2PositiveT1aOrT1bN0Disease",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "And",
+            "localId": "62",
+            "locator": "0-0:0-0",
+            "operand": [
+              {
+                "type": "Exists",
+                "localId": "63",
+                "locator": "0-0:0-0",
+                "operand": {
+                  "type": "ExpressionRef",
+                  "localId": "64",
+                  "locator": "0-0:0-0",
+                  "name": "HER2-positive Breast Cancer Conditions"
+                }
+              },
+              {
+                "type": "ExpressionRef",
+                "localId": "65",
+                "locator": "0-0:0-0",
+                "name": "Her2PositiveT1aOrT1bN0Input"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "annotation": [
+      {
+        "type": "CqlToElmInfo",
+        "translatorVersion": "0.2.0-beta.2",
+        "translatorOptions": "DisableListDemotion,DisableListPromotion,EnableAnnotations,EnableLocators"
+      }
+    ]
+  }
+}

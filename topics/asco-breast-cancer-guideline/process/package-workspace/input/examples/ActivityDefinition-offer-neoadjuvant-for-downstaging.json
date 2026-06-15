@@ -1,0 +1,23 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "offer-neoadjuvant-for-downstaging",
+  "url": "http://example.org/fhir/ActivityDefinition/offer-neoadjuvant-for-downstaging",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "OfferNeoadjuvantForDownstaging",
+  "title": "Offer neoadjuvant systemic therapy to reduce surgery extent",
+  "description": "Use chemotherapy with or without targeted therapy, or endocrine therapy when HR-positive, to reduce the extent of local therapy.",
+  "kind": "ServiceRequest",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  }
+}

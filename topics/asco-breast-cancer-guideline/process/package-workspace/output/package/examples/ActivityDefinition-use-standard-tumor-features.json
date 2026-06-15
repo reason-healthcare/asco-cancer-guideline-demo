@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "70292004",
+        "display": "Treatment planning for chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Use histology grade stage and receptor status to guide decisions"
+  },
+  "date": "2026-06-15",
+  "description": "Use tumor histology, grade, stage, and ER PR HER2 expression to guide the decision to pursue neoadjuvant chemotherapy.",
+  "id": "use-standard-tumor-features",
+  "intent": "proposal",
+  "kind": "Task",
+  "name": "UseStandardTumorFeatures",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Use histology grade stage and receptor status to guide decisions",
+  "url": "http://example.org/fhir/ActivityDefinition/use-standard-tumor-features",
+  "version": "1.0.0"
+}

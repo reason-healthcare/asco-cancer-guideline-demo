@@ -1,0 +1,23 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning",
+  "url": "http://example.org/fhir/ActivityDefinition/offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "OfferNeoadjuvantForResidualDiseaseGuidedAdjuvantPlanning",
+  "title": "Offer neoadjuvant systemic therapy when residual disease will guide adjuvant planning",
+  "description": "Offer neoadjuvant systemic therapy to high-risk HER2-positive or triple-negative disease when residual disease findings will change adjuvant therapy.",
+  "kind": "ServiceRequest",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "code": "Z17.411",
+        "display": "Hormone receptor positive with human epidermal growth factor receptor 2 negative status",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm"
+      }
+    ],
+    "text": "HR-positive HER2-negative breast cancer"
+  }
+}

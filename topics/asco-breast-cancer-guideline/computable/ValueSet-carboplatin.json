@@ -1,0 +1,32 @@
+{
+  "resourceType": "ValueSet",
+  "id": "carboplatin",
+  "url": "http://example.org/fhir/ValueSet/carboplatin",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "Carboplatin",
+  "title": "Carboplatin",
+  "compose": {
+    "include": [
+      {
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "concept": [
+          {
+            "code": "40048",
+            "display": "Carboplatin"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "386905002",
+            "display": "Carboplatin"
+          }
+        ]
+      }
+    ]
+  }
+}

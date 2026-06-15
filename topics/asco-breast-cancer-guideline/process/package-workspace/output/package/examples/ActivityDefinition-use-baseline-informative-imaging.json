@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "392021009",
+        "display": "Lumpectomy of breast",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Breast-conserving surgery"
+  },
+  "date": "2026-06-15",
+  "description": "Use mammography, ultrasound, or MRI that was most informative at baseline to confirm progression or support surgical planning.",
+  "id": "use-baseline-informative-imaging",
+  "intent": "proposal",
+  "kind": "ServiceRequest",
+  "name": "UseBaselineInformativeImaging",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Use the most informative baseline imaging modality when imaging is needed",
+  "url": "http://example.org/fhir/ActivityDefinition/use-baseline-informative-imaging",
+  "version": "1.0.0"
+}

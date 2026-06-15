@@ -1,0 +1,23 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "consider-pertuzumab-with-trastuzumab",
+  "url": "http://example.org/fhir/ActivityDefinition/consider-pertuzumab-with-trastuzumab",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "ConsiderPertuzumabWithTrastuzumab",
+  "title": "Consider pertuzumab with trastuzumab",
+  "description": "Pertuzumab may be used with trastuzumab in the neoadjuvant setting for HER2-positive disease.",
+  "kind": "MedicationRequest",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "code": "1298944",
+        "display": "Pertuzumab"
+      }
+    ],
+    "text": "Consider pertuzumab with trastuzumab"
+  }
+}

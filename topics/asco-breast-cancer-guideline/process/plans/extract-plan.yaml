@@ -1,0 +1,83 @@
+topic: asco-breast-cancer-guideline
+plan_type: extract
+status: approved
+reviewer: Codex
+reviewed_at: '2026-06-15T21:01:03Z'
+review_summary: Plan approved with an added care-pathway artifact because the 
+  planner under-scoped a clearly staged neoadjuvant workflow. Decision-table 
+  retains recommendation logic; care-pathway will carry sequencing and 
+  transitions; concepts artifact will materialize the reviewed terminology set.
+cross_artifact_issues: []
+artifacts:
+- name: decision-table
+  artifact_type: decision-table
+  custom_artifact_type:
+  source_files:
+  - sources/normalized/korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf.md
+  purpose: Encodes event-condition-action clinical decision logic for CDS rule 
+    formalization.
+  rationale: Synthesizes 1 normalized source(s) contributing to decision-table 
+    for review and downstream formalization.
+  key_questions:
+  - What recommendation-scoped triggers, local conditions, and actions form the 
+    decision logic?
+  required_sections:
+  - summary
+  - events
+  - conditions
+  - data_elements
+  - actions
+  - rules
+  - evidence_traceability
+  concerns: []
+  reviewer_decision: approved
+  approval_notes: Approved as the primary recommendation-logic artifact for the 
+    ASCO neoadjuvant therapy guideline.
+- name: care-pathway
+  artifact_type: care-pathway
+  custom_artifact_type:
+  source_files:
+  - sources/normalized/korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf.md
+  purpose: Encodes the longitudinal clinical sequencing, phase structure, and 
+    transition logic for downstream protocol formalization.
+  rationale: The guideline is organized as a staged neoadjuvant evaluation and 
+    treatment workflow, so a pathway artifact is needed alongside the 
+    recommendation logic.
+  key_questions:
+  - What clinical phases, sequencing, and transitions organize neoadjuvant 
+    therapy decisions for nonmetastatic breast cancer?
+  required_sections:
+  - steps
+  - transitions
+  concerns: []
+  reviewer_decision: approved
+  approval_notes: Approved to preserve the patient-facing phase and transition 
+    model that complements the decision-table recommendations.
+- name: concepts
+  artifact_type: terminology
+  custom_artifact_type:
+  source_files: &id001
+  - sources/normalized/korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf.md
+  purpose: Defines the reviewed terminology package for downstream ValueSet and 
+    ConceptMap formalization.
+  rationale: Packages 1 normalized source(s) worth of reviewed concept coding 
+    into an explicit L2 terminology artifact.
+  key_questions:
+  - What reviewed codes and terminology define the clinical concepts for this 
+    topic?
+  required_sections:
+  - summary
+  - value_sets
+  concerns: []
+  reviewer_decision: approved
+  approval_notes: Approved terminology artifact based on finalized concept 
+    review.
+concept_review:
+  source_files: *id001
+  status: approved
+  concept_count: 13
+  review_artifact: topics/asco-breast-cancer-guideline/process/plans/concepts/
+  final_artifact: 
+    topics/asco-breast-cancer-guideline/structured/concepts/concepts.yaml
+  reviewer: Codex
+  reviewed_at: '2026-06-15T21:00:26Z'

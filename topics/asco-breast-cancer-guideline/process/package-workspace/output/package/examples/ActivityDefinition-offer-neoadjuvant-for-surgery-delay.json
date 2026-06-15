@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "400001000004103",
+        "display": "Neoadjuvant antineoplastic therapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Offer neoadjuvant systemic therapy when surgery is delayed"
+  },
+  "date": "2026-06-15",
+  "description": "Use neoadjuvant systemic therapy when delaying surgery is preferable or unavoidable.",
+  "id": "offer-neoadjuvant-for-surgery-delay",
+  "intent": "proposal",
+  "kind": "ServiceRequest",
+  "name": "OfferNeoadjuvantForSurgeryDelay",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Offer neoadjuvant systemic therapy when surgery is delayed",
+  "url": "http://example.org/fhir/ActivityDefinition/offer-neoadjuvant-for-surgery-delay",
+  "version": "1.0.0"
+}

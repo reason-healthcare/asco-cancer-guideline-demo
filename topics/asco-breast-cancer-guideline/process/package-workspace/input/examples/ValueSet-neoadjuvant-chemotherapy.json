@@ -1,0 +1,23 @@
+{
+  "resourceType": "ValueSet",
+  "id": "neoadjuvant-chemotherapy",
+  "url": "http://example.org/fhir/ValueSet/neoadjuvant-chemotherapy",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "NeoadjuvantChemotherapy",
+  "title": "Neoadjuvant chemotherapy",
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "1259200004",
+            "display": "Neoadjuvant antineoplastic chemotherapy"
+          }
+        ]
+      }
+    ]
+  }
+}

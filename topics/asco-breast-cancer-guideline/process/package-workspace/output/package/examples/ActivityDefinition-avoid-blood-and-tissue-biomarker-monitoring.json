@@ -1,0 +1,24 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  },
+  "date": "2026-06-15",
+  "description": "Do not use blood-based or tissue-based biomarkers to monitor patients receiving neoadjuvant therapy.",
+  "doNotPerform": true,
+  "id": "avoid-blood-and-tissue-biomarker-monitoring",
+  "intent": "proposal",
+  "kind": "Task",
+  "name": "AvoidBloodAndTissueBiomarkerMonitoring",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Do not use blood or tissue biomarkers for monitoring",
+  "url": "http://example.org/fhir/ActivityDefinition/avoid-blood-and-tissue-biomarker-monitoring",
+  "version": "1.0.0"
+}

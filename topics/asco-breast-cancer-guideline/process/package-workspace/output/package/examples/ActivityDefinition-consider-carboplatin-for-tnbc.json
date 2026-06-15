@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "1285139003",
+        "display": "Complete response of neoplasm to antineoplastic neoadjuvant therapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Pathologic complete response"
+  },
+  "date": "2026-06-15",
+  "description": "Carboplatin may be added as part of a neoadjuvant TNBC regimen after weighing potential benefits and harms.",
+  "id": "consider-carboplatin-for-tnbc",
+  "intent": "proposal",
+  "kind": "MedicationRequest",
+  "name": "ConsiderCarboplatinForTnbc",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Consider carboplatin to increase pathologic complete response",
+  "url": "http://example.org/fhir/ActivityDefinition/consider-carboplatin-for-tnbc",
+  "version": "1.0.0"
+}

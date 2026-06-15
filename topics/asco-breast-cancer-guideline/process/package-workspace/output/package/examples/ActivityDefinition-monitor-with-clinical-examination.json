@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "5880005",
+        "display": "Physical examination",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Monitor response with regular clinical examination"
+  },
+  "date": "2026-06-15",
+  "description": "Use regular clinical examination to monitor patients receiving neoadjuvant therapy.",
+  "id": "monitor-with-clinical-examination",
+  "intent": "proposal",
+  "kind": "Task",
+  "name": "MonitorWithClinicalExamination",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Monitor response with regular clinical examination",
+  "url": "http://example.org/fhir/ActivityDefinition/monitor-with-clinical-examination",
+  "version": "1.0.0"
+}

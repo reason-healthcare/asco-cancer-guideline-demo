@@ -1,0 +1,24 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "avoid-other-markers",
+  "url": "http://example.org/fhir/ActivityDefinition/avoid-other-markers",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AvoidOtherMarkers",
+  "title": "Do not rely on other biomarkers or genomic profiles for neoadjuvant decision-making",
+  "description": "Do not use other immunochemical markers, morphologic markers, or genomic profiles to decide whether to pursue neoadjuvant chemotherapy.",
+  "kind": "Task",
+  "intent": "proposal",
+  "doNotPerform": true,
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  }
+}

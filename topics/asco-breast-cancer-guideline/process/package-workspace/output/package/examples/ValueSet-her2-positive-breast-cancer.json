@@ -1,0 +1,23 @@
+{
+  "compose": {
+    "include": [
+      {
+        "concept": [
+          {
+            "code": "427685000",
+            "display": "HER2-positive carcinoma of breast"
+          }
+        ],
+        "system": "http://snomed.info/sct"
+      }
+    ]
+  },
+  "date": "2026-06-15",
+  "id": "her2-positive-breast-cancer",
+  "name": "Her2PositiveBreastCancer",
+  "resourceType": "ValueSet",
+  "status": "active",
+  "title": "HER2-positive breast cancer",
+  "url": "http://example.org/fhir/ValueSet/her2-positive-breast-cancer",
+  "version": "1.0.0"
+}

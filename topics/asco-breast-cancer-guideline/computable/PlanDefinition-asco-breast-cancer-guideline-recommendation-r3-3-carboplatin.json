@@ -1,0 +1,66 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-recommendation-r3-3-carboplatin",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-3-carboplatin",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineRecommendationR33Carboplatin",
+  "title": "Consider carboplatin to increase pathologic complete response",
+  "description": "Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "action": [
+    {
+      "condition": [
+        {
+          "expression": {
+            "expression": "TnbcIsNodePositiveOrAtLeastT1c",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        },
+        {
+          "expression": {
+            "expression": "BenefitHarmBalanceFavorsCarboplatin",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/consider-carboplatin-for-tnbc",
+      "description": "Carboplatin may be added as part of a neoadjuvant TNBC regimen after weighing potential benefits and harms.",
+      "documentation": [
+        {
+          "citation": "Carboplatin may be offered in TNBC to increase the likelihood of pathologic complete response after balancing benefits and harms. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 3.3",
+          "label": "claim-r3-3",
+          "type": "citation"
+        }
+      ],
+      "id": "consider-carboplatin-for-tnbc",
+      "title": "Consider carboplatin to increase pathologic complete response",
+      "trigger": [
+        {
+          "name": "tnbc-subtype-treatment-selection",
+          "source": "subtype-directed-oncology-planning",
+          "type": "named-event"
+        }
+      ]
+    }
+  ]
+}

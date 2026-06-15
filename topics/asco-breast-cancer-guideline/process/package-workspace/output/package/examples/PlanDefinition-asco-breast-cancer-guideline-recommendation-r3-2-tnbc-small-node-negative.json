@@ -1,0 +1,59 @@
+{
+  "action": [
+    {
+      "condition": [
+        {
+          "expression": {
+            "expression": "TnbcIsCt1aOrCt1bN0",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/avoid-neoadjuvant-therapy-for-small-tnbc",
+      "description": "Avoid routine neoadjuvant therapy outside a clinical trial for small node-negative TNBC.",
+      "documentation": [
+        {
+          "citation": "Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC outside a clinical trial. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 3.2",
+          "label": "claim-r3-2",
+          "type": "citation"
+        }
+      ],
+      "id": "avoid-neoadjuvant-therapy-for-small-tnbc",
+      "title": "Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC",
+      "trigger": [
+        {
+          "name": "tnbc-subtype-treatment-selection",
+          "source": "subtype-directed-oncology-planning",
+          "type": "named-event"
+        }
+      ]
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.",
+  "id": "asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative",
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineRecommendationR32TnbcSmallNodeNegative",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative",
+  "version": "1.0.0"
+}

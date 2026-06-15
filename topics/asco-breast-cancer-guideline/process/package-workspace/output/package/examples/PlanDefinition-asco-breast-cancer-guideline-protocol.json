@@ -1,0 +1,65 @@
+{
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-phase",
+          "description": "Determine whether neoadjuvant therapy is indicated and what clinical goal it serves.",
+          "id": "candidacy-phase",
+          "relatedAction": [
+            {
+              "actionId": "subtype-planning-phase",
+              "description": "Proceed to subtype-directed regimen selection after neoadjuvant candidacy is established.",
+              "relationship": "before-start"
+            }
+          ],
+          "title": "Candidacy and treatment intent"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-subtype-planning-phase",
+          "description": "Select a neoadjuvant regimen according to biologic subtype and clinical risk.",
+          "id": "subtype-planning-phase",
+          "relatedAction": [
+            {
+              "actionId": "monitoring-phase",
+              "description": "Begin ongoing monitoring after a subtype-specific neoadjuvant regimen is selected.",
+              "relationship": "before-start"
+            }
+          ],
+          "title": "Subtype-directed regimen planning"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-monitoring-phase",
+          "description": "Monitor the patient during therapy and use response findings to guide ongoing decisions.",
+          "id": "monitoring-phase",
+          "title": "Monitoring and response assessment"
+        }
+      ],
+      "description": "Overall pathway for evaluating, selecting, and monitoring neoadjuvant systemic therapy in invasive nonmetastatic breast cancer.",
+      "id": "neoadjuvant-breast-cancer-pathway",
+      "title": "Neoadjuvant breast cancer treatment pathway"
+    }
+  ],
+  "date": "2026-06-15",
+  "id": "asco-breast-cancer-guideline-protocol",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-pathwaydefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineProtocol",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Care Pathway",
+  "type": {
+    "coding": [
+      {
+        "code": "clinical-protocol",
+        "display": "Clinical Protocol",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol",
+  "version": "1.0.0"
+}

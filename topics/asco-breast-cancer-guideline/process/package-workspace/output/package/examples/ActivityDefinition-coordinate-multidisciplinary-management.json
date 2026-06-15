@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  },
+  "date": "2026-06-15",
+  "description": "Manage the patient through a multidisciplinary care team while planning and delivering neoadjuvant therapy.",
+  "id": "coordinate-multidisciplinary-management",
+  "intent": "proposal",
+  "kind": "Task",
+  "name": "CoordinateMultidisciplinaryManagement",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Coordinate multidisciplinary neoadjuvant management",
+  "url": "http://example.org/fhir/ActivityDefinition/coordinate-multidisciplinary-management",
+  "version": "1.0.0"
+}

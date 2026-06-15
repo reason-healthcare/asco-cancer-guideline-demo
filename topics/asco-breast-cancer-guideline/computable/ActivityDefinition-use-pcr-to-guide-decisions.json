@@ -1,0 +1,23 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "use-pcr-to-guide-decisions",
+  "url": "http://example.org/fhir/ActivityDefinition/use-pcr-to-guide-decisions",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "UsePcrToGuideDecisions",
+  "title": "Use pathologic complete response to guide decision-making",
+  "description": "Use pathologic complete response, defined as absence of invasive disease in breast and lymph nodes, to guide clinical decision-making.",
+  "kind": "Task",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "code": "1285139003",
+        "display": "Complete response of neoplasm to antineoplastic neoadjuvant therapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Pathologic complete response"
+  }
+}

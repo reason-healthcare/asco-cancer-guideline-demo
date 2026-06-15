@@ -1,0 +1,23 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "offer-neoadjuvant-chemotherapy-for-advanced-disease",
+  "url": "http://example.org/fhir/ActivityDefinition/offer-neoadjuvant-chemotherapy-for-advanced-disease",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "OfferNeoadjuvantChemotherapyForAdvancedDisease",
+  "title": "Offer neoadjuvant chemotherapy for inflammatory or locally advanced disease",
+  "description": "Use neoadjuvant chemotherapy as the treatment of choice for inflammatory breast cancer or unresectable locally advanced disease that may become resectable.",
+  "kind": "MedicationRequest",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "code": "1082701000112100",
+        "display": "Locally advanced breast cancer",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Locally advanced breast cancer"
+  }
+}

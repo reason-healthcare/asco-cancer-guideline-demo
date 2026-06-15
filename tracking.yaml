@@ -1,18 +1,252 @@
 schema_version: '1.0'
-sources: []
+sources:
+- name: 
+    korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+  file: 
+    sources/korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline.pdf
+  type: guideline
+  checksum: 27cdd6ed4ee7614287c4b3a5cd2198d8beebb5c6ad2971a64481a74c8e7865db
+  ingested_at: '2026-06-15T20:55:00Z'
+  text_extracted: true
+  topic: asco-breast-cancer-guideline
+  normalized: 
+    sources/normalized/korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf.md
+  evidence_level: reference-standard
+  domain_tags:
+  - breast-cancer
+  - neoadjuvant-therapy
+  - medical-oncology
+  classified_at: '2026-06-15T20:55:32Z'
+  annotated_at: '2026-06-15T20:56:37Z'
+  concept_count: 13
 topics:
 - name: asco-breast-cancer-guideline
   title: ASCO Breast Cancer Clinical Guideline
   description: A healthcare informatics topic
   author: Taylor Le
   created_at: '2026-06-15T17:33:32Z'
-  structured: []
-  computable: []
+  structured:
+  - name: concepts
+    file: topics/asco-breast-cancer-guideline/structured/concepts/concepts.yaml
+    created_at: '2026-06-15T21:05:20Z'
+    checksum: 71e98bcc894e45c88c6954d29c2ebb9f5ef04775d723029e6812825f3b7fe217
+    derived_from:
+    - korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+    artifact_type: terminology
+  - name: decision-table
+    file: 
+      topics/asco-breast-cancer-guideline/structured/decision-table/decision-table.yaml
+    created_at: '2026-06-15T21:05:27Z'
+    checksum: 46cb4b8a9f0ab9cc6b8199f91e39e567ca93f5d125dce115e932abe6a3aedf77
+    derived_from:
+    - korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+    artifact_type: decision-table
+  - name: care-pathway
+    file: 
+      topics/asco-breast-cancer-guideline/structured/care-pathway/care-pathway.yaml
+    created_at: '2026-06-15T21:05:37Z'
+    checksum: c6bac19bd23c05a98a26a5af504e6b9b0aad86d52a293a9a9d7e89e62b8473b0
+    derived_from:
+    - korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+    artifact_type: care-pathway
+  computable:
+  - name: decision-table
+    files:
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-multidisciplinary-management.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-1-advanced-disease.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-2-standard-features.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-4-downstaging.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-5-surgery-delay.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-1-monitoring.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-3-use-pcr.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-1-tnbc-eligible.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-3-carboplatin.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-4-no-ici.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-1-use-chemo.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-postmenopausal-endocrine.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-no-surgery.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-3-premenopausal.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk.json
+    - topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-coordinate-multidisciplinary-management.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-chemotherapy-for-advanced-disease.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-standard-tumor-features.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-other-markers.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-downstaging.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-surgery-delay.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-monitor-with-clinical-examination.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-baseline-informative-imaging.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-blood-and-tissue-biomarker-monitoring.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-pcr-to-guide-decisions.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-anthracycline-taxane-for-tnbc.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-neoadjuvant-therapy-for-small-tnbc.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-consider-carboplatin-for-tnbc.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-routine-immune-checkpoint-inhibitors.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-neoadjuvant-chemotherapy-without-surgical-data.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-postmenopausal-neoadjuvant-endocrine-therapy.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-endocrine-therapy-for-disease-control.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-premenopausal-neoadjuvant-endocrine-therapy.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-her2-directed-neoadjuvant-regimen.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-consider-pertuzumab-with-trastuzumab.json
+    - topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-neoadjuvant-therapy-for-small-her2-positive.json
+    - topics/asco-breast-cancer-guideline/computable/Library-asco-breast-cancer-guideline-recommendation-logic.json
+    created_at: '2026-06-15T21:09:35Z'
+    checksums:
+      topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation.json: 
+        8a49e2e5c1e46b9d5378a5751676cc0f0d42bcb1939a5fc62315cc5d472ada07
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-multidisciplinary-management.json
+      : ff911c416e70d37ba1a9224fb97b8196ac9be08b3d2795f4b4cc2ed363ab1742
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-1-advanced-disease.json
+      : 801a8c6c5ca2b6fc90bc557852bd561a86d9b8c1ec0edc1025cd880ccbacd0d8
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-2-standard-features.json
+      : ffb6d296884b38103191d1f33bc03267f32a6929b0d199fa0fb7db439bca8365
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided.json
+      : 1c75680f4957e9d1d178da3cbed3e5f787d092e997b182820acd832009368a4f
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-4-downstaging.json
+      : 06512e412d6c5dc34ce3047d106a0950dc47c5f0d9fb7db7154ff9cd4ef26f41
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-5-surgery-delay.json
+      : 558c0ee7aa34d8b302c71169b090e290f2f6617b637defe8c79f058967c9f628
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-1-monitoring.json
+      : 56412ef044082c1c8dffe69e4778fa3ecc39f173ad8947f7c7539266c2f27084
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers.json
+      : 0de5ffbaa1868954aa8f4d1a07d1ffd3e73420c970b5eb55763e5549d2a916f1
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-3-use-pcr.json
+      : 1f32b801f542e530d1e2f67ddad4b2adcfc92a62827d8aec71973f23f7f2c72e
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-1-tnbc-eligible.json
+      : 4b1a7fe1abb34fcdb050b4a3f3e42e8e77b3456d4ac0cbf69d7129b1118a9461
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative.json
+      : e5f0ab12ef601b39172ef7119a5a25b5431909bccde4d899983ee24a28087c8b
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-3-carboplatin.json
+      : da516d24fb25354856806114e2c44269906fb5ed5d2b3db41285f7af7820add3
+      topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-4-no-ici.json: 
+        d2dfaa0869974690b53d4501718d3053337538776767d1d39ec044b34310dd95
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-1-use-chemo.json
+      : 2a7064a6d07cf2414fd8d3f655d1eb4b55d9cdc6c843ebe441335cf7d869307f
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-postmenopausal-endocrine.json
+      : dbf8994acf6e8c2aad8467925cbcaecddb0752f5b092bab0002887afc48745cb
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-no-surgery.json
+      : 3137188a4848638734683dba31835e464251e345ab5a65f37871c2eb22231b52
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-3-premenopausal.json
+      : 90a956c7a6ffd0c51860ed351fb47e50d17c144f9906c33e77b0607475830ce7
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk.json
+      : 044b6715261073f9a20e79594dbc66e7aed85fdb1a7e18bcb6dac887bcc1d04b
+      ? topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive.json
+      : d48757c244838047b4131c5e06c9739a58a4543c8a50824ca82ff8f67c5febc0
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-coordinate-multidisciplinary-management.json: 
+        12814ae3920ee8fc1e0ea8ff0950c3a160fe32c31f18d72f386032243b50ead6
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-chemotherapy-for-advanced-disease.json: 
+        b2b2a8cce75931acf853cea91b37c3c4436d1fb2f5dae391ce6e6530bbca1441
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-standard-tumor-features.json: 
+        8608022996c0d8f4e76ea6159434fb5017a3abf414b49947d397d3b492d8dd8f
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-other-markers.json: 
+        0ab52ea517b566ed6843fc99f57ce93db7fd5d189e6e1ad37e567f2a5cd87e5c
+      ? topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning.json
+      : fe43518cf7ebe3497c68cf5b743d1971a1a49566160ed533a232d44adc074e3c
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-downstaging.json: 
+        e62188434bd8f5e2ad82fd155a72199422c23132e1f290fdf850ab8ff15a1d9b
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-surgery-delay.json: 
+        fff57ade6e8d0704ec7156e72992dd349fd18633b0fe7b54a2cfd753fb0b24ea
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-monitor-with-clinical-examination.json: 
+        792d4ac58ab3b96bf58fbf379cc80737c3056398ea91f4d4fb6235ee30456f92
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-baseline-informative-imaging.json: 
+        9c361019d91cb0f583b5e8fa030e2e229f99934b08ce0937dc2c07cd49c6e14b
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-blood-and-tissue-biomarker-monitoring.json: 
+        0ee0ac6e91817d13ac9f16cb134b53651b0b69f384f5b88f3d010307fd0603c4
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-pcr-to-guide-decisions.json: 
+        5e4bfb9ce2ea6a9801040787d8bfafc7ba0ba1c5f003eba5a1564af43be93a8a
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-anthracycline-taxane-for-tnbc.json: 
+        5308f589faa4ca037684634ab9993ec15af1e4562bbc69ae760d1d5f20af7684
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-neoadjuvant-therapy-for-small-tnbc.json: 
+        6b96805bac5e8232a88e9dee093aca03897c80ddf4dc66d8dfb554c5f53215a8
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-consider-carboplatin-for-tnbc.json: 
+        232da28d08251697522e212657148f3f6c13c516bfee8dcf70deba344a4d4362
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-routine-immune-checkpoint-inhibitors.json: 
+        a8cb3c70518e3e9c21756e5e393d8918d9a73266ef4773e1ec2daef260187af2
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-neoadjuvant-chemotherapy-without-surgical-data.json: 
+        702b8e7bab19a7de6629896c710199300caa5de225b84aa568e12d823b737a2d
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-postmenopausal-neoadjuvant-endocrine-therapy.json: 
+        cd94d93573456f51e574a85c625c09687045f1093626331235045ced5cc9a7e5
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-endocrine-therapy-for-disease-control.json: 
+        f262e9e97867957ede2987d21d0dc98c6094f3bf2ef0ec8aab4ae004b66da669
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-premenopausal-neoadjuvant-endocrine-therapy.json: 
+        f4f0c9cd8797bb9b54230b191350e0ef4419f0fae199a9a63677e98f05f59404
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-her2-directed-neoadjuvant-regimen.json: 
+        4180e14ab9092a466d9fa37c703232e25a3646193dd2fe09247a04668fc82524
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-consider-pertuzumab-with-trastuzumab.json: 
+        1e50b3cfb6c377253170fe87379b7255ae3cf86238bc20577578b38cbeb38346
+      topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-neoadjuvant-therapy-for-small-her2-positive.json: 
+        235abf42b0b15a8d5724a73ed41334049290081a02c5f30ee66322a57da4b410
+      topics/asco-breast-cancer-guideline/computable/Library-asco-breast-cancer-guideline-recommendation-logic.json: 
+        2418fe21f7ed08d29900e364ee9a182dbf9e654b6b86117352d4f28317c9e47a
+    converged_from:
+    - decision-table
+    strategy: decision-table
   events:
   - timestamp: '2026-06-15T17:33:32Z'
     type: created
     description: Topic scaffolded with rh-skills init
+  - timestamp: '2026-06-15T20:55:56Z'
+    type: extract_planned
+    description: 'Wrote extract plan: topics/asco-breast-cancer-guideline/process/plans/extract-plan.yaml'
+  - timestamp: '2026-06-15T20:56:41Z'
+    type: extract_planned
+    description: 'Wrote extract plan: topics/asco-breast-cancer-guideline/process/plans/extract-plan.yaml'
+  - timestamp: '2026-06-15T21:00:26Z'
+    type: concept_review_approved
+    description: Concept review finalized by 'Codex'
+  - timestamp: '2026-06-15T21:05:20Z'
+    type: concepts_written
+    description: Derived concepts terminology artifact from CSV review
+  - timestamp: '2026-06-15T21:05:27Z'
+    type: structured_derived
+    description: Derived decision-table from 
+      korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+  - timestamp: '2026-06-15T21:05:37Z'
+    type: structured_derived
+    description: Derived care-pathway from 
+      korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+  - timestamp: '2026-06-15T21:06:03Z'
+    type: formalize_planned
+    description: 'Wrote formalize plan: topics/asco-breast-cancer-guideline/process/plans/formalize-plan.yaml'
+  - timestamp: '2026-06-15T21:07:23Z'
+    type: computable_converged
+    description: Formalized 'decision-table' using decision-table strategy → 43 
+      resources
+  - timestamp: '2026-06-15T21:09:35Z'
+    type: computable_converged
+    description: Formalized 'decision-table' using decision-table strategy → 43 
+      resources
+  - timestamp: '2026-06-15T21:09:40Z'
+    type: package_created
+    description: Packaged 'asco-breast-cancer-guideline' → 
+      reason.asco-breast-cancer-guideline v1.0.0 (65 resources)
+  - timestamp: '2026-06-15T21:11:17Z'
+    type: package_created
+    description: Packaged 'asco-breast-cancer-guideline' → 
+      reason.asco-breast-cancer-guideline v1.0.0 (64 resources)
 events:
 - timestamp: '2026-06-15T17:33:32Z'
   type: topic_created
   description: Topic scaffolded with rh-skills init
+- timestamp: '2026-06-15T20:55:00Z'
+  type: source_added
+  description: 'Ingested source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf'
+- timestamp: '2026-06-15T20:55:09Z'
+  type: source_normalized
+  description: 'Normalized: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf'
+- timestamp: '2026-06-15T20:55:32Z'
+  type: source_classified
+  description: 'Classified: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf'
+- timestamp: '2026-06-15T20:55:47Z'
+  type: source_annotated
+  description: 'Annotated: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+    (20 concepts)'
+- timestamp: '2026-06-15T20:56:37Z'
+  type: source_annotated
+  description: 'Annotated: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+    (13 concepts)'

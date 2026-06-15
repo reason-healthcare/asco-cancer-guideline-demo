@@ -1,0 +1,59 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineRecommendationR52SmallHer2Positive",
+  "title": "Do not routinely offer neoadjuvant chemotherapy or anti-HER2 therapy for T1a or T1b N0 HER2-positive disease",
+  "description": "Choose anti-HER2-based neoadjuvant therapy for HER2-positive disease.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "action": [
+    {
+      "condition": [
+        {
+          "expression": {
+            "expression": "Her2PositiveT1aOrT1bN0Disease",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/avoid-neoadjuvant-therapy-for-small-her2-positive",
+      "description": "Avoid routine neoadjuvant chemotherapy or anti-HER2 agents outside a clinical trial for small node-negative HER2-positive disease.",
+      "documentation": [
+        {
+          "citation": "Do not routinely offer neoadjuvant chemotherapy or anti-HER2 agents for T1a N0 or T1b N0 HER2-positive disease outside a clinical trial. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 5.2",
+          "label": "claim-r5-2",
+          "type": "citation"
+        }
+      ],
+      "id": "avoid-neoadjuvant-therapy-for-small-her2-positive",
+      "title": "Do not routinely offer neoadjuvant chemotherapy or anti-HER2 therapy for T1a or T1b N0 HER2-positive disease",
+      "trigger": [
+        {
+          "name": "her2-positive-treatment-selection",
+          "source": "subtype-directed-oncology-planning",
+          "type": "named-event"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-multidisciplinary-management",
+          "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+          "id": "candidacy-assessment-step-recommendation-1",
+          "title": "Establish neoadjuvant candidacy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-1-advanced-disease",
+          "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+          "id": "candidacy-assessment-step-recommendation-2",
+          "title": "Establish neoadjuvant candidacy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided",
+          "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+          "id": "candidacy-assessment-step-recommendation-3",
+          "title": "Establish neoadjuvant candidacy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-4-downstaging",
+          "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+          "id": "candidacy-assessment-step-recommendation-4",
+          "title": "Establish neoadjuvant candidacy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-5-surgery-delay",
+          "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+          "id": "candidacy-assessment-step-recommendation-5",
+          "title": "Establish neoadjuvant candidacy"
+        }
+      ],
+      "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+      "id": "candidacy-assessment-step",
+      "title": "Establish neoadjuvant candidacy"
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+  "id": "asco-breast-cancer-guideline-protocol-candidacy-assessment-step",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineProtocolCandidacyAssessmentStep",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Establish neoadjuvant candidacy",
+  "type": {
+    "coding": [
+      {
+        "code": "workflow-definition",
+        "display": "Workflow Definition",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-assessment-step",
+  "version": "1.0.0"
+}

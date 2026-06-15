@@ -1,0 +1,23 @@
+{
+  "resourceType": "ValueSet",
+  "id": "hr-positive-her2-negative-breast-cancer",
+  "url": "http://example.org/fhir/ValueSet/hr-positive-her2-negative-breast-cancer",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "HrPositiveHer2NegativeBreastCancer",
+  "title": "HR-positive HER2-negative breast cancer",
+  "compose": {
+    "include": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "concept": [
+          {
+            "code": "Z17.411",
+            "display": "Hormone receptor positive with human epidermal growth factor receptor 2 negative status"
+          }
+        ]
+      }
+    ]
+  }
+}

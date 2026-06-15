@@ -1,0 +1,46 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-protocol-candidacy-phase",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-phase",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineProtocolCandidacyPhase",
+  "title": "Candidacy and treatment intent",
+  "description": "Determine whether neoadjuvant therapy is indicated and what clinical goal it serves.",
+  "type": {
+    "coding": [
+      {
+        "code": "workflow-definition",
+        "display": "Workflow Definition",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-assessment-step",
+          "description": "Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.",
+          "id": "candidacy-assessment-step",
+          "title": "Establish neoadjuvant candidacy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-tumor-feature-review-step",
+          "description": "Use histology, grade, stage, and receptor status to anchor treatment planning and avoid unsupported markers.",
+          "id": "tumor-feature-review-step",
+          "title": "Review standard tumor features"
+        }
+      ],
+      "description": "Determine whether neoadjuvant therapy is indicated and what clinical goal it serves.",
+      "id": "candidacy-phase",
+      "title": "Candidacy and treatment intent"
+    }
+  ]
+}

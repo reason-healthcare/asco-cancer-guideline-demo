@@ -1,0 +1,32 @@
+{
+  "resourceType": "ValueSet",
+  "id": "inflammatory-breast-cancer",
+  "url": "http://example.org/fhir/ValueSet/inflammatory-breast-cancer",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "InflammatoryBreastCancer",
+  "title": "Inflammatory breast cancer",
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "254840009",
+            "display": "Inflammatory carcinoma of breast"
+          }
+        ]
+      },
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "concept": [
+          {
+            "code": "C50.A",
+            "display": "Malignant inflammatory neoplasm of breast"
+          }
+        ]
+      }
+    ]
+  }
+}

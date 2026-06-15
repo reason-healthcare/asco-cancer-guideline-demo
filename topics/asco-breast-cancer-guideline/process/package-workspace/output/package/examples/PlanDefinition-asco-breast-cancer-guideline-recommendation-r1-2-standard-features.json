@@ -1,0 +1,72 @@
+{
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/ActivityDefinition/use-standard-tumor-features",
+          "description": "Use tumor histology, grade, stage, and ER PR HER2 expression to guide the decision to pursue neoadjuvant chemotherapy.",
+          "id": "use-standard-tumor-features",
+          "title": "Use histology grade stage and receptor status to guide decisions"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/ActivityDefinition/avoid-other-markers",
+          "description": "Do not use other immunochemical markers, morphologic markers, or genomic profiles to decide whether to pursue neoadjuvant chemotherapy.",
+          "id": "avoid-other-markers",
+          "title": "Do not rely on other biomarkers or genomic profiles for neoadjuvant decision-making"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "expression": "HistologyGradeStageAndErPrHer2AreAvailable",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+      "documentation": [
+        {
+          "citation": "Tumor histology, grade, stage, and ER PR HER2 expression should guide neoadjuvant decisions; other markers and genomic profiles should not. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 1.2",
+          "label": "claim-r1-2",
+          "type": "citation"
+        }
+      ],
+      "id": "rule-r1-2-standard-features",
+      "title": "Assess neoadjuvant candidacy — Use histology grade stage and receptor status to guide decisions",
+      "trigger": [
+        {
+          "name": "initial-breast-cancer-treatment-planning",
+          "source": "multidisciplinary-oncology-evaluation",
+          "type": "named-event"
+        }
+      ]
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+  "id": "asco-breast-cancer-guideline-recommendation-r1-2-standard-features",
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineRecommendationR12StandardFeatures",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Assess neoadjuvant candidacy — Use histology grade stage and receptor status to guide decisions",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-2-standard-features",
+  "version": "1.0.0"
+}

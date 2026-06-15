@@ -1,0 +1,50 @@
+{
+  "action": [
+    {
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/avoid-blood-and-tissue-biomarker-monitoring",
+      "description": "Do not use blood-based or tissue-based biomarkers to monitor patients receiving neoadjuvant therapy.",
+      "documentation": [
+        {
+          "citation": "Blood-based and tissue-based biomarkers should not be used to monitor response during neoadjuvant therapy. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 2.2",
+          "label": "claim-r2-2",
+          "type": "citation"
+        }
+      ],
+      "id": "avoid-blood-and-tissue-biomarker-monitoring",
+      "title": "Do not use blood or tissue biomarkers for monitoring",
+      "trigger": [
+        {
+          "name": "active-neoadjuvant-treatment-course",
+          "source": "medical-oncology-follow-up",
+          "type": "named-event"
+        }
+      ]
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Ongoing assessment while the patient is receiving neoadjuvant therapy.",
+  "id": "asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers",
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineRecommendationR22NoBiomarkers",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Do not use blood or tissue biomarkers for monitoring",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers",
+  "version": "1.0.0"
+}

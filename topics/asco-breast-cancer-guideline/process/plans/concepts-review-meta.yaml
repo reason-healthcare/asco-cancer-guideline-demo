@@ -1,0 +1,50 @@
+topic: asco-breast-cancer-guideline
+status: approved
+generated_at: '2026-06-15T20:56:41Z'
+reviewed_at: '2026-06-15T21:00:26Z'
+reviewer: Codex
+checksums:
+  anthracycline-containing-regimen: 
+    e879a97bf059cee208c3289f1a9cf83cc81ccc30dc15a664d5105b552738d989
+  aromatase-inhibitor: 
+    8495aeae20f11b797739929fade153316e02f4dfa0b73f4098de5e45979a86bb
+  breast-cancer: 
+    fee7e2ae247f01b452c2b452d8adaf47df1d437d02488585904304a776a7cd95
+  breast-conserving-surgery: 
+    4d1986afeea189f1e31e5f6bdeef9d136de19a12d064cc4c97a7dbca6d114b2d
+  carboplatin: 2e4b2c269ab5da8eeb15d8f068e7c12173e46842313627dff454ebe1fb59ca02
+  clinical-examination: 
+    54903b05361e2c16d6a320cdb7c06aaf5a41bf44f79b62b851aef302142935df
+  her2-positive-breast-cancer: 
+    9734818672071e61d6ed9131c6895dc7d1891f77bf11299a3808e59f76d7bde3
+  hr-positive-her2-negative-breast-cancer: 
+    36b1d958db31360f65a69f88a81690fa0089babbe7481b66a7066b18192f9435
+  immune-checkpoint-inhibitor: 
+    da24f37b22176e0f77c01e338021fe4106286783a0514717b26b481ddf0ef71f
+  inflammatory-breast-cancer: 
+    a23f0ac58688df2ffe0352407c51573fcf9cd9295bf3dd7f9d296be887101f06
+  invasive-nonmetastatic-breast-cancer: 
+    4fca9504dbbc408c6a101058477d9c1b9efd568a02ea45226be70e0c6505a79e
+  locally-advanced-breast-cancer: 
+    5574ccdb91317d8e5d4804bdd72ab8880dcd4a1f52ba1a79fd1a06581687d98c
+  neoadjuvant-chemotherapy: 
+    54dcf8fd24e53c598db3d09a2971929ebdd9ca992538a6d3a0fe4a3fafed2c5e
+  neoadjuvant-endocrine-therapy: 
+    ba86ec16e08de545dbbc252c19cb2c0abb2e39b3359e4867e8d38cd6629bcbca
+  nonmetastatic-breast-cancer: 
+    e64319cb2e2fea50cbb19f60a46af6c32bd8c2df7a86e277132f0afdd8903745
+  pathologic-complete-response: 
+    33417f535734aa07f2578bae706c4653d5b82c8da058050af207483b05db0b18
+  pertuzumab: 457a127af452cdda159a7be4399f9fc3d3c36f27c8fc684e585533c154bf14e6
+  residual-disease: 
+    beffb6807afdc7210423f5b18251aa9d420a966d3b94ac44ad3b592fc39a3ca5
+  taxane-containing-regimen: 
+    f390965976311fbdbf98d56d252fa58658c137afd5ddda1a103d806b117efd9d
+  trastuzumab: cd6a8a9930323c99f2014c6b4fdfba0163a75b5da33cb06e74eb57cf66ad5ce8
+  triple-negative-breast-cancer: 
+    b97838c0a0b6da1add7f304b78ab0819008abb9e61bce766792f55eb94270489
+source_files:
+- sources/normalized/korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf.md
+final_artifact: 
+  topics/asco-breast-cancer-guideline/structured/concepts/concepts.yaml
+review_artifact: topics/asco-breast-cancer-guideline/process/plans/concepts/

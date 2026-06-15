@@ -1,0 +1,58 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineProtocolHrHer2NegativePlanningStep",
+  "title": "Plan HR-positive HER2-negative therapy",
+  "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+  "type": {
+    "coding": [
+      {
+        "code": "workflow-definition",
+        "display": "Workflow Definition",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-1-use-chemo",
+          "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+          "id": "hr-her2-negative-planning-step-recommendation-1",
+          "title": "Plan HR-positive HER2-negative therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-2-postmenopausal-endocrine",
+          "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+          "id": "hr-her2-negative-planning-step-recommendation-2",
+          "title": "Plan HR-positive HER2-negative therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-2-no-surgery",
+          "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+          "id": "hr-her2-negative-planning-step-recommendation-3",
+          "title": "Plan HR-positive HER2-negative therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-3-premenopausal",
+          "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+          "id": "hr-her2-negative-planning-step-recommendation-4",
+          "title": "Plan HR-positive HER2-negative therapy"
+        }
+      ],
+      "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+      "id": "hr-her2-negative-planning-step",
+      "title": "Plan HR-positive HER2-negative therapy"
+    }
+  ]
+}

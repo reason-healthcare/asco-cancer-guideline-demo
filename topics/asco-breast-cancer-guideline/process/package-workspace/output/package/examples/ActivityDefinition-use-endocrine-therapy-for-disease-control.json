@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "392021009",
+        "display": "Lumpectomy of breast",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Breast-conserving surgery"
+  },
+  "date": "2026-06-15",
+  "description": "Use endocrine therapy for disease control if there is no intent to proceed to surgery.",
+  "id": "use-endocrine-therapy-for-disease-control",
+  "intent": "proposal",
+  "kind": "MedicationRequest",
+  "name": "UseEndocrineTherapyForDiseaseControl",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Use endocrine therapy for disease control when surgery is not planned",
+  "url": "http://example.org/fhir/ActivityDefinition/use-endocrine-therapy-for-disease-control",
+  "version": "1.0.0"
+}

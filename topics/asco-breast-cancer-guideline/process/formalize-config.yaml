@@ -1,0 +1,5 @@
+name: AscoBreastCancerGuideline
+id: asco-breast-cancer-guideline
+canonical: http://example.org/fhir
+status: active
+version: 1.0.0

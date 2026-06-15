@@ -1,0 +1,23 @@
+{
+  "compose": {
+    "include": [
+      {
+        "concept": [
+          {
+            "code": "1082701000112100",
+            "display": "Locally advanced breast cancer"
+          }
+        ],
+        "system": "http://snomed.info/sct"
+      }
+    ]
+  },
+  "date": "2026-06-15",
+  "id": "locally-advanced-breast-cancer",
+  "name": "LocallyAdvancedBreastCancer",
+  "resourceType": "ValueSet",
+  "status": "active",
+  "title": "Locally advanced breast cancer",
+  "url": "http://example.org/fhir/ValueSet/locally-advanced-breast-cancer",
+  "version": "1.0.0"
+}

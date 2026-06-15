@@ -1,0 +1,32 @@
+{
+  "resourceType": "ValueSet",
+  "id": "trastuzumab",
+  "url": "http://example.org/fhir/ValueSet/trastuzumab",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "Trastuzumab",
+  "title": "Trastuzumab",
+  "compose": {
+    "include": [
+      {
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "concept": [
+          {
+            "code": "1922508",
+            "display": "trastuzumab Injection"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "387003001",
+            "display": "Trastuzumab"
+          }
+        ]
+      }
+    ]
+  }
+}

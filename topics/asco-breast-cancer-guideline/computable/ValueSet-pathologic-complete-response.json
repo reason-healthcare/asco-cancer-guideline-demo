@@ -1,0 +1,23 @@
+{
+  "resourceType": "ValueSet",
+  "id": "pathologic-complete-response",
+  "url": "http://example.org/fhir/ValueSet/pathologic-complete-response",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "PathologicCompleteResponse",
+  "title": "Pathologic complete response",
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "1285139003",
+            "display": "Complete response of neoplasm to antineoplastic neoadjuvant therapy"
+          }
+        ]
+      }
+    ]
+  }
+}

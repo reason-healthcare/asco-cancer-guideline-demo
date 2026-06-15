@@ -1,0 +1,52 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-protocol-subtype-planning-phase",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-subtype-planning-phase",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineProtocolSubtypePlanningPhase",
+  "title": "Subtype-directed regimen planning",
+  "description": "Select a neoadjuvant regimen according to biologic subtype and clinical risk.",
+  "type": {
+    "coding": [
+      {
+        "code": "workflow-definition",
+        "display": "Workflow Definition",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-tnbc-planning-step",
+          "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+          "id": "tnbc-planning-step",
+          "title": "Plan TNBC therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step",
+          "description": "Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.",
+          "id": "hr-her2-negative-planning-step",
+          "title": "Plan HR-positive HER2-negative therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-her2-positive-planning-step",
+          "description": "Choose trastuzumab-based neoadjuvant therapy for high-risk disease and avoid routine use in small node-negative disease.",
+          "id": "her2-positive-planning-step",
+          "title": "Plan HER2-positive therapy"
+        }
+      ],
+      "description": "Select a neoadjuvant regimen according to biologic subtype and clinical risk.",
+      "id": "subtype-planning-phase",
+      "title": "Subtype-directed regimen planning"
+    }
+  ]
+}

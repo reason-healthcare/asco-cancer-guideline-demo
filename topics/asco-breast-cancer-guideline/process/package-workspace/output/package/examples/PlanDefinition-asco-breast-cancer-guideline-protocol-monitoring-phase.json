@@ -1,0 +1,59 @@
+{
+  "action": [
+    {
+      "action": [
+        {
+          "action": [
+            {
+              "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-1-monitoring",
+              "description": "Use regular clinical examination, selective imaging, and pathologic complete response rather than blood or tissue biomarkers.",
+              "id": "monitoring-step-recommendation-1",
+              "title": "Assess treatment response"
+            },
+            {
+              "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers",
+              "description": "Use regular clinical examination, selective imaging, and pathologic complete response rather than blood or tissue biomarkers.",
+              "id": "monitoring-step-recommendation-2",
+              "title": "Assess treatment response"
+            },
+            {
+              "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-3-use-pcr",
+              "description": "Use regular clinical examination, selective imaging, and pathologic complete response rather than blood or tissue biomarkers.",
+              "id": "monitoring-step-recommendation-3",
+              "title": "Assess treatment response"
+            }
+          ],
+          "description": "Use regular clinical examination, selective imaging, and pathologic complete response rather than blood or tissue biomarkers.",
+          "id": "monitoring-step",
+          "title": "Assess treatment response"
+        }
+      ],
+      "description": "Monitor the patient during therapy and use response findings to guide ongoing decisions.",
+      "id": "monitoring-phase",
+      "title": "Monitoring and response assessment"
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Monitor the patient during therapy and use response findings to guide ongoing decisions.",
+  "id": "asco-breast-cancer-guideline-protocol-monitoring-phase",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineProtocolMonitoringPhase",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Monitoring and response assessment",
+  "type": {
+    "coding": [
+      {
+        "code": "workflow-definition",
+        "display": "Workflow Definition",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-monitoring-phase",
+  "version": "1.0.0"
+}

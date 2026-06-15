@@ -1,0 +1,23 @@
+{
+  "compose": {
+    "include": [
+      {
+        "concept": [
+          {
+            "code": "392021009",
+            "display": "Lumpectomy of breast"
+          }
+        ],
+        "system": "http://snomed.info/sct"
+      }
+    ]
+  },
+  "date": "2026-06-15",
+  "id": "breast-conserving-surgery",
+  "name": "BreastConservingSurgery",
+  "resourceType": "ValueSet",
+  "status": "active",
+  "title": "Breast-conserving surgery",
+  "url": "http://example.org/fhir/ValueSet/breast-conserving-surgery",
+  "version": "1.0.0"
+}

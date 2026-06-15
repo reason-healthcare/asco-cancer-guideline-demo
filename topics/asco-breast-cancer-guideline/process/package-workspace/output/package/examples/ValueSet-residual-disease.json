@@ -1,0 +1,23 @@
+{
+  "compose": {
+    "include": [
+      {
+        "concept": [
+          {
+            "code": "456001000124109",
+            "display": "Residual tumor present"
+          }
+        ],
+        "system": "http://snomed.info/sct"
+      }
+    ]
+  },
+  "date": "2026-06-15",
+  "id": "residual-disease",
+  "name": "ResidualDisease",
+  "resourceType": "ValueSet",
+  "status": "active",
+  "title": "Residual disease",
+  "url": "http://example.org/fhir/ValueSet/residual-disease",
+  "version": "1.0.0"
+}

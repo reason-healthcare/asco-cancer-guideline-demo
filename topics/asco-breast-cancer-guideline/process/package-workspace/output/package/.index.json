@@ -1,0 +1,12 @@
+{
+  "files": [
+    {
+      "filename": "ImplementationGuide.json",
+      "id": "asco-breast-cancer-guideline",
+      "resourceType": "ImplementationGuide",
+      "url": "http://example.org/fhir/ImplementationGuide/asco-breast-cancer-guideline",
+      "version": "1.0.0"
+    }
+  ],
+  "index-version": 2
+}

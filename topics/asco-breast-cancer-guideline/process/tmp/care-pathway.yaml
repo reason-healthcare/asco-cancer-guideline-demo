@@ -1,0 +1,158 @@
+id: care-pathway
+name: care-pathway
+title: Care Pathway
+version: 1.0.0
+status: draft
+domain: care pathway
+description: What clinical phases, sequencing, and transitions organize neoadjuvant therapy decisions for nonmetastatic breast cancer?
+derived_from:
+  - korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+artifact_type: care-pathway
+clinical_question: What clinical phases, sequencing, and transitions organize neoadjuvant therapy decisions for nonmetastatic breast cancer?
+sections:
+  steps:
+    - id: neoadjuvant-breast-cancer-pathway
+      label: Neoadjuvant breast cancer treatment pathway
+      description: Overall pathway for evaluating, selecting, and monitoring neoadjuvant systemic therapy in invasive nonmetastatic breast cancer.
+      actor: multidisciplinary oncology team
+    - id: candidacy-phase
+      label: Candidacy and treatment intent
+      description: Determine whether neoadjuvant therapy is indicated and what clinical goal it serves.
+      actor: multidisciplinary oncology team
+      parent_id: neoadjuvant-breast-cancer-pathway
+    - id: candidacy-assessment-step
+      label: Establish neoadjuvant candidacy
+      description: Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.
+      actor: multidisciplinary oncology team
+      parent_id: candidacy-phase
+      rule_ids:
+        - rule-multidisciplinary-management
+        - rule-r1-1-advanced-disease
+        - rule-r1-3-residual-disease-guided
+        - rule-r1-4-downstaging
+        - rule-r1-5-surgery-delay
+      action_labels:
+        - Coordinate multidisciplinary neoadjuvant management
+        - Offer neoadjuvant chemotherapy for inflammatory or locally advanced disease
+        - Offer neoadjuvant systemic therapy when residual disease will guide adjuvant planning
+        - Offer neoadjuvant systemic therapy to reduce surgery extent
+        - Offer neoadjuvant systemic therapy when surgery is delayed
+      evidence_traceability_ids:
+        - claim-general-team
+        - claim-r1-1
+        - claim-r1-3
+        - claim-r1-4
+        - claim-r1-5
+      provenance:
+        source: source_direct
+    - id: tumor-feature-review-step
+      label: Review standard tumor features
+      description: Use histology, grade, stage, and receptor status to anchor treatment planning and avoid unsupported markers.
+      actor: medical oncologist
+      parent_id: candidacy-phase
+      rule_id: rule-r1-2-standard-features
+      action_labels:
+        - Use histology grade stage and receptor status to guide decisions
+        - Do not rely on other biomarkers or genomic profiles for neoadjuvant decision-making
+      evidence_traceability_ids:
+        - claim-r1-2
+      provenance:
+        source: source_direct
+    - id: subtype-planning-phase
+      label: Subtype-directed regimen planning
+      description: Select a neoadjuvant regimen according to biologic subtype and clinical risk.
+      actor: medical oncologist
+      parent_id: neoadjuvant-breast-cancer-pathway
+    - id: tnbc-planning-step
+      label: Plan TNBC therapy
+      description: Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.
+      actor: medical oncologist
+      parent_id: subtype-planning-phase
+      rule_ids:
+        - rule-r3-1-tnbc-eligible
+        - rule-r3-2-tnbc-small-node-negative
+        - rule-r3-3-carboplatin
+        - rule-r3-4-no-ici
+      action_labels:
+        - Offer anthracycline and taxane regimen for eligible TNBC
+        - Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC
+        - Consider carboplatin to increase pathologic complete response
+        - Do not routinely add immune checkpoint inhibitors to neoadjuvant chemotherapy
+      evidence_traceability_ids:
+        - claim-r3-1
+        - claim-r3-2
+        - claim-r3-3
+        - claim-r3-4
+      provenance:
+        source: source_direct
+    - id: hr-her2-negative-planning-step
+      label: Plan HR-positive HER2-negative therapy
+      description: Decide whether chemotherapy can be selected without surgical pathology and whether endocrine downstaging is appropriate.
+      actor: medical oncologist
+      parent_id: subtype-planning-phase
+      rule_ids:
+        - rule-r4-1-use-chemo
+        - rule-r4-2-postmenopausal-endocrine
+        - rule-r4-2-no-surgery
+        - rule-r4-3-premenopausal
+      action_labels:
+        - Use neoadjuvant chemotherapy when the chemotherapy decision does not require surgical data
+        - Offer aromatase inhibitor based neoadjuvant endocrine therapy for postmenopausal downstaging
+        - Use endocrine therapy for disease control when surgery is not planned
+        - Do not routinely offer neoadjuvant endocrine therapy to premenopausal patients
+      evidence_traceability_ids:
+        - claim-r4-1
+        - claim-r4-2
+        - claim-r4-3
+      provenance:
+        source: source_direct
+    - id: her2-positive-planning-step
+      label: Plan HER2-positive therapy
+      description: Choose trastuzumab-based neoadjuvant therapy for high-risk disease and avoid routine use in small node-negative disease.
+      actor: medical oncologist
+      parent_id: subtype-planning-phase
+      rule_ids:
+        - rule-r5-1-her2-high-risk
+        - rule-r5-2-small-her2-positive
+      action_labels:
+        - Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease
+        - Consider pertuzumab with trastuzumab
+        - Do not routinely offer neoadjuvant chemotherapy or anti-HER2 therapy for T1a or T1b N0 HER2-positive disease
+      evidence_traceability_ids:
+        - claim-r5-1
+        - claim-r5-2
+      provenance:
+        source: source_direct
+    - id: monitoring-phase
+      label: Monitoring and response assessment
+      description: Monitor the patient during therapy and use response findings to guide ongoing decisions.
+      actor: medical oncologist
+      parent_id: neoadjuvant-breast-cancer-pathway
+    - id: monitoring-step
+      label: Assess treatment response
+      description: Use regular clinical examination, selective imaging, and pathologic complete response rather than blood or tissue biomarkers.
+      actor: medical oncologist
+      parent_id: monitoring-phase
+      rule_ids:
+        - rule-r2-1-monitoring
+        - rule-r2-2-no-biomarkers
+        - rule-r2-3-use-pcr
+      action_labels:
+        - Monitor response with regular clinical examination
+        - Use the most informative baseline imaging modality when imaging is needed
+        - Do not use blood or tissue biomarkers for monitoring
+        - Use pathologic complete response to guide decision-making
+      evidence_traceability_ids:
+        - claim-r2-1
+        - claim-r2-2
+        - claim-r2-3
+      provenance:
+        source: source_direct
+  transitions:
+    - from_id: candidacy-phase
+      to_id: subtype-planning-phase
+      description: Proceed to subtype-directed regimen selection after neoadjuvant candidacy is established.
+    - from_id: subtype-planning-phase
+      to_id: monitoring-phase
+      description: Begin ongoing monitoring after a subtype-specific neoadjuvant regimen is selected.
+concerns: []

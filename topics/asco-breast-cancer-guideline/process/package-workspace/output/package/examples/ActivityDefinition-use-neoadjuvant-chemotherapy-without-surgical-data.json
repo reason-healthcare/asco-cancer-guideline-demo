@@ -1,0 +1,23 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "Z17.411",
+        "display": "Hormone receptor positive with human epidermal growth factor receptor 2 negative status",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm"
+      }
+    ],
+    "text": "HR-positive HER2-negative breast cancer"
+  },
+  "date": "2026-06-15",
+  "description": "Neoadjuvant chemotherapy can substitute for adjuvant chemotherapy in HR-positive HER2-negative disease when surgical pathology or genomic testing is not required for the decision.",
+  "id": "use-neoadjuvant-chemotherapy-without-surgical-data",
+  "intent": "proposal",
+  "kind": "MedicationRequest",
+  "name": "UseNeoadjuvantChemotherapyWithoutSurgicalData",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Use neoadjuvant chemotherapy when the chemotherapy decision does not require surgical data",
+  "url": "http://example.org/fhir/ActivityDefinition/use-neoadjuvant-chemotherapy-without-surgical-data",
+  "version": "1.0.0"
+}

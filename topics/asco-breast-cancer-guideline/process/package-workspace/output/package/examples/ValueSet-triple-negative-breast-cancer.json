@@ -1,0 +1,23 @@
+{
+  "compose": {
+    "include": [
+      {
+        "concept": [
+          {
+            "code": "706970001",
+            "display": "Triple-negative breast cancer"
+          }
+        ],
+        "system": "http://snomed.info/sct"
+      }
+    ]
+  },
+  "date": "2026-06-15",
+  "id": "triple-negative-breast-cancer",
+  "name": "TripleNegativeBreastCancer",
+  "resourceType": "ValueSet",
+  "status": "active",
+  "title": "Triple-negative breast cancer",
+  "url": "http://example.org/fhir/ValueSet/triple-negative-breast-cancer",
+  "version": "1.0.0"
+}

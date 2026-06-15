@@ -1,0 +1,24 @@
+{
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  },
+  "date": "2026-06-15",
+  "description": "Avoid routine neoadjuvant therapy outside a clinical trial for small node-negative TNBC.",
+  "doNotPerform": true,
+  "id": "avoid-neoadjuvant-therapy-for-small-tnbc",
+  "intent": "proposal",
+  "kind": "ServiceRequest",
+  "name": "AvoidNeoadjuvantTherapyForSmallTnbc",
+  "resourceType": "ActivityDefinition",
+  "status": "active",
+  "title": "Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC",
+  "url": "http://example.org/fhir/ActivityDefinition/avoid-neoadjuvant-therapy-for-small-tnbc",
+  "version": "1.0.0"
+}

@@ -1,0 +1,24 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "avoid-neoadjuvant-therapy-for-small-tnbc",
+  "url": "http://example.org/fhir/ActivityDefinition/avoid-neoadjuvant-therapy-for-small-tnbc",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AvoidNeoadjuvantTherapyForSmallTnbc",
+  "title": "Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC",
+  "description": "Avoid routine neoadjuvant therapy outside a clinical trial for small node-negative TNBC.",
+  "kind": "ServiceRequest",
+  "intent": "proposal",
+  "doNotPerform": true,
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "offer-her2-directed-neoadjuvant-regimen",
+  "url": "http://example.org/fhir/ActivityDefinition/offer-her2-directed-neoadjuvant-regimen",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "OfferHer2DirectedNeoadjuvantRegimen",
+  "title": "Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease",
+  "description": "Offer anthracycline and taxane or non-anthracycline regimen in combination with trastuzumab for node-positive or high-risk node-negative HER2-positive disease.",
+  "kind": "MedicationRequest",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "code": "Z17.411",
+        "display": "Hormone receptor positive with human epidermal growth factor receptor 2 negative status",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm"
+      }
+    ],
+    "text": "HR-positive HER2-negative breast cancer"
+  }
+}

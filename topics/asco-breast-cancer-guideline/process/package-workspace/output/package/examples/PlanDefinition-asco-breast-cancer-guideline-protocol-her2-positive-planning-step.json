@@ -1,0 +1,46 @@
+{
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk",
+          "description": "Choose trastuzumab-based neoadjuvant therapy for high-risk disease and avoid routine use in small node-negative disease.",
+          "id": "her2-positive-planning-step-recommendation-1",
+          "title": "Plan HER2-positive therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive",
+          "description": "Choose trastuzumab-based neoadjuvant therapy for high-risk disease and avoid routine use in small node-negative disease.",
+          "id": "her2-positive-planning-step-recommendation-2",
+          "title": "Plan HER2-positive therapy"
+        }
+      ],
+      "description": "Choose trastuzumab-based neoadjuvant therapy for high-risk disease and avoid routine use in small node-negative disease.",
+      "id": "her2-positive-planning-step",
+      "title": "Plan HER2-positive therapy"
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Choose trastuzumab-based neoadjuvant therapy for high-risk disease and avoid routine use in small node-negative disease.",
+  "id": "asco-breast-cancer-guideline-protocol-her2-positive-planning-step",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineProtocolHer2PositivePlanningStep",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Plan HER2-positive therapy",
+  "type": {
+    "coding": [
+      {
+        "code": "workflow-definition",
+        "display": "Workflow Definition",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-her2-positive-planning-step",
+  "version": "1.0.0"
+}

@@ -1,0 +1,23 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "offer-anthracycline-taxane-for-tnbc",
+  "url": "http://example.org/fhir/ActivityDefinition/offer-anthracycline-taxane-for-tnbc",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "OfferAnthracyclineTaxaneForTnbc",
+  "title": "Offer anthracycline and taxane regimen for eligible TNBC",
+  "description": "Offer an anthracycline-containing and taxane-containing neoadjuvant regimen for TNBC with clinically node-positive disease and-or at least T1c disease.",
+  "kind": "MedicationRequest",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "code": "1259200004",
+        "display": "Neoadjuvant antineoplastic chemotherapy",
+        "system": "http://snomed.info/sct"
+      }
+    ],
+    "text": "Neoadjuvant chemotherapy"
+  }
+}

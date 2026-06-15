@@ -1,0 +1,50 @@
+{
+  "action": [
+    {
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/use-pcr-to-guide-decisions",
+      "description": "Use pathologic complete response, defined as absence of invasive disease in breast and lymph nodes, to guide clinical decision-making.",
+      "documentation": [
+        {
+          "citation": "Pathologic complete response should be used to guide clinical decision making after neoadjuvant therapy. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 2.3",
+          "label": "claim-r2-3",
+          "type": "citation"
+        }
+      ],
+      "id": "use-pcr-to-guide-decisions",
+      "title": "Use pathologic complete response to guide decision-making",
+      "trigger": [
+        {
+          "name": "active-neoadjuvant-treatment-course",
+          "source": "medical-oncology-follow-up",
+          "type": "named-event"
+        }
+      ]
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Ongoing assessment while the patient is receiving neoadjuvant therapy.",
+  "id": "asco-breast-cancer-guideline-recommendation-r2-3-use-pcr",
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineRecommendationR23UsePcr",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Use pathologic complete response to guide decision-making",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-3-use-pcr",
+  "version": "1.0.0"
+}

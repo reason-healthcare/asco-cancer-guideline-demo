@@ -1,0 +1,58 @@
+{
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-1-tnbc-eligible",
+          "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+          "id": "tnbc-planning-step-recommendation-1",
+          "title": "Plan TNBC therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative",
+          "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+          "id": "tnbc-planning-step-recommendation-2",
+          "title": "Plan TNBC therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-3-carboplatin",
+          "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+          "id": "tnbc-planning-step-recommendation-3",
+          "title": "Plan TNBC therapy"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-4-no-ici",
+          "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+          "id": "tnbc-planning-step-recommendation-4",
+          "title": "Plan TNBC therapy"
+        }
+      ],
+      "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+      "id": "tnbc-planning-step",
+      "title": "Plan TNBC therapy"
+    }
+  ],
+  "date": "2026-06-15",
+  "description": "Choose anthracycline taxane chemotherapy, decide on carboplatin, and avoid routine immune checkpoint inhibitor use or low-stage overtreatment.",
+  "id": "asco-breast-cancer-guideline-protocol-tnbc-planning-step",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition"
+    ]
+  },
+  "name": "AscoBreastCancerGuidelineProtocolTnbcPlanningStep",
+  "resourceType": "PlanDefinition",
+  "status": "active",
+  "title": "Plan TNBC therapy",
+  "type": {
+    "coding": [
+      {
+        "code": "workflow-definition",
+        "display": "Workflow Definition",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-tnbc-planning-step",
+  "version": "1.0.0"
+}

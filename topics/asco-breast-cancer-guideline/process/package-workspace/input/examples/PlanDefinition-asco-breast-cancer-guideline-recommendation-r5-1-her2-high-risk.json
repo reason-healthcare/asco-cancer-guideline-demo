@@ -1,0 +1,72 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineRecommendationR51Her2HighRisk",
+  "title": "Select HER2-positive neoadjuvant regimen — Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease",
+  "description": "Choose anti-HER2-based neoadjuvant therapy for HER2-positive disease.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "action": [
+    {
+      "action": [
+        {
+          "definitionCanonical": "http://example.org/fhir/ActivityDefinition/offer-her2-directed-neoadjuvant-regimen",
+          "description": "Offer anthracycline and taxane or non-anthracycline regimen in combination with trastuzumab for node-positive or high-risk node-negative HER2-positive disease.",
+          "id": "offer-her2-directed-neoadjuvant-regimen",
+          "title": "Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease"
+        },
+        {
+          "definitionCanonical": "http://example.org/fhir/ActivityDefinition/consider-pertuzumab-with-trastuzumab",
+          "description": "Pertuzumab may be used with trastuzumab in the neoadjuvant setting for HER2-positive disease.",
+          "id": "consider-pertuzumab-with-trastuzumab",
+          "title": "Consider pertuzumab with trastuzumab"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "expression": "Her2PositiveWithNodePositiveOrHighRiskNodeNegativeDisease",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "description": "Choose anti-HER2-based neoadjuvant therapy for HER2-positive disease.",
+      "documentation": [
+        {
+          "citation": "Offer trastuzumab-based neoadjuvant therapy for node-positive or high-risk node-negative HER2-positive disease, and pertuzumab may be added with trastuzumab. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 5.1",
+          "label": "claim-r5-1",
+          "type": "citation"
+        }
+      ],
+      "id": "rule-r5-1-her2-high-risk",
+      "title": "Select HER2-positive neoadjuvant regimen — Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease",
+      "trigger": [
+        {
+          "name": "her2-positive-treatment-selection",
+          "source": "subtype-directed-oncology-planning",
+          "type": "named-event"
+        }
+      ]
+    }
+  ]
+}

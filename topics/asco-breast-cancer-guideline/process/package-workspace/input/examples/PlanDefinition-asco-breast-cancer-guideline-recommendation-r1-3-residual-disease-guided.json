@@ -1,0 +1,59 @@
+{
+  "resourceType": "PlanDefinition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
+    ]
+  },
+  "id": "asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided",
+  "url": "http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-06-15",
+  "name": "AscoBreastCancerGuidelineRecommendationR13ResidualDiseaseGuided",
+  "title": "Offer neoadjuvant systemic therapy when residual disease will guide adjuvant planning",
+  "description": "Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "display": "ECA Rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic"
+  ],
+  "action": [
+    {
+      "condition": [
+        {
+          "expression": {
+            "expression": "ResidualDiseaseResultWouldChangeAdjuvantTherapy",
+            "language": "text/cql-identifier"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning",
+      "description": "Offer neoadjuvant systemic therapy to high-risk HER2-positive or triple-negative disease when residual disease findings will change adjuvant therapy.",
+      "documentation": [
+        {
+          "citation": "Offer neoadjuvant systemic therapy to high-risk HER2-positive or triple-negative disease when residual disease would guide adjuvant treatment recommendations. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 1.3",
+          "label": "claim-r1-3",
+          "type": "citation"
+        }
+      ],
+      "id": "offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning",
+      "title": "Offer neoadjuvant systemic therapy when residual disease will guide adjuvant planning",
+      "trigger": [
+        {
+          "name": "initial-breast-cancer-treatment-planning",
+          "source": "multidisciplinary-oncology-evaluation",
+          "type": "named-event"
+        }
+      ]
+    }
+  ]
+}

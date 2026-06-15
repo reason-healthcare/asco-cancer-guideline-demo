@@ -1,0 +1,58 @@
+topic: asco-breast-cancer-guideline
+plan_type: formalize
+status: approved
+reviewer: Codex
+reviewed_at: '2026-06-15T21:06:25Z'
+artifacts:
+- name: asco-breast-cancer-guideline-decision-table
+  source_artifact: decision-table
+  artifact_type: decision-table
+  strategy: decision-table
+  l3_targets:
+  - PlanDefinition (eca-rule)
+  - ActivityDefinition
+  - Library (CQL)
+  input_artifacts:
+  - decision-table
+  rationale: Formalizes 1 'decision-table' artifact(s) → PlanDefinition 
+    (eca-rule), ActivityDefinition, Library (CQL). ⚠ Overlaps with care-pathway 
+    on PlanDefinition.
+  required_sections:
+  - actions
+  - libraries
+  implementation_target: true
+  reviewer_decision: approved
+  approval_notes: ''
+- name: asco-breast-cancer-guideline-care-pathway
+  source_artifact: care-pathway
+  artifact_type: care-pathway
+  strategy: care-pathway
+  l3_targets:
+  - PlanDefinition (clinical-protocol)
+  - ActivityDefinition
+  input_artifacts:
+  - care-pathway
+  rationale: Formalizes 1 'care-pathway' artifact(s) → PlanDefinition 
+    (clinical-protocol), ActivityDefinition. ⚠ Overlaps with decision-table on 
+    PlanDefinition.
+  required_sections:
+  - pathways
+  - actions
+  implementation_target: false
+  reviewer_decision: approved
+  approval_notes: ''
+- name: concepts
+  source_artifact: concepts
+  artifact_type: terminology
+  strategy: terminology
+  l3_targets:
+  - ValueSet
+  - ConceptMap
+  input_artifacts:
+  - concepts
+  rationale: Formalizes 1 'terminology' artifact(s) → ValueSet, ConceptMap.
+  required_sections:
+  - value_sets
+  implementation_target: false
+  reviewer_decision: approved
+  approval_notes: ''

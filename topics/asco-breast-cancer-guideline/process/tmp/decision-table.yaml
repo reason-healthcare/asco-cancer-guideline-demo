@@ -1,0 +1,655 @@
+id: decision-table
+name: decision-table
+title: Decision Table
+version: 1.0.0
+status: draft
+domain: decision table
+description: What recommendation-scoped triggers, local conditions, and actions form the decision logic?
+derived_from:
+  - korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+artifact_type: decision-table
+clinical_question: What recommendation-scoped triggers, local conditions, and actions form the decision logic?
+sections:
+  summary: ASCO guidance organizes neoadjuvant therapy decisions around candidate selection, subtype-directed regimen planning, and treatment response monitoring for invasive nonmetastatic breast cancer.
+  pathway_phases:
+    - id: candidacy
+      label: Candidacy and treatment intent
+      description: Determine whether neoadjuvant systemic therapy is appropriate and what clinical goal it serves.
+    - id: monitoring
+      label: Response monitoring
+      description: Monitor patients receiving neoadjuvant therapy and interpret treatment response.
+    - id: tnbc
+      label: Triple-negative breast cancer regimen selection
+      description: Choose neoadjuvant treatment strategy for triple-negative breast cancer.
+    - id: hr-her2-negative
+      label: HR-positive HER2-negative regimen selection
+      description: Choose chemotherapy or endocrine downstaging strategy for HR-positive HER2-negative disease.
+    - id: her2-positive
+      label: HER2-positive regimen selection
+      description: Choose anti-HER2-based neoadjuvant treatment strategy.
+  events:
+    - id: assess-neoadjuvant-candidacy
+      label: Assess neoadjuvant candidacy
+      description: Initial multidisciplinary treatment planning for invasive nonmetastatic breast cancer.
+      phase: candidacy
+      trigger:
+        type: named-event
+        name: initial-breast-cancer-treatment-planning
+        source: multidisciplinary-oncology-evaluation
+    - id: monitor-neoadjuvant-response
+      label: Monitor treatment response
+      description: Ongoing assessment while the patient is receiving neoadjuvant therapy.
+      phase: monitoring
+      trigger:
+        type: named-event
+        name: active-neoadjuvant-treatment-course
+        source: medical-oncology-follow-up
+    - id: select-tnbc-regimen
+      label: Select TNBC neoadjuvant regimen
+      description: Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.
+      phase: tnbc
+      trigger:
+        type: named-event
+        name: tnbc-subtype-treatment-selection
+        source: subtype-directed-oncology-planning
+    - id: select-hr-her2-negative-regimen
+      label: Select HR-positive HER2-negative strategy
+      description: Choose chemotherapy or endocrine downstaging approach for HR-positive HER2-negative disease.
+      phase: hr-her2-negative
+      trigger:
+        type: named-event
+        name: hr-positive-her2-negative-treatment-selection
+        source: subtype-directed-oncology-planning
+    - id: select-her2-positive-regimen
+      label: Select HER2-positive neoadjuvant regimen
+      description: Choose anti-HER2-based neoadjuvant therapy for HER2-positive disease.
+      phase: her2-positive
+      trigger:
+        type: named-event
+        name: her2-positive-treatment-selection
+        source: subtype-directed-oncology-planning
+  conditions:
+    - id: inflammatory-or-locally-advanced
+      label: Inflammatory or locally advanced unresectable disease
+      description: Breast cancer is inflammatory, unresectable, or locally advanced and may become resectable with therapy.
+      values: [Yes, No]
+    - id: residual-disease-would-change-adjuvant-therapy
+      label: Residual disease result would change adjuvant therapy
+      description: Finding residual disease after neoadjuvant therapy would alter adjuvant treatment recommendations.
+      values: [Yes, No]
+    - id: local-therapy-downstaging-goal
+      label: Downstaging or surgery extent reduction is a treatment goal
+      description: Neoadjuvant therapy is being considered to reduce the extent of breast or axillary surgery.
+      values: [Yes, No]
+    - id: surgery-delay-context
+      label: Surgery delay is preferable or unavoidable
+      description: Surgery is delayed for decision-making, testing, or reconstructive planning.
+      values: [Yes, No]
+    - id: standard-tumor-features-available
+      label: Histology grade stage and ER PR HER2 are available
+      description: Standard clinicopathologic tumor features are available to guide neoadjuvant treatment selection.
+      values: [Yes, No]
+    - id: tnbc-node-positive-or-t1c-plus
+      label: TNBC is node-positive or at least T1c
+      description: Triple-negative breast cancer has clinically node-positive disease and-or tumor stage T1c or greater.
+      values: [Yes, No]
+    - id: tnbc-ct1ab-n0
+      label: TNBC is cT1a or cT1b N0
+      description: Triple-negative breast cancer is small and node-negative.
+      values: [Yes, No]
+    - id: benefit-harm-favors-carboplatin
+      label: Benefit harm balance favors carboplatin
+      description: The anticipated pathologic complete response benefit justifies carboplatin toxicity.
+      values: [Yes, No]
+    - id: hr-positive-her2-negative-disease
+      label: HR-positive HER2-negative subtype
+      description: Hormone receptor positive HER2-negative breast cancer subtype is confirmed.
+      values: [Yes, No]
+    - id: chemo-decision-without-surgical-data
+      label: Chemotherapy decision can be made without surgical pathology or genomic testing
+      description: Upfront surgical pathology or tumor-specific genomic testing is not required to decide on chemotherapy.
+      values: [Yes, No]
+    - id: postmenopausal
+      label: Patient is postmenopausal
+      description: Menopausal status supports neoadjuvant endocrine downstaging with an aromatase inhibitor.
+      values: [Yes, No]
+    - id: no-surgery-intended
+      label: No surgery is intended
+      description: Endocrine therapy is being used for disease control rather than bridge to surgery.
+      values: [Yes, No]
+    - id: premenopausal
+      label: Patient is premenopausal
+      description: Premenopausal status limits routine neoadjuvant endocrine therapy use outside trials.
+      values: [Yes, No]
+    - id: her2-positive-high-risk
+      label: HER2-positive with node-positive or high-risk node-negative disease
+      description: HER2-positive disease meets high-risk criteria for neoadjuvant systemic therapy.
+      values: [Yes, No]
+    - id: her2-t1ab-n0
+      label: HER2-positive T1a or T1b N0 disease
+      description: HER2-positive disease is small and node-negative.
+      values: [Yes, No]
+  data_elements:
+    - id: de-inflammatory-stage
+      condition_id: inflammatory-or-locally-advanced
+      label: Clinical stage and resectability assessment
+      description: Review inflammatory presentation, local extent, and initial surgical resectability.
+      data_type: diagnosis
+    - id: de-residual-disease-impact
+      condition_id: residual-disease-would-change-adjuvant-therapy
+      label: Potential adjuvant treatment change
+      description: Determine whether residual disease findings would alter adjuvant treatment recommendations.
+      data_type: assessment
+    - id: de-local-therapy-goal
+      condition_id: local-therapy-downstaging-goal
+      label: Local therapy reduction goal
+      description: Document whether the intent is to increase breast conservation or reduce axillary surgery.
+      data_type: patient-reported
+    - id: de-surgery-delay
+      condition_id: surgery-delay-context
+      label: Surgical timing constraints
+      description: Document decision-making, testing, or reconstruction factors that justify delay in surgery.
+      data_type: history
+    - id: de-standard-features
+      condition_id: standard-tumor-features-available
+      label: Standard tumor biology features
+      description: Review histology, grade, stage, estrogen receptor, progesterone receptor, and HER2 status.
+      data_type: assessment
+    - id: de-tnbc-stage
+      condition_id: tnbc-node-positive-or-t1c-plus
+      label: TNBC nodal and tumor stage
+      description: Confirm node-positive status and whether disease is at least T1c.
+      data_type: diagnosis
+    - id: de-tnbc-small-node-negative
+      condition_id: tnbc-ct1ab-n0
+      label: Small node-negative TNBC status
+      description: Confirm cT1a or cT1b N0 triple-negative breast cancer.
+      data_type: diagnosis
+    - id: de-carboplatin-risk-benefit
+      condition_id: benefit-harm-favors-carboplatin
+      label: Carboplatin risk benefit review
+      description: Assess expected pCR benefit against toxicity and patient tolerance.
+      data_type: assessment
+    - id: de-hr-her2-subtype
+      condition_id: hr-positive-her2-negative-disease
+      label: HR-positive HER2-negative subtype confirmation
+      description: Confirm hormone receptor positivity and HER2 negativity.
+      data_type: diagnosis
+    - id: de-chemo-decision-context
+      condition_id: chemo-decision-without-surgical-data
+      label: Need for surgical pathology or genomic data
+      description: Determine whether chemotherapy selection can be made before surgery and genomic profiling.
+      data_type: history
+    - id: de-menopausal-status
+      condition_id: postmenopausal
+      label: Menopausal status
+      description: Determine whether the patient is postmenopausal.
+      data_type: history
+    - id: de-surgery-intent
+      condition_id: no-surgery-intended
+      label: Surgical intent
+      description: Determine whether surgery is planned after systemic therapy.
+      data_type: history
+    - id: de-premenopausal-status
+      condition_id: premenopausal
+      label: Premenopausal status
+      description: Determine whether the patient is premenopausal.
+      data_type: history
+    - id: de-her2-risk
+      condition_id: her2-positive-high-risk
+      label: HER2-positive risk category
+      description: Confirm node-positive disease or high-risk node-negative status in HER2-positive cancer.
+      data_type: diagnosis
+    - id: de-her2-small-node-negative
+      condition_id: her2-t1ab-n0
+      label: Small node-negative HER2-positive disease
+      description: Confirm T1a or T1b N0 HER2-positive disease.
+      data_type: diagnosis
+  actions:
+    - id: coordinate-multidisciplinary-management
+      label: Coordinate multidisciplinary neoadjuvant management
+      description: Manage the patient through a multidisciplinary care team while planning and delivering neoadjuvant therapy.
+      kind: Task
+      evidence_traceability_ids: [claim-general-team]
+      provenance:
+        source: source_direct
+    - id: offer-neoadjuvant-chemotherapy-for-advanced-disease
+      label: Offer neoadjuvant chemotherapy for inflammatory or locally advanced disease
+      description: Use neoadjuvant chemotherapy as the treatment of choice for inflammatory breast cancer or unresectable locally advanced disease that may become resectable.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r1-1]
+      provenance:
+        source: source_direct
+    - id: use-standard-tumor-features
+      label: Use histology grade stage and receptor status to guide decisions
+      description: Use tumor histology, grade, stage, and ER PR HER2 expression to guide the decision to pursue neoadjuvant chemotherapy.
+      kind: Task
+      evidence_traceability_ids: [claim-r1-2]
+      provenance:
+        source: source_direct
+    - id: avoid-other-markers
+      label: Do not rely on other biomarkers or genomic profiles for neoadjuvant decision-making
+      description: Do not use other immunochemical markers, morphologic markers, or genomic profiles to decide whether to pursue neoadjuvant chemotherapy.
+      kind: Task
+      do_not_perform: true
+      evidence_traceability_ids: [claim-r1-2]
+      provenance:
+        source: inferred
+        rationale: The guideline states there is insufficient evidence to support routine use of these markers for this decision.
+    - id: offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning
+      label: Offer neoadjuvant systemic therapy when residual disease will guide adjuvant planning
+      description: Offer neoadjuvant systemic therapy to high-risk HER2-positive or triple-negative disease when residual disease findings will change adjuvant therapy.
+      kind: ServiceRequest
+      evidence_traceability_ids: [claim-r1-3]
+      provenance:
+        source: source_direct
+    - id: offer-neoadjuvant-for-downstaging
+      label: Offer neoadjuvant systemic therapy to reduce surgery extent
+      description: Use chemotherapy with or without targeted therapy, or endocrine therapy when HR-positive, to reduce the extent of local therapy.
+      kind: ServiceRequest
+      evidence_traceability_ids: [claim-r1-4]
+      provenance:
+        source: source_direct
+    - id: offer-neoadjuvant-for-surgery-delay
+      label: Offer neoadjuvant systemic therapy when surgery is delayed
+      description: Use neoadjuvant systemic therapy when delaying surgery is preferable or unavoidable.
+      kind: ServiceRequest
+      evidence_traceability_ids: [claim-r1-5]
+      provenance:
+        source: source_direct
+    - id: monitor-with-clinical-examination
+      label: Monitor response with regular clinical examination
+      description: Use regular clinical examination to monitor patients receiving neoadjuvant therapy.
+      kind: Task
+      evidence_traceability_ids: [claim-r2-1]
+      provenance:
+        source: source_direct
+    - id: use-baseline-informative-imaging
+      label: Use the most informative baseline imaging modality when imaging is needed
+      description: Use mammography, ultrasound, or MRI that was most informative at baseline to confirm progression or support surgical planning.
+      kind: ServiceRequest
+      evidence_traceability_ids: [claim-r2-1]
+      provenance:
+        source: source_direct
+    - id: avoid-blood-and-tissue-biomarker-monitoring
+      label: Do not use blood or tissue biomarkers for monitoring
+      description: Do not use blood-based or tissue-based biomarkers to monitor patients receiving neoadjuvant therapy.
+      kind: Task
+      do_not_perform: true
+      evidence_traceability_ids: [claim-r2-2]
+      provenance:
+        source: inferred
+        rationale: The guideline directly recommends against using biomarkers for treatment monitoring.
+    - id: use-pcr-to-guide-decisions
+      label: Use pathologic complete response to guide decision-making
+      description: Use pathologic complete response, defined as absence of invasive disease in breast and lymph nodes, to guide clinical decision-making.
+      kind: Task
+      evidence_traceability_ids: [claim-r2-3]
+      provenance:
+        source: source_direct
+    - id: offer-anthracycline-taxane-for-tnbc
+      label: Offer anthracycline and taxane regimen for eligible TNBC
+      description: Offer an anthracycline-containing and taxane-containing neoadjuvant regimen for TNBC with clinically node-positive disease and-or at least T1c disease.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r3-1]
+      provenance:
+        source: source_direct
+    - id: avoid-neoadjuvant-therapy-for-small-tnbc
+      label: Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC
+      description: Avoid routine neoadjuvant therapy outside a clinical trial for small node-negative TNBC.
+      kind: ServiceRequest
+      do_not_perform: true
+      evidence_traceability_ids: [claim-r3-2]
+      provenance:
+        source: inferred
+        rationale: The recommendation explicitly states these patients should not routinely receive neoadjuvant therapy outside trials.
+    - id: consider-carboplatin-for-tnbc
+      label: Consider carboplatin to increase pathologic complete response
+      description: Carboplatin may be added as part of a neoadjuvant TNBC regimen after weighing potential benefits and harms.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r3-3]
+      provenance:
+        source: source_direct
+    - id: avoid-routine-immune-checkpoint-inhibitors
+      label: Do not routinely add immune checkpoint inhibitors to neoadjuvant chemotherapy
+      description: Do not routinely add immune checkpoint inhibitors to standard neoadjuvant chemotherapy for early-stage TNBC.
+      kind: MedicationRequest
+      do_not_perform: true
+      evidence_traceability_ids: [claim-r3-4]
+      provenance:
+        source: inferred
+        rationale: The guideline states evidence is insufficient to recommend routine addition of immune checkpoint inhibitors.
+    - id: use-neoadjuvant-chemotherapy-without-surgical-data
+      label: Use neoadjuvant chemotherapy when the chemotherapy decision does not require surgical data
+      description: Neoadjuvant chemotherapy can substitute for adjuvant chemotherapy in HR-positive HER2-negative disease when surgical pathology or genomic testing is not required for the decision.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r4-1]
+      provenance:
+        source: source_direct
+    - id: offer-postmenopausal-neoadjuvant-endocrine-therapy
+      label: Offer aromatase inhibitor based neoadjuvant endocrine therapy for postmenopausal downstaging
+      description: Use neoadjuvant endocrine therapy with an aromatase inhibitor in postmenopausal HR-positive HER2-negative disease to increase locoregional treatment options.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r4-2]
+      provenance:
+        source: source_direct
+    - id: use-endocrine-therapy-for-disease-control
+      label: Use endocrine therapy for disease control when surgery is not planned
+      description: Use endocrine therapy for disease control if there is no intent to proceed to surgery.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r4-2]
+      provenance:
+        source: source_direct
+    - id: avoid-premenopausal-neoadjuvant-endocrine-therapy
+      label: Do not routinely offer neoadjuvant endocrine therapy to premenopausal patients
+      description: Avoid routine neoadjuvant endocrine therapy outside a clinical trial in premenopausal HR-positive HER2-negative early-stage disease.
+      kind: MedicationRequest
+      do_not_perform: true
+      evidence_traceability_ids: [claim-r4-3]
+      provenance:
+        source: inferred
+        rationale: The recommendation restricts routine premenopausal neoadjuvant endocrine therapy to clinical trials.
+    - id: offer-her2-directed-neoadjuvant-regimen
+      label: Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease
+      description: Offer anthracycline and taxane or non-anthracycline regimen in combination with trastuzumab for node-positive or high-risk node-negative HER2-positive disease.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r5-1]
+      provenance:
+        source: source_direct
+    - id: consider-pertuzumab-with-trastuzumab
+      label: Consider pertuzumab with trastuzumab
+      description: Pertuzumab may be used with trastuzumab in the neoadjuvant setting for HER2-positive disease.
+      kind: MedicationRequest
+      evidence_traceability_ids: [claim-r5-1]
+      provenance:
+        source: source_direct
+    - id: avoid-neoadjuvant-therapy-for-small-her2-positive
+      label: Do not routinely offer neoadjuvant chemotherapy or anti-HER2 therapy for T1a or T1b N0 HER2-positive disease
+      description: Avoid routine neoadjuvant chemotherapy or anti-HER2 agents outside a clinical trial for small node-negative HER2-positive disease.
+      kind: MedicationRequest
+      do_not_perform: true
+      evidence_traceability_ids: [claim-r5-2]
+      provenance:
+        source: inferred
+        rationale: The recommendation explicitly advises against routine neoadjuvant treatment in this low-stage subgroup outside trials.
+  rules:
+    - id: rule-multidisciplinary-management
+      event: assess-neoadjuvant-candidacy
+      phase: candidacy
+      then:
+        - coordinate-multidisciplinary-management
+      evidence_traceability_ids: [claim-general-team]
+      provenance:
+        source: source_direct
+    - id: rule-r1-1-advanced-disease
+      event: assess-neoadjuvant-candidacy
+      phase: candidacy
+      when:
+        inflammatory-or-locally-advanced: Yes
+      then:
+        - offer-neoadjuvant-chemotherapy-for-advanced-disease
+      evidence_traceability_ids: [claim-r1-1]
+      provenance:
+        source: source_direct
+    - id: rule-r1-2-standard-features
+      event: assess-neoadjuvant-candidacy
+      phase: candidacy
+      when:
+        standard-tumor-features-available: Yes
+      then:
+        - use-standard-tumor-features
+        - avoid-other-markers
+      evidence_traceability_ids: [claim-r1-2]
+      provenance:
+        source: source_direct
+    - id: rule-r1-3-residual-disease-guided
+      event: assess-neoadjuvant-candidacy
+      phase: candidacy
+      when:
+        residual-disease-would-change-adjuvant-therapy: Yes
+      then:
+        - offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning
+      evidence_traceability_ids: [claim-r1-3]
+      provenance:
+        source: source_direct
+    - id: rule-r1-4-downstaging
+      event: assess-neoadjuvant-candidacy
+      phase: candidacy
+      when:
+        local-therapy-downstaging-goal: Yes
+      then:
+        - offer-neoadjuvant-for-downstaging
+      evidence_traceability_ids: [claim-r1-4]
+      provenance:
+        source: source_direct
+    - id: rule-r1-5-surgery-delay
+      event: assess-neoadjuvant-candidacy
+      phase: candidacy
+      when:
+        surgery-delay-context: Yes
+      then:
+        - offer-neoadjuvant-for-surgery-delay
+      evidence_traceability_ids: [claim-r1-5]
+      provenance:
+        source: source_direct
+    - id: rule-r2-1-monitoring
+      event: monitor-neoadjuvant-response
+      phase: monitoring
+      then:
+        - monitor-with-clinical-examination
+        - use-baseline-informative-imaging
+      evidence_traceability_ids: [claim-r2-1]
+      provenance:
+        source: source_direct
+    - id: rule-r2-2-no-biomarkers
+      event: monitor-neoadjuvant-response
+      phase: monitoring
+      then:
+        - avoid-blood-and-tissue-biomarker-monitoring
+      evidence_traceability_ids: [claim-r2-2]
+      provenance:
+        source: source_direct
+    - id: rule-r2-3-use-pcr
+      event: monitor-neoadjuvant-response
+      phase: monitoring
+      then:
+        - use-pcr-to-guide-decisions
+      evidence_traceability_ids: [claim-r2-3]
+      provenance:
+        source: source_direct
+    - id: rule-r3-1-tnbc-eligible
+      event: select-tnbc-regimen
+      phase: tnbc
+      when:
+        tnbc-node-positive-or-t1c-plus: Yes
+      then:
+        - offer-anthracycline-taxane-for-tnbc
+      evidence_traceability_ids: [claim-r3-1]
+      provenance:
+        source: source_direct
+    - id: rule-r3-2-tnbc-small-node-negative
+      event: select-tnbc-regimen
+      phase: tnbc
+      when:
+        tnbc-ct1ab-n0: Yes
+      then:
+        - avoid-neoadjuvant-therapy-for-small-tnbc
+      evidence_traceability_ids: [claim-r3-2]
+      provenance:
+        source: source_direct
+    - id: rule-r3-3-carboplatin
+      event: select-tnbc-regimen
+      phase: tnbc
+      when:
+        tnbc-node-positive-or-t1c-plus: Yes
+        benefit-harm-favors-carboplatin: Yes
+      then:
+        - consider-carboplatin-for-tnbc
+      evidence_traceability_ids: [claim-r3-3]
+      provenance:
+        source: source_direct
+    - id: rule-r3-4-no-ici
+      event: select-tnbc-regimen
+      phase: tnbc
+      then:
+        - avoid-routine-immune-checkpoint-inhibitors
+      evidence_traceability_ids: [claim-r3-4]
+      provenance:
+        source: source_direct
+    - id: rule-r4-1-use-chemo
+      event: select-hr-her2-negative-regimen
+      phase: hr-her2-negative
+      when:
+        hr-positive-her2-negative-disease: Yes
+        chemo-decision-without-surgical-data: Yes
+      then:
+        - use-neoadjuvant-chemotherapy-without-surgical-data
+      evidence_traceability_ids: [claim-r4-1]
+      provenance:
+        source: source_direct
+    - id: rule-r4-2-postmenopausal-endocrine
+      event: select-hr-her2-negative-regimen
+      phase: hr-her2-negative
+      when:
+        hr-positive-her2-negative-disease: Yes
+        postmenopausal: Yes
+      then:
+        - offer-postmenopausal-neoadjuvant-endocrine-therapy
+      evidence_traceability_ids: [claim-r4-2]
+      provenance:
+        source: source_direct
+    - id: rule-r4-2-no-surgery
+      event: select-hr-her2-negative-regimen
+      phase: hr-her2-negative
+      when:
+        hr-positive-her2-negative-disease: Yes
+        no-surgery-intended: Yes
+      then:
+        - use-endocrine-therapy-for-disease-control
+      evidence_traceability_ids: [claim-r4-2]
+      provenance:
+        source: source_direct
+    - id: rule-r4-3-premenopausal
+      event: select-hr-her2-negative-regimen
+      phase: hr-her2-negative
+      when:
+        hr-positive-her2-negative-disease: Yes
+        premenopausal: Yes
+      then:
+        - avoid-premenopausal-neoadjuvant-endocrine-therapy
+      evidence_traceability_ids: [claim-r4-3]
+      provenance:
+        source: source_direct
+    - id: rule-r5-1-her2-high-risk
+      event: select-her2-positive-regimen
+      phase: her2-positive
+      when:
+        her2-positive-high-risk: Yes
+      then:
+        - offer-her2-directed-neoadjuvant-regimen
+        - consider-pertuzumab-with-trastuzumab
+      evidence_traceability_ids: [claim-r5-1]
+      provenance:
+        source: source_direct
+    - id: rule-r5-2-small-her2-positive
+      event: select-her2-positive-regimen
+      phase: her2-positive
+      when:
+        her2-t1ab-n0: Yes
+      then:
+        - avoid-neoadjuvant-therapy-for-small-her2-positive
+      evidence_traceability_ids: [claim-r5-2]
+      provenance:
+        source: source_direct
+  evidence_traceability:
+    - claim_id: claim-general-team
+      statement: Patients undergoing neoadjuvant therapy should be managed by a multidisciplinary care team.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: Recommendations summary paragraph before Clinical Question 1
+    - claim_id: claim-r1-1
+      statement: Neoadjuvant chemotherapy is the treatment of choice for inflammatory breast cancer or unresectable locally advanced disease that may become resectable.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 1.1
+    - claim_id: claim-r1-2
+      statement: Tumor histology, grade, stage, and ER PR HER2 expression should guide neoadjuvant decisions; other markers and genomic profiles should not.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 1.2
+    - claim_id: claim-r1-3
+      statement: Offer neoadjuvant systemic therapy to high-risk HER2-positive or triple-negative disease when residual disease would guide adjuvant treatment recommendations.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 1.3
+    - claim_id: claim-r1-4
+      statement: Neoadjuvant systemic therapy may be used to reduce the extent of surgery, including increasing breast-conserving options.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 1.4
+    - claim_id: claim-r1-5
+      statement: Neoadjuvant systemic therapy may be offered when surgery is delayed for testing, reconstruction planning, or other decision-making needs.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 1.5
+    - claim_id: claim-r2-1
+      statement: Monitor response with regular clinical examination and use the most informative baseline imaging modality when imaging is needed.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 2.1
+    - claim_id: claim-r2-2
+      statement: Blood-based and tissue-based biomarkers should not be used to monitor response during neoadjuvant therapy.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 2.2
+    - claim_id: claim-r2-3
+      statement: Pathologic complete response should be used to guide clinical decision making after neoadjuvant therapy.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 2.3
+    - claim_id: claim-r3-1
+      statement: Offer anthracycline- and taxane-containing neoadjuvant therapy for TNBC with node-positive disease or at least T1c disease.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 3.1
+    - claim_id: claim-r3-2
+      statement: Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC outside a clinical trial.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 3.2
+    - claim_id: claim-r3-3
+      statement: Carboplatin may be offered in TNBC to increase the likelihood of pathologic complete response after balancing benefits and harms.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 3.3
+    - claim_id: claim-r3-4
+      statement: There is insufficient evidence to recommend routinely adding immune checkpoint inhibitors to neoadjuvant chemotherapy in early-stage TNBC.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 3.4
+    - claim_id: claim-r4-1
+      statement: Neoadjuvant chemotherapy can be used in HR-positive HER2-negative disease when the chemotherapy decision can be made without surgical pathology or genomic testing.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 4.1
+    - claim_id: claim-r4-2
+      statement: In postmenopausal HR-positive HER2-negative disease, neoadjuvant endocrine therapy with an aromatase inhibitor may increase locoregional treatment options, and endocrine therapy may be used for disease control if surgery is not intended.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 4.2
+    - claim_id: claim-r4-3
+      statement: Premenopausal patients with HR-positive HER2-negative early-stage disease should not routinely receive neoadjuvant endocrine therapy outside a clinical trial.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 4.3
+    - claim_id: claim-r5-1
+      statement: Offer trastuzumab-based neoadjuvant therapy for node-positive or high-risk node-negative HER2-positive disease, and pertuzumab may be added with trastuzumab.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 5.1
+    - claim_id: claim-r5-2
+      statement: Do not routinely offer neoadjuvant chemotherapy or anti-HER2 agents for T1a N0 or T1b N0 HER2-positive disease outside a clinical trial.
+      evidence:
+        - source: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+          locator: The Bottom Line, Recommendation 5.2
+concerns: []

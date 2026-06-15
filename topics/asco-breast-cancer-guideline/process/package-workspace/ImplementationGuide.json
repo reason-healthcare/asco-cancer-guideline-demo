@@ -1,0 +1,421 @@
+{
+  "resourceType": "ImplementationGuide",
+  "id": "asco-breast-cancer-guideline",
+  "url": "http://example.org/fhir/ImplementationGuide/asco-breast-cancer-guideline",
+  "version": "1.0.0",
+  "name": "AscoBreastCancerGuideline",
+  "title": "Asco Breast Cancer Guideline",
+  "status": "active",
+  "packageId": "reason.asco-breast-cancer-guideline",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "dependsOn": [
+    {
+      "id": "hl7fhirr4core",
+      "packageId": "hl7.fhir.r4.core",
+      "uri": "http://hl7.org/fhir/4.0.1",
+      "version": "4.0.1"
+    },
+    {
+      "id": "hl7fhiruscore",
+      "packageId": "hl7.fhir.us.core",
+      "uri": "https://packages.fhir.org/hl7.fhir.us.core/6.1.0",
+      "version": "6.1.0"
+    },
+    {
+      "id": "hl7fhiruvcrmi",
+      "packageId": "hl7.fhir.uv.crmi",
+      "uri": "https://packages.fhir.org/hl7.fhir.uv.crmi/1.0.0",
+      "version": "1.0.0"
+    },
+    {
+      "id": "hl7fhiruvcql",
+      "packageId": "hl7.fhir.uv.cql",
+      "uri": "https://packages.fhir.org/hl7.fhir.uv.cql/2.0.0",
+      "version": "2.0.0"
+    }
+  ],
+  "definition": {
+    "resource": [
+      {
+        "reference": {
+          "reference": "ActivityDefinition/avoid-blood-and-tissue-biomarker-monitoring"
+        },
+        "name": "ActivityDefinition-avoid-blood-and-tissue-biomarker-monitoring"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/avoid-neoadjuvant-therapy-for-small-her2-positive"
+        },
+        "name": "ActivityDefinition-avoid-neoadjuvant-therapy-for-small-her2-positive"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/avoid-neoadjuvant-therapy-for-small-tnbc"
+        },
+        "name": "ActivityDefinition-avoid-neoadjuvant-therapy-for-small-tnbc"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/avoid-other-markers"
+        },
+        "name": "ActivityDefinition-avoid-other-markers"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/avoid-premenopausal-neoadjuvant-endocrine-therapy"
+        },
+        "name": "ActivityDefinition-avoid-premenopausal-neoadjuvant-endocrine-therapy"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/avoid-routine-immune-checkpoint-inhibitors"
+        },
+        "name": "ActivityDefinition-avoid-routine-immune-checkpoint-inhibitors"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/consider-carboplatin-for-tnbc"
+        },
+        "name": "ActivityDefinition-consider-carboplatin-for-tnbc"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/consider-pertuzumab-with-trastuzumab"
+        },
+        "name": "ActivityDefinition-consider-pertuzumab-with-trastuzumab"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/coordinate-multidisciplinary-management"
+        },
+        "name": "ActivityDefinition-coordinate-multidisciplinary-management"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/monitor-with-clinical-examination"
+        },
+        "name": "ActivityDefinition-monitor-with-clinical-examination"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/offer-anthracycline-taxane-for-tnbc"
+        },
+        "name": "ActivityDefinition-offer-anthracycline-taxane-for-tnbc"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/offer-her2-directed-neoadjuvant-regimen"
+        },
+        "name": "ActivityDefinition-offer-her2-directed-neoadjuvant-regimen"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-chemotherapy-for-advanced-disease"
+        },
+        "name": "ActivityDefinition-offer-neoadjuvant-chemotherapy-for-advanced-disease"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-for-downstaging"
+        },
+        "name": "ActivityDefinition-offer-neoadjuvant-for-downstaging"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning"
+        },
+        "name": "ActivityDefinition-offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/offer-neoadjuvant-for-surgery-delay"
+        },
+        "name": "ActivityDefinition-offer-neoadjuvant-for-surgery-delay"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/offer-postmenopausal-neoadjuvant-endocrine-therapy"
+        },
+        "name": "ActivityDefinition-offer-postmenopausal-neoadjuvant-endocrine-therapy"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/use-baseline-informative-imaging"
+        },
+        "name": "ActivityDefinition-use-baseline-informative-imaging"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/use-endocrine-therapy-for-disease-control"
+        },
+        "name": "ActivityDefinition-use-endocrine-therapy-for-disease-control"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/use-neoadjuvant-chemotherapy-without-surgical-data"
+        },
+        "name": "ActivityDefinition-use-neoadjuvant-chemotherapy-without-surgical-data"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/use-pcr-to-guide-decisions"
+        },
+        "name": "ActivityDefinition-use-pcr-to-guide-decisions"
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/use-standard-tumor-features"
+        },
+        "name": "ActivityDefinition-use-standard-tumor-features"
+      },
+      {
+        "reference": {
+          "reference": "Library/asco-breast-cancer-guideline-recommendation-logic"
+        },
+        "name": "Library-asco-breast-cancer-guideline-recommendation-logic"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-assessment-step"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-candidacy-assessment-step"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-phase"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-candidacy-phase"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-her2-positive-planning-step"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-her2-positive-planning-step"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-monitoring-phase"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-monitoring-phase"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-subtype-planning-phase"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-subtype-planning-phase"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-tnbc-planning-step"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-tnbc-planning-step"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol-tumor-feature-review-step"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol-tumor-feature-review-step"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-protocol"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-protocol"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-multidisciplinary-management"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-multidisciplinary-management"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-1-advanced-disease"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-1-advanced-disease"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-2-standard-features"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-2-standard-features"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-4-downstaging"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-4-downstaging"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r1-5-surgery-delay"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-5-surgery-delay"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-1-monitoring"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-1-monitoring"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r2-3-use-pcr"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-3-use-pcr"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-1-tnbc-eligible"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-1-tnbc-eligible"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-3-carboplatin"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-3-carboplatin"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-4-no-ici"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-4-no-ici"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-1-use-chemo"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-1-use-chemo"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-2-no-surgery"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-no-surgery"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-2-postmenopausal-endocrine"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-postmenopausal-endocrine"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r4-3-premenopausal"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-3-premenopausal"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/asco-breast-cancer-guideline-recommendation"
+        },
+        "name": "PlanDefinition-asco-breast-cancer-guideline-recommendation"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/breast-conserving-surgery"
+        },
+        "name": "ValueSet-breast-conserving-surgery"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/carboplatin"
+        },
+        "name": "ValueSet-carboplatin"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/her2-positive-breast-cancer"
+        },
+        "name": "ValueSet-her2-positive-breast-cancer"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/hr-positive-her2-negative-breast-cancer"
+        },
+        "name": "ValueSet-hr-positive-her2-negative-breast-cancer"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/inflammatory-breast-cancer"
+        },
+        "name": "ValueSet-inflammatory-breast-cancer"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/locally-advanced-breast-cancer"
+        },
+        "name": "ValueSet-locally-advanced-breast-cancer"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/neoadjuvant-chemotherapy"
+        },
+        "name": "ValueSet-neoadjuvant-chemotherapy"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/pathologic-complete-response"
+        },
+        "name": "ValueSet-pathologic-complete-response"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/residual-disease"
+        },
+        "name": "ValueSet-residual-disease"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/trastuzumab"
+        },
+        "name": "ValueSet-trastuzumab"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/triple-negative-breast-cancer"
+        },
+        "name": "ValueSet-triple-negative-breast-cancer"
+      }
+    ]
+  }
+}
