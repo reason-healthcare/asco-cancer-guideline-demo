@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ASCO Artifact Explorer — L2 &amp; L3 Visualization</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#041b10;--card:#072928;--raised:#0b4240;--code:#051a19;
+    --border:#0e5b59;--bf:#0e5b5966;--text:#fff;--sub:#a3c9c8;--muted:#a9bebd;
+    --green:#1be98e;--cyan:#2de9e0;--amber:#f3ba58;--purple:#a78bfa;--red:#f87171;
+    --mono:'JetBrains Mono','Fira Code',monospace;--sans:'Inter',-apple-system,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .nav{position:sticky;top:0;z-index:9;background:var(--bg);border-bottom:1px solid var(--border);padding:0 24px}
+  .nav-inner{max-width:1300px;margin:0 auto;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .nav-title{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--green)}
+  .nav-back{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--bf);border-radius:999px;padding:4px 10px;transition:color .15s,border-color .15s}
+  .nav-back:hover{color:var(--green);border-color:var(--green)}
+  .page{max-width:1300px;margin:0 auto;padding:28px 24px 64px}
+  .hero{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+  .eyebrow{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--green);margin-bottom:8px}
+  h1{font-size:32px;font-weight:500;letter-spacing:-.2px;margin-bottom:8px}
+  h1 span{color:var(--green)}
+  .hero-sub{color:var(--sub);font-size:15px;max-width:820px}
+  /* Filter bar */
+  .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#05211f;border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-bottom:20px}
+  .filter-bar strong{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub)}
+  .fchip{font-family:var(--mono);font-size:11px;border-radius:999px;border:1px solid var(--border);padding:3px 10px;cursor:pointer;background:var(--card);color:var(--muted);transition:all .15s;user-select:none}
+  .fchip:hover,.fchip.active{border-color:var(--green);color:var(--green);background:#1be98e12}
+  .fchip.active.vs{border-color:#2de9e0;color:#2de9e0;background:#2de9e012}
+  .fchip.active.eca{border-color:var(--green);color:var(--green);background:#1be98e12}
+  .fchip.active.proto{border-color:var(--purple);color:var(--purple);background:#a78bfa12}
+  .fchip.active.act{border-color:var(--amber);color:var(--amber);background:#f3ba5812}
+  .fcount{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  /* Section headers */
+  .sec-header{display:flex;align-items:center;gap:12px;margin:28px 0 14px}
+  .sec-line{flex:1;height:1px;background:var(--border)}
+  .sec-label{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:3px 12px;border-radius:999px;border:1px solid;font-weight:500;white-space:nowrap}
+  .sec-label.vs{color:var(--cyan);border-color:#2de9e044;background:#041e1d}
+  .sec-label.eca{color:var(--green);border-color:#1be98e44;background:#041b10}
+  .sec-label.proto{color:var(--purple);border-color:#a78bfa44;background:#14102a}
+  .sec-label.act{color:var(--amber);border-color:#f3ba5844;background:#1e1204}
+  .sec-label.pathway{color:var(--sub);border-color:var(--border);background:var(--code)}
+  /* Cards grid */
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+  .art-card{border:1px solid var(--bf);border-radius:10px;overflow:hidden;background:var(--card);transition:border-color .15s}
+  .art-card:hover{border-color:var(--border)}
+  .art-card.hidden{display:none}
+  .art-head{background:var(--raised);padding:8px 12px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--bf)}
+  .art-type-tag{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.04em;border:1px solid;border-radius:999px;padding:1px 7px;white-space:nowrap;flex-shrink:0}
+  .art-type-tag.vs{color:var(--cyan);border-color:#2de9e055;background:#2de9e014}
+  .art-type-tag.act{color:var(--amber);border-color:#f3ba5855;background:#f3ba5814}
+  .art-type-tag.act-dnp{color:var(--red);border-color:#f8717155;background:#f8717114}
+  .art-type-tag.proto{color:var(--purple);border-color:#a78bfa55;background:#a78bfa14}
+  .art-title{font-size:13px;font-weight:500;color:var(--text);flex:1;line-height:1.4}
+  .art-id{font-family:var(--mono);font-size:10px;color:var(--muted);width:100%;margin-top:2px}
+  .art-body{padding:8px 12px}
+  .mini-table{width:100%;border-collapse:collapse;font-size:12px}
+  .mini-table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;border-bottom:1px solid var(--bf);text-align:left}
+  .mini-table td{padding:5px 8px;border-bottom:1px solid #061e1c;vertical-align:top}
+  .mini-table tr:last-child td{border-bottom:none}
+  /* Phase group for ECA */
+  .phase-group{border:1px solid;border-radius:12px;overflow:hidden;margin-bottom:12px}
+  .phase-group-head{padding:8px 14px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  .phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .phase-count{margin-left:auto;font-size:11px;opacity:.7}
+  .phase-group-body{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;padding:10px}
+  .eca.art-card{border-width:1px}
+  .cond-row,.act-row{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-bottom:5px;font-size:12px}
+  .cond-row:last-child,.act-row:last-child{margin-bottom:0}
+  .field-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);flex-shrink:0}
+  .cond-chip{font-family:var(--mono);font-size:10px;background:#0b2f2c;border:1px solid #1be98e44;color:#96f8cd;border-radius:4px;padding:1px 5px}
+  .act-chip{font-family:var(--mono);font-size:10px;background:#1c1204;border:1px solid #f3ba5844;color:#f3d08a;border-radius:4px;padding:1px 5px}
+  /* Protocol */
+  .proto-child{font-size:12px;color:var(--sub);padding:3px 0;border-bottom:1px solid #0b2422}
+  .proto-child:last-child{border-bottom:none}
+  /* ActivityDef */
+  .actdef.dnp .art-head{background:#1a0a0a}
+  .code-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  /* Pathway diagram */
+  .pathway-diagram{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;overflow-x:auto}
+  .pathway-root{background:var(--raised);border:1px solid var(--border);border-radius:8px;padding:10px 16px;text-align:center;font-weight:600;color:var(--sub);margin-bottom:12px}
+  .pathway-cols{display:flex;gap:10px;align-items:flex-start}
+  .pathway-col{flex:1;min-width:200px;display:flex;flex-direction:column;gap:8px}
+  .pathway-col-head{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:4px 0;border-bottom:1px dashed var(--bf);margin-bottom:4px}
+  .pathway-step{border:1px solid;border-radius:8px;padding:9px 11px}
+  .pathway-step.leaf .step-label{font-size:13px;font-weight:500;margin-bottom:6px}
+  .pathway-step.phase-step{font-size:12px;font-weight:600;opacity:.7;padding:6px 10px}
+  .step-rules{display:flex;flex-wrap:wrap;gap:4px}
+  .rule-chip{font-family:var(--mono);font-size:10px;border:1px solid;border-radius:4px;padding:1px 5px;background:#051a19}
+  /* Stat row */
+  .stat-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+  .stat-pill{background:var(--card);border:1px solid var(--border);border-radius:999px;padding:5px 14px;font-family:var(--mono);font-size:12px;color:var(--sub)}
+  .stat-pill span{color:var(--green);font-weight:700}
+  footer{background:#072928;border-top:1px solid var(--border);padding:18px 24px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  @media(max-width:640px){h1{font-size:24px}.pathway-cols{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-title">ASCO Artifact Explorer</span>
+    <a href="demo1-workflow.html" class="nav-back">← Back to Demo</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="hero">
+    <div class="eyebrow">L2 &amp; L3 Artifact Visualization</div>
+    <h1>asco-breast-cancer-guideline — <span>structured &amp; computable</span></h1>
+    <p class="hero-sub">Interactive browser for all generated artifacts: L2 structured YAML (concepts, decision-table, care-pathway) and L3 computable FHIR R4 resources (ValueSets, PlanDefinitions, ActivityDefinitions, Library).</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-pill"><span>11</span> ValueSets</div>
+    <div class="stat-pill"><span>20</span> ECA PlanDefinitions</div>
+    <div class="stat-pill"><span>9</span> Protocol PlanDefinitions</div>
+    <div class="stat-pill"><span>22</span> ActivityDefinitions</div>
+    <div class="stat-pill"><span>1</span> CQL Library</div>
+    <div class="stat-pill"><span>3</span> L2 structured artifacts</div>
+  </div>
+
+  <div class="filter-bar">
+    <strong>Show</strong>
+    <span class="fchip active vs"  data-filter="valueset">ValueSets</span>
+    <span class="fchip active eca" data-filter="plandef-rec">ECA Rules</span>
+    <span class="fchip active proto" data-filter="plandef-proto">Protocol PlanDefs</span>
+    <span class="fchip active act" data-filter="actdef">ActivityDefs</span>
+    <span class="fchip" id="toggleAll">Toggle all</span>
+    <span class="fcount" id="fcount"></span>
+  </div>
+
+  <!-- ── CARE PATHWAY DIAGRAM ── -->
+  <div class="sec-header"><div class="sec-line"></div><div class="sec-label pathway">L2 — Care Pathway</div><div class="sec-line"></div></div>
+  <div class="pathway-diagram">
+    <div class="pathway-root">Neoadjuvant Breast Cancer Treatment Pathway</div>
+    <div class="pathway-cols">
+      <div class="pathway-col">
+        <div class="pathway-col-head">Candidacy</div>
+        <div class="pathway-step phase-step" style="border-color:#1be98e44;color:#1be98e">Candidacy &amp; Treatment Intent</div>
+        <div class="pathway-step leaf" style="border-color:#1be98e44;background:#0d2a1e">
+          <div class="step-label" style="color:#1be98e">Establish Neoadjuvant Candidacy</div>
+          <div class="step-rules">
+            <span class="rule-chip" style="border-color:#1be98e44;color:#1be98e">r1-1</span>
+            <span class="rule-chip" style="border-color:#1be98e44;color:#1be98e">r1-3</span>
+            <span class="rule-chip" style="border-color:#1be98e44;color:#1be98e">r1-4</span>
+            <span class="rule-chip" style="border-color:#1be98e44;color:#1be98e">r1-5</span>
+          </div>
+        </div>
+        <div class="pathway-step leaf" style="border-color:#1be98e44;background:#0d2a1e">
+          <div class="step-label" style="color:#1be98e">Review Standard Tumor Features</div>
+          <div class="step-rules">
+            <span class="rule-chip" style="border-color:#1be98e44;color:#1be98e">r1-2</span>
+          </div>
+        </div>
+      </div>
+      <div class="pathway-col">
+        <div class="pathway-col-head">Subtype Planning</div>
+        <div class="pathway-step phase-step" style="border-color:#0e5b59;color:#a3c9c8">Subtype-Directed Regimen Planning</div>
+        <div class="pathway-step leaf" style="border-color:#f3ba5844;background:#1e1204">
+          <div class="step-label" style="color:#f3ba58">TNBC Therapy</div>
+          <div class="step-rules">
+            <span class="rule-chip" style="border-color:#f3ba5844;color:#f3ba58">r3-1</span>
+            <span class="rule-chip" style="border-color:#f3ba5844;color:#f3ba58">r3-2</span>
+            <span class="rule-chip" style="border-color:#f3ba5844;color:#f3ba58">r3-3</span>
+            <span class="rule-chip" style="border-color:#f3ba5844;color:#f3ba58">r3-4</span>
+          </div>
+        </div>
+        <div class="pathway-step leaf" style="border-color:#a78bfa44;background:#1a1030">
+          <div class="step-label" style="color:#a78bfa">HR+/HER2− Therapy</div>
+          <div class="step-rules">
+            <span class="rule-chip" style="border-color:#a78bfa44;color:#a78bfa">r4-1</span>
+            <span class="rule-chip" style="border-color:#a78bfa44;color:#a78bfa">r4-2</span>
+            <span class="rule-chip" style="border-color:#a78bfa44;color:#a78bfa">r4-3</span>
+          </div>
+        </div>
+        <div class="pathway-step leaf" style="border-color:#f8717144;background:#2a0f0f">
+          <div class="step-label" style="color:#f87171">HER2+ Therapy</div>
+          <div class="step-rules">
+            <span class="rule-chip" style="border-color:#f8717144;color:#f87171">r5-1</span>
+            <span class="rule-chip" style="border-color:#f8717144;color:#f87171">r5-2</span>
+          </div>
+        </div>
+      </div>
+      <div class="pathway-col">
+        <div class="pathway-col-head">Monitoring</div>
+        <div class="pathway-step phase-step" style="border-color:#2de9e044;color:#2de9e0">Monitoring &amp; Response Assessment</div>
+        <div class="pathway-step leaf" style="border-color:#2de9e044;background:#0a2525">
+          <div class="step-label" style="color:#2de9e0">Assess Treatment Response</div>
+          <div class="step-rules">
+            <span class="rule-chip" style="border-color:#2de9e044;color:#2de9e0">r2-1</span>
+            <span class="rule-chip" style="border-color:#2de9e044;color:#2de9e0">r2-2</span>
+            <span class="rule-chip" style="border-color:#2de9e044;color:#2de9e0">r2-3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VALUE SETS ── -->
+  <div class="sec-header"><div class="sec-line"></div><div class="sec-label vs">L3 — ValueSets (11)</div><div class="sec-line"></div></div>
+  <div class="cards-grid" id="grid-vs">
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Breast-conserving surgery</span>
+    <span class="art-id">breast-conserving-surgery</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">392021009</td><td style="font-size:13px;color:#a3c9c8">Lumpectomy of breast</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Carboplatin</span>
+    <span class="art-id">carboplatin</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #d48b2f66;border-radius:999px;padding:1px 6px;color:#ffd9a6;background:#051a19">RxNorm</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">40048</td><td style="font-size:13px;color:#a3c9c8">Carboplatin</td></tr><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">386905002</td><td style="font-size:13px;color:#a3c9c8">Carboplatin</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">HER2-positive breast cancer</span>
+    <span class="art-id">her2-positive-breast-cancer</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">427685000</td><td style="font-size:13px;color:#a3c9c8">HER2-positive carcinoma of breast</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">HR-positive HER2-negative breast cancer</span>
+    <span class="art-id">hr-positive-her2-negative-breast-cancer</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">Z17.411</td><td style="font-size:13px;color:#a3c9c8">Hormone receptor positive with human epidermal growth factor receptor 2 negative status</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Inflammatory breast cancer</span>
+    <span class="art-id">inflammatory-breast-cancer</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">254840009</td><td style="font-size:13px;color:#a3c9c8">Inflammatory carcinoma of breast</td></tr><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">C50.A</td><td style="font-size:13px;color:#a3c9c8">Malignant inflammatory neoplasm of breast</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Locally advanced breast cancer</span>
+    <span class="art-id">locally-advanced-breast-cancer</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">1082701000112100</td><td style="font-size:13px;color:#a3c9c8">Locally advanced breast cancer</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Neoadjuvant chemotherapy</span>
+    <span class="art-id">neoadjuvant-chemotherapy</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">1259200004</td><td style="font-size:13px;color:#a3c9c8">Neoadjuvant antineoplastic chemotherapy</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Pathologic complete response</span>
+    <span class="art-id">pathologic-complete-response</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">1285139003</td><td style="font-size:13px;color:#a3c9c8">Complete response of neoplasm to antineoplastic neoadjuvant therapy</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Residual disease</span>
+    <span class="art-id">residual-disease</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">456001000124109</td><td style="font-size:13px;color:#a3c9c8">Residual tumor present</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Trastuzumab</span>
+    <span class="art-id">trastuzumab</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #d48b2f66;border-radius:999px;padding:1px 6px;color:#ffd9a6;background:#051a19">RxNorm</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">1922508</td><td style="font-size:13px;color:#a3c9c8">trastuzumab Injection</td></tr><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">387003001</td><td style="font-size:13px;color:#a3c9c8">Trastuzumab</td></tr></tbody></table>
+  </div>
+</div>
+<div class="art-card" data-art="valueset">
+  <div class="art-head">
+    <span class="art-type-tag vs">ValueSet</span>
+    <span class="art-title">Triple-negative breast cancer</span>
+    <span class="art-id">triple-negative-breast-cancer</span>
+  </div>
+  <div class="art-body">
+    <table class="mini-table"><thead><tr><th>System</th><th>Code</th><th>Display</th></tr></thead>
+    <tbody><tr><td><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span></td><td style="font-family:monospace;font-size:12px;color:#2de9e0">706970001</td><td style="font-size:13px;color:#a3c9c8">Triple-negative breast cancer</td></tr></tbody></table>
+  </div>
+</div></div>
+
+  <!-- ── ECA RULES ── -->
+  <div class="sec-header"><div class="sec-line"></div><div class="sec-label eca">L3 — ECA PlanDefinitions (20)</div><div class="sec-line"></div></div>
+  <div id="grid-eca"><div class="phase-group" style="border-color:#1be98e44">
+  <div class="phase-group-head" style="background:#0d2a1e;color:#1be98e;border-bottom-color:#1be98e44">
+    <span class="phase-dot" style="background:#1be98e"></span>Candidacy Assessment
+    <span class="phase-count">5 rules</span>
+  </div>
+  <div class="phase-group-body"><div class="art-card eca" style="border-color:#1be98e44;background:#0d2a1e" data-art="plandef-rec" data-phase="candidacy">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#1be98e;border-color:#1be98e44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant chemotherapy for inflammatory or locally advanced disease</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">InflammatoryOrLocallyAdvancedUnresectableDisease</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">offer-neoadjuvant-chemotherapy-for-advanced-disease</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#1be98e44;background:#0d2a1e" data-art="plandef-rec" data-phase="candidacy">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#1be98e;border-color:#1be98e44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Assess neoadjuvant candidacy — Use histology grade stage and receptor status to guide decisions</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">HistologyGradeStageAndErPrHer2AreAvailable</span></div>
+    
+  </div>
+</div><div class="art-card eca" style="border-color:#1be98e44;background:#0d2a1e" data-art="plandef-rec" data-phase="candidacy">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#1be98e;border-color:#1be98e44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant systemic therapy when residual disease will guide adjuvant planning</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">ResidualDiseaseResultWouldChangeAdjuvantTherapy</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#1be98e44;background:#0d2a1e" data-art="plandef-rec" data-phase="candidacy">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#1be98e;border-color:#1be98e44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant systemic therapy to reduce surgery extent</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">DownstagingOrSurgeryExtentReductionIsATreatmentGoal</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">offer-neoadjuvant-for-downstaging</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#1be98e44;background:#0d2a1e" data-art="plandef-rec" data-phase="candidacy">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#1be98e;border-color:#1be98e44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant systemic therapy when surgery is delayed</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">SurgeryDelayIsPreferableOrUnavoidable</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">offer-neoadjuvant-for-surgery-delay</span></div>
+  </div>
+</div></div>
+</div><div class="phase-group" style="border-color:#2de9e044">
+  <div class="phase-group-head" style="background:#0a2525;color:#2de9e0;border-bottom-color:#2de9e044">
+    <span class="phase-dot" style="background:#2de9e0"></span>Response Monitoring
+    <span class="phase-count">3 rules</span>
+  </div>
+  <div class="phase-group-body"><div class="art-card eca" style="border-color:#2de9e044;background:#0a2525" data-art="plandef-rec" data-phase="monitoring">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#2de9e0;border-color:#2de9e044;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Monitor treatment response — Monitor response with regular clinical examination</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    
+    
+  </div>
+</div><div class="art-card eca" style="border-color:#2de9e044;background:#0a2525" data-art="plandef-rec" data-phase="monitoring">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#2de9e0;border-color:#2de9e044;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Do not use blood or tissue biomarkers for monitoring</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">avoid-blood-and-tissue-biomarker-monitoring</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#2de9e044;background:#0a2525" data-art="plandef-rec" data-phase="monitoring">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#2de9e0;border-color:#2de9e044;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Use pathologic complete response to guide decision-making</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">use-pcr-to-guide-decisions</span></div>
+  </div>
+</div></div>
+</div><div class="phase-group" style="border-color:#f3ba5844">
+  <div class="phase-group-head" style="background:#1e1204;color:#f3ba58;border-bottom-color:#f3ba5844">
+    <span class="phase-dot" style="background:#f3ba58"></span>TNBC Regimen Selection
+    <span class="phase-count">4 rules</span>
+  </div>
+  <div class="phase-group-body"><div class="art-card eca" style="border-color:#f3ba5844;background:#1e1204" data-art="plandef-rec" data-phase="tnbc">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#f3ba58;border-color:#f3ba5844;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Offer anthracycline and taxane regimen for eligible TNBC</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">TnbcIsNodePositiveOrAtLeastT1c</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">offer-anthracycline-taxane-for-tnbc</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#f3ba5844;background:#1e1204" data-art="plandef-rec" data-phase="tnbc">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#f3ba58;border-color:#f3ba5844;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">TnbcIsCt1aOrCt1bN0</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">avoid-neoadjuvant-therapy-for-small-tnbc</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#f3ba5844;background:#1e1204" data-art="plandef-rec" data-phase="tnbc">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#f3ba58;border-color:#f3ba5844;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Consider carboplatin to increase pathologic complete response</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">TnbcIsNodePositiveOrAtLeastT1c</span><span class="cond-chip">BenefitHarmBalanceFavorsCarboplatin</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">consider-carboplatin-for-tnbc</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#f3ba5844;background:#1e1204" data-art="plandef-rec" data-phase="tnbc">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#f3ba58;border-color:#f3ba5844;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Do not routinely add immune checkpoint inhibitors to neoadjuvant chemotherapy</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">avoid-routine-immune-checkpoint-inhibitors</span></div>
+  </div>
+</div></div>
+</div><div class="phase-group" style="border-color:#a78bfa44">
+  <div class="phase-group-head" style="background:#1a1030;color:#a78bfa;border-bottom-color:#a78bfa44">
+    <span class="phase-dot" style="background:#a78bfa"></span>HR+/HER2− Regimen Selection
+    <span class="phase-count">4 rules</span>
+  </div>
+  <div class="phase-group-body"><div class="art-card eca" style="border-color:#a78bfa44;background:#1a1030" data-art="plandef-rec" data-phase="hr-her2-negative">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#a78bfa;border-color:#a78bfa44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Use neoadjuvant chemotherapy when the chemotherapy decision does not require surgical data</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">HrPositiveHer2NegativeSubtype</span><span class="cond-chip">ChemotherapyDecisionCanBeMadeWithoutSurgicalPathologyOrGenomicTesting</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">use-neoadjuvant-chemotherapy-without-surgical-data</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#a78bfa44;background:#1a1030" data-art="plandef-rec" data-phase="hr-her2-negative">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#a78bfa;border-color:#a78bfa44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Use endocrine therapy for disease control when surgery is not planned</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">HrPositiveHer2NegativeSubtype</span><span class="cond-chip">NoSurgeryIsIntended</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">use-endocrine-therapy-for-disease-control</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#a78bfa44;background:#1a1030" data-art="plandef-rec" data-phase="hr-her2-negative">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#a78bfa;border-color:#a78bfa44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Offer aromatase inhibitor based neoadjuvant endocrine therapy for postmenopausal downstaging</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">HrPositiveHer2NegativeSubtype</span><span class="cond-chip">PatientIsPostmenopausal</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">offer-postmenopausal-neoadjuvant-endocrine-therapy</span></div>
+  </div>
+</div><div class="art-card eca" style="border-color:#a78bfa44;background:#1a1030" data-art="plandef-rec" data-phase="hr-her2-negative">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#a78bfa;border-color:#a78bfa44;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Do not routinely offer neoadjuvant endocrine therapy to premenopausal patients</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">HrPositiveHer2NegativeSubtype</span><span class="cond-chip">PatientIsPremenopausal</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">avoid-premenopausal-neoadjuvant-endocrine-therapy</span></div>
+  </div>
+</div></div>
+</div><div class="phase-group" style="border-color:#f8717144">
+  <div class="phase-group-head" style="background:#2a0f0f;color:#f87171;border-bottom-color:#f8717144">
+    <span class="phase-dot" style="background:#f87171"></span>HER2+ Regimen Selection
+    <span class="phase-count">2 rules</span>
+  </div>
+  <div class="phase-group-body"><div class="art-card eca" style="border-color:#f8717144;background:#2a0f0f" data-art="plandef-rec" data-phase="her2-positive">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#f87171;border-color:#f8717144;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Select HER2-positive neoadjuvant regimen — Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">Her2PositiveWithNodePositiveOrHighRiskNodeNegativeDisease</span></div>
+    
+  </div>
+</div><div class="art-card eca" style="border-color:#f8717144;background:#2a0f0f" data-art="plandef-rec" data-phase="her2-positive">
+  <div class="art-head" style="background:transparent">
+    <span class="art-type-tag" style="color:#f87171;border-color:#f8717144;background:transparent">ECA Rule</span>
+    <span class="art-title" style="font-size:13px">Do not routinely offer neoadjuvant chemotherapy or anti-HER2 therapy for T1a or T1b N0 HER2-positive disease</span>
+  </div>
+  <div class="art-body" style="padding:8px 12px">
+    <div class='cond-row'><span class='field-lbl'>When:</span><span class="cond-chip">Her2PositiveT1aOrT1bN0Disease</span></div>
+    <div class='act-row'><span class='field-lbl'>Then:</span><span class="act-chip">avoid-neoadjuvant-therapy-for-small-her2-positive</span></div>
+  </div>
+</div></div>
+</div></div>
+
+  <!-- ── PROTOCOL PLANDEFS ── -->
+  <div class="sec-header"><div class="sec-line"></div><div class="sec-label proto">L3 — Protocol PlanDefinitions (9)</div><div class="sec-line"></div></div>
+  <div class="cards-grid" id="grid-proto"><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Establish neoadjuvant candidacy</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-candidacy-assessment-step</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Establish neoadjuvant candidacy</div><div class="proto-child">→ Establish neoadjuvant candidacy</div><div class="proto-child">→ Establish neoadjuvant candidacy</div><div class="proto-child">→ Establish neoadjuvant candidacy</div><div class="proto-child">→ Establish neoadjuvant candidacy</div></div>
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Candidacy and treatment intent</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-candidacy-phase</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Establish neoadjuvant candidacy</div><div class="proto-child">→ Review standard tumor features</div></div>
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Plan HER2-positive therapy</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-her2-positive-planning-step</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Plan HER2-positive therapy</div><div class="proto-child">→ Plan HER2-positive therapy</div></div>
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Plan HR-positive HER2-negative therapy</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Plan HR-positive HER2-negative therapy</div><div class="proto-child">→ Plan HR-positive HER2-negative therapy</div><div class="proto-child">→ Plan HR-positive HER2-negative therapy</div><div class="proto-child">→ Plan HR-positive HER2-negative therapy</div></div>
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Monitoring and response assessment</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-monitoring-phase</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Assess treatment response</div></div>
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Subtype-directed regimen planning</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-subtype-planning-phase</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Plan TNBC therapy</div><div class="proto-child">→ Plan HR-positive HER2-negative therapy</div><div class="proto-child">→ Plan HER2-positive therapy</div></div>
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Plan TNBC therapy</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-tnbc-planning-step</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Plan TNBC therapy</div><div class="proto-child">→ Plan TNBC therapy</div><div class="proto-child">→ Plan TNBC therapy</div><div class="proto-child">→ Plan TNBC therapy</div></div>
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Review standard tumor features</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol-tumor-feature-review-step</span>
+  </div>
+  
+</div><div class="art-card proto" data-art="plandef-proto">
+  <div class="art-head">
+    <span class="art-type-tag proto">Protocol</span>
+    <span class="art-title">Care Pathway</span>
+    <span class="art-id">asco-breast-cancer-guideline-protocol</span>
+  </div>
+  <div class='art-body'><div class="proto-child">→ Candidacy and treatment intent</div><div class="proto-child">→ Subtype-directed regimen planning</div><div class="proto-child">→ Monitoring and response assessment</div></div>
+</div></div>
+
+  <!-- ── ACTIVITY DEFINITIONS ── -->
+  <div class="sec-header"><div class="sec-line"></div><div class="sec-label act">L3 — ActivityDefinitions (22)</div><div class="sec-line"></div></div>
+  <div class="cards-grid" id="grid-act"><div class="art-card actdef dnp" data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act-dnp">⊘ ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Do not use blood or tissue biomarkers for monitoring</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1259200004</span></div>
+</div><div class="art-card actdef dnp" data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act-dnp">⊘ ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Do not routinely offer neoadjuvant chemotherapy or anti-HER2 therapy for T1a or T1b N0 HER2-positive disease</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">Z17.411</span></div>
+</div><div class="art-card actdef dnp" data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act-dnp">⊘ ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Do not routinely offer neoadjuvant therapy for cT1a or cT1b N0 TNBC</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1259200004</span></div>
+</div><div class="art-card actdef dnp" data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act-dnp">⊘ ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Do not rely on other biomarkers or genomic profiles for neoadjuvant decision-making</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1259200004</span></div>
+</div><div class="art-card actdef dnp" data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act-dnp">⊘ ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Do not routinely offer neoadjuvant endocrine therapy to premenopausal patients</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">Z17.411</span></div>
+</div><div class="art-card actdef dnp" data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act-dnp">⊘ ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Do not routinely add immune checkpoint inhibitors to neoadjuvant chemotherapy</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1259200004</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Consider carboplatin to increase pathologic complete response</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1285139003</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Consider pertuzumab with trastuzumab</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #d48b2f66;border-radius:999px;padding:1px 6px;color:#ffd9a6;background:#051a19">RxNorm</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1298944</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Coordinate multidisciplinary neoadjuvant management</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1259200004</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Monitor response with regular clinical examination</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">5880005</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Offer anthracycline and taxane regimen for eligible TNBC</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1259200004</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Offer trastuzumab-based neoadjuvant therapy for high-risk HER2-positive disease</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">Z17.411</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant chemotherapy for inflammatory or locally advanced disease</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1082701000112100</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant systemic therapy to reduce surgery extent</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1259200004</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant systemic therapy when residual disease will guide adjuvant planning</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">Z17.411</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Offer neoadjuvant systemic therapy when surgery is delayed</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">400001000004103</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Offer aromatase inhibitor based neoadjuvant endocrine therapy for postmenopausal downstaging</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">Z17.411</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Use the most informative baseline imaging modality when imaging is needed</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">392021009</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Use endocrine therapy for disease control when surgery is not planned</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">392021009</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Use neoadjuvant chemotherapy when the chemotherapy decision does not require surgical data</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #7fb3ff66;border-radius:999px;padding:1px 6px;color:#a8d4ff;background:#051a19">ICD-10</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">Z17.411</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Use pathologic complete response to guide decision-making</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">1285139003</span></div>
+</div><div class="art-card actdef " data-art="actdef">
+  <div class="art-head">
+    <span class="art-type-tag act">ActivityDef</span>
+    <span class="art-title" style="font-size:13px">Use histology grade stage and receptor status to guide decisions</span>
+  </div>
+  <div class='art-body code-chips'><span style="display:inline-block;font-family:monospace;font-size:10px;border:1px solid #2de9e066;border-radius:999px;padding:1px 6px;color:#93ffe0;background:#051a19">SNOMED</span> <span style="font-family:monospace;font-size:11px;color:#2de9e0">70292004</span></div>
+</div></div>
+
+</div>
+
+<footer>asco-breast-cancer-guideline · reason.asco-breast-cancer-guideline v1.0.0 · 64 FHIR R4 resources</footer>
+
+<script>
+const chips = document.querySelectorAll('.fchip[data-filter]');
+const toggleBtn = document.getElementById('toggleAll');
+const fcount = document.getElementById('fcount');
+
+function activeFilters() {
+  return new Set([...chips].filter(c => c.classList.contains('active')).map(c => c.dataset.filter));
+}
+function updateCount() {
+  const total = document.querySelectorAll('.art-card').length;
+  const shown = document.querySelectorAll('.art-card:not(.hidden)').length;
+  fcount.textContent = shown === total ? `${total} artifacts` : `${shown} / ${total} shown`;
+}
+function applyFilters() {
+  const active = activeFilters();
+  document.querySelectorAll('.art-card').forEach(card => {
+    const art = card.dataset.art;
+    card.classList.toggle('hidden', active.size > 0 && !active.has(art));
+  });
+  // hide/show section grids
+  [['valueset','grid-vs'],['plandef-rec','grid-eca'],['plandef-proto','grid-proto'],['actdef','grid-act']].forEach(([f,id]) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = active.size > 0 && !active.has(f) ? 'none' : '';
+  });
+  updateCount();
+}
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('active');
+    applyFilters();
+  });
+});
+let allOn = true;
+toggleBtn.addEventListener('click', () => {
+  allOn = !allOn;
+  chips.forEach(c => c.classList.toggle('active', allOn));
+  applyFilters();
+});
+applyFilters();
+</script>
+</body>
+</html>
