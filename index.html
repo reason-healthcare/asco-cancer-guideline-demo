@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASCO Neoadjuvant Breast Cancer — Pipeline Demo | ReasonHub</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    :root {
+      --brand-dark:#072928;--bg-base:#041b10;--bg-card:#072928;--bg-raised:#0b4240;
+      --bg-code:#051a19;--bg-tool:#062121;--border:#0e5b59;--border-f:#0e5b5966;
+      --text:#fff;--sub:#a3c9c8;--muted:#a9bebd;
+      --green:#1be98e;--cyan:#2de9e0;--amber:#f3ba58;
+      --mono:'JetBrains Mono','Fira Code','SF Mono',monospace;
+      --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--r:14px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg-base);color:var(--text);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+    .nav{position:sticky;top:0;z-index:9;background:var(--bg-base);border-bottom:1px solid var(--border)}
+    .nav-inner,.page,.fi{max-width:1120px;margin:0 auto;padding:0 24px}
+    .nav-inner{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .nav-logo svg{height:22px;width:auto}
+    .nav-pill{font-family:var(--mono);font-size:12px;border-radius:999px;border:1px solid #1be98e44;background:#1be98e1a;color:var(--green);padding:4px 10px}
+    .nav-explorer{font-family:var(--mono);font-size:12px;border-radius:999px;border:1px solid #2de9e066;background:#2de9e014;color:var(--cyan);padding:4px 12px;text-decoration:none;transition:border-color .15s,color .15s}
+    .nav-explorer:hover{border-color:var(--cyan);color:#fff}
+    .page{padding:36px 24px 72px}
+    .hero{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:28px}
+    .eyebrow{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+    .eyebrow::before{content:'';display:inline-block;width:18px;height:1px;background:var(--green)}
+    h1{font-size:42px;font-weight:500;line-height:1.15;margin-bottom:12px;letter-spacing:-.3px}
+    h1 span{color:var(--green)}
+    .hero-sub{color:var(--sub);max-width:820px;font-size:17px;line-height:1.7}
+    .stats{margin-top:14px;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+    .stat{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:12px;text-align:center}
+    .stat .n{font-size:26px;font-weight:700;color:var(--green);line-height:1.1}
+    .stat .l{font-size:12px;color:var(--muted);margin-top:3px}
+    .pipeline{display:flex;align-items:stretch;gap:0;margin:16px 0;overflow-x:auto}
+    .pipe-step{flex:1;min-width:100px;background:var(--bg-card);border:1px solid var(--border);padding:12px 10px;text-align:center}
+    .pipe-step:first-child{border-radius:var(--r) 0 0 var(--r)}
+    .pipe-step:last-child{border-radius:0 var(--r) var(--r) 0}
+    .pipe-step+.pipe-step{border-left:none}
+    .pipe-step.active{background:#0b3a2f;border-color:var(--green)}
+    .pipe-label{font-size:14px;font-weight:600}
+    .pipe-sub{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+    .pipe-arrow{display:flex;align-items:center;padding:0 4px;color:var(--muted);font-size:18px;align-self:center}
+    .stage-header{display:flex;align-items:center;gap:14px;margin:36px 0 20px}
+    .stage-line{flex:1;height:1px;background:var(--border)}
+    .stage-label{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:999px;border:1px solid;white-space:nowrap;font-weight:500}
+    .stage-label.l1{color:#43efa3;border-color:#43efa344;background:#043018}
+    .stage-label.l2{color:var(--cyan);border-color:#2de9e044;background:#041e1d}
+    .stage-label.l3{color:var(--green);border-color:#1be98e44;background:#041b10}
+    .stage-label.pkg{color:var(--amber);border-color:#f3ba5844;background:#1e1204}
+    .turn{margin-bottom:22px}
+    .turn-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .avatar{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+    .avatar.user{background:#0e5b59;color:var(--green);border:1px solid #1be98e44}
+    .avatar.agent{background:#1be98e1a;color:var(--green);border:1px solid #1be98e44}
+    .turn-who{font-size:15px;font-weight:600;color:var(--sub)}
+    .turn-role{font-size:13px;color:var(--muted);margin-left:5px;font-weight:400}
+    .bubble{border-radius:var(--r);border:1px solid var(--border-f);padding:14px 16px;font-size:16px;line-height:1.7}
+    .bubble.user{background:var(--bg-card)}
+    .bubble.agent{background:#061815;border-color:var(--border)}
+    .bubble p{margin-bottom:8px}
+    .bubble p:last-child{margin-bottom:0}
+    .bubble strong{color:var(--text)}
+    .tool-call{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);margin:12px 0}
+    .tool-head{background:var(--bg-raised);padding:8px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+    .tool-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .tool-dot.cli{background:var(--cyan)}
+    .tool-dot.mcp{background:var(--green)}
+    .tool-dot.rust{background:var(--amber)}
+    .tool-name{font-family:var(--mono);font-size:13px;color:var(--text);flex:1}
+    .tool-tag{font-family:var(--mono);font-size:11px;border:1px solid;border-radius:999px;padding:1px 8px;letter-spacing:.04em;text-transform:uppercase}
+    .tool-tag.cli{color:var(--cyan);border-color:#2de9e055;background:#2de9e014}
+    .tool-tag.mcp{color:var(--green);border-color:#1be98e55;background:#1be98e12}
+    .tool-tag.rust{color:var(--amber);border-color:#f3ba5855;background:#f3ba5812}
+    .tool-cmd{background:var(--bg-code);padding:10px 14px;font-family:var(--mono);font-size:13px;color:#a2d8d6;white-space:pre-wrap;word-break:break-word}
+    .tool-out{background:var(--bg-tool);border-top:1px solid var(--border);padding:10px 14px;font-family:var(--mono);font-size:13px;color:var(--green);white-space:pre-wrap;word-break:break-word}
+    .tool-out .muted{color:var(--muted)}
+    code{font-family:var(--mono);font-size:13px;background:var(--bg-raised);border:1px solid var(--border);padding:1px 5px;border-radius:4px;color:var(--cyan)}
+    pre.cql-block{background:var(--bg-code);border:1px solid var(--border);border-radius:10px;padding:14px;font-family:var(--mono);font-size:13px;color:#a2d8d6;white-space:pre-wrap;word-break:break-word;margin:10px 0;max-height:360px;overflow:auto}
+    pre.cql-block .kw{color:#43efa3}
+    pre.cql-block .cm{color:var(--muted);font-style:italic}
+    table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+    thead th{background:var(--bg-raised);color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+    tbody td{padding:9px 12px;border-bottom:1px solid #0b2422;vertical-align:top;color:var(--sub)}
+    tbody tr:last-child td{border-bottom:none}
+    tbody tr:hover td{background:#061e1c}
+    td.code-val{font-family:var(--mono);font-size:12px}
+    .matched{color:var(--green);font-weight:600}
+    .no-match{color:var(--muted);font-style:italic}
+    .sys-tag{display:inline-block;font-family:var(--mono);font-size:10px;border:1px solid var(--border);border-radius:999px;padding:1px 6px;color:var(--muted);background:#051a19}
+    .sys-tag.snomed{color:#93ffe0;border-color:#2de9e066}
+    .sys-tag.icd{color:#a8d4ff;border-color:#7fb3ff66}
+    .sys-tag.rx{color:var(--amber);border-color:#d48b2f66}
+    .callout{border-left:2px solid;padding:12px 14px;border-radius:0 10px 10px 0;font-size:15px;margin:12px 0;line-height:1.65}
+    .callout.success{background:#0d2818;border-color:var(--green);color:#96f8cd}
+    .callout.info{background:var(--bg-card);border-color:var(--cyan);color:var(--sub)}
+    .callout.warn{background:#1c1204;border-color:var(--amber);color:#f3d08a}
+    details.file-exp{margin:10px 0;border:1px solid var(--border-f);border-radius:10px;overflow:hidden}
+    details.file-exp summary{list-style:none;cursor:pointer;background:#062624;border-bottom:1px solid transparent;padding:8px 12px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:flex;align-items:center;gap:8px}
+    details.file-exp summary::marker{display:none}
+    details.file-exp summary::before{content:'▶';font-size:9px;transition:transform .15s}
+    details.file-exp[open] summary::before{transform:rotate(90deg)}
+    details.file-exp[open] summary{border-bottom-color:var(--border-f);color:#d6f9ee}
+    details.file-exp .file-body{padding:10px 12px;background:#051c1a}
+    details.file-exp .file-body pre{font-family:var(--mono);font-size:12px;color:#7abab8;white-space:pre-wrap;word-break:break-word;line-height:1.5;max-height:300px;overflow:auto}
+    .file-link-list{list-style:none;padding:0}
+    .file-link-list li{padding:3px 0;font-family:var(--mono);font-size:12px;color:var(--sub)}
+    .file-link-list li::before{content:'› ';color:var(--muted)}
+    .stats-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin:16px 0}
+    .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:16px 12px;text-align:center}
+    .stat-num{font-size:38px;font-weight:700;color:var(--green);line-height:1;letter-spacing:-1px}
+    .stat-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+    .tool-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0}
+    .tool-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+    .tool-card-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .tdot{width:9px;height:9px;border-radius:50%}
+    .tdot.cli{background:var(--cyan)}
+    .tdot.mcp{background:var(--green)}
+    .tdot.rust{background:var(--amber)}
+    .tool-card-name{font-family:var(--mono);font-size:15px;font-weight:600}
+    .tool-card ul{list-style:none;padding:0}
+    .tool-card li{font-size:14px;color:var(--sub);padding:4px 0;border-bottom:1px solid #0b2422;display:flex;align-items:baseline;gap:6px}
+    .tool-card li:last-child{border-bottom:none}
+    .tool-card li::before{content:'›';color:var(--muted);flex-shrink:0}
+    footer{background:var(--brand-dark);border-top:1px solid var(--border);padding:22px 0}
+    .fi{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .fm{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+    @media(max-width:840px){h1{font-size:32px}.tool-grid{grid-template-columns:1fr}.pipeline{flex-wrap:wrap}.pipe-arrow{display:none}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 685.868 96.8157" role="img" aria-label="ReasonHub">
+        <path d="M25.1649,52.3244H0v-13.4781h32.2815c2.0431,0,3.3308-2.1786,2.3723-3.9892L19.3651,6.7294,30.9938,0l15.0757,27.7598c1.0263,1.8784,3.6987,1.8784,4.7057,0L65.8315,0l11.6287,6.7294-11.59,21.9987c-8.385,14.5915-23.8868,23.5866-40.6763,23.5866h-.029v.0097Z" fill="#1be98e"/>
+        <path d="M71.6604,44.501h25.1649v13.4781h-32.2816c-2.043,0-3.3308,2.1785-2.3722,3.9892l15.2887,28.118-11.6287,6.7294-15.0757-27.7598c-1.0263-1.8784-3.6987-1.8784-4.7057,0l-15.0563,27.7598-11.6287-6.7294,11.5899-21.9987c8.3851-14.5915,23.8868-23.5866,40.6763-23.5866h.0291Z" fill="#1be98e"/>
+        <path d="M147.372,19.8677h24.364v10.2679h-30.991c-1.264,0-2.284,1.0258-2.284,2.2861v45.6534h-10.865v-38.5802c0-11.8701,7.775-19.6272,19.786-19.6272h-.01Z" fill="#fff"/>
+        <path d="M176.886,59.0138v-20.0863c0-11.8701,7.774-19.6272,19.786-19.6272h19.105c12.012,0,19.787,7.7571,19.787,19.6272v13.5895h-47.804v13.5798c0,1.2603,1.03,2.2861,2.294,2.2861h20.592c2.284,0,3.314.2247,5.374-.9183l19.446-10.9616v11.411l-13.722,7.7571c-4.684,2.628-8.464,2.9699-12.808,2.9699h-12.235c-12.012,0-19.786-7.7571-19.786-19.6272h-.029ZM224.689,42.806v-10.9615c0-1.2603-1.03-2.2861-2.284-2.2861h-32.361c-1.263,0-2.293,1.0258-2.293,2.2861v10.9615h36.938Z" fill="#fff"/>
+        <path d="M286.798,30.1356h-39.349v-10.2679h32.721c11.895,0,19.786,7.7571,19.786,19.6272v38.5802h-10.865v-8.7829l-10.8186,6.0369c-4.685,2.628-8.465,3.3119-12.809,3.3119h-4.3994c-10.408,0-18.639-7.0732-18.639-18.2595v-.3411c0-10.6196,7.891-18.0347,19.786-18.0347h26.88v-9.584c0-1.2603-1.03-2.2861-2.293-2.2861ZM255.564,68.9405h10.748c2.293,0,3.314.2247,5.384-.9183l17.385-9.7013v-6.2721h-33.508c-1.263,0-2.283,1.0259-2.283,2.2861v12.3293c0,1.2603,1.03,2.2861,2.283,2.2861h-.009v-.0098Z" fill="#fff"/>
+        <path d="M409.908,19.2915c12.011,0,19.786,7.7571,19.786,19.6272v20.0864c0,11.87-7.775,19.6271-19.786,19.6271h-21.05c-12.011,0-19.786-7.7571-19.786-19.6271v-20.0864c0-11.8701,7.775-19.6272,19.786-19.6272h21.05ZM382.221,68.3741h34.314c1.264,0,2.294-1.0258,2.294-2.2861V31.8553c0-1.2603-1.03-2.2861-2.294-2.2861h-34.314c-1.264,0-2.294,1.0258-2.294,2.2861v34.2327c0,1.2603,1.03,2.2861,2.294,2.2861Z" fill="#fff"/>
+        <path d="M448.423,28.2004l10.408-5.9301c4.685-2.6281,8.465-2.97,12.809-2.97h6.181c10.864,0,18.639,7.7571,18.639,19.6272v39.1469h-10.865V31.8543c0-1.2603-1.03-2.2861-2.293-2.2861h-13.382c-2.284,0-3.314-.2247-5.374.9183l-16.132,9.0174v38.5802h-10.865V19.8669h10.865v8.3335h.009Z" fill="#fff"/>
+        <path d="M362.561,60.5083c0-6.5749-4.704-13.9705-11.584-15.9342-1.535-.4397-3.178-.6741-4.908-.6741h-26.426c-1.545,0-2.672-1.0356-2.672-2.6671v-8.4707c0-1.6315,1.117-2.6671,2.672-2.6671h40.031v-10.2288h-36.288c-1.73,0-3.372.2344-4.908.6838-6.89,1.9637-11.583,8.06-11.583,15.6901v2.2474c0,6.575,4.703,12.9936,11.583,14.9573,1.536.4396,3.178.6741,4.908.6741h26.426c1.545,0,2.673,1.0356,2.673,2.6671v8.2456c0,1.6315-1.118,2.6671-2.673,2.6671h-41.965v10.3656h38.222c1.73,0,3.373-.3811,4.908-.8305,6.88-1.9637,11.584-8.0599,11.584-15.69v-1.0356Z" fill="#fff"/>
+        <path d="M535.542,25.641c-3.196,0-4.183-.1073-7.611,1.7857l-16.993,9.6703v40.7434h-6.623V.0005h6.623v30.2073l13.672-7.7869c4.425-2.5566,7.727-3.1129,11.919-3.1129h7.059c9.159,0,16.005,7.1137,16.005,16.5692v41.973h-6.623V31.0958c0-3.1129-2.314-5.4548-5.412-5.4548h-12.016Z" fill="#fff"/>
+        <path d="M567.448,62.047V19.8669h6.623v47.0688c0,3.1129,2.314,5.4548,5.403,5.4548h31.333c3.088,0,5.412-2.3322,5.412-5.4548V19.8669h6.623v42.1801c0,9.5628-6.952,16.5691-16.547,16.5691h-22.29c-9.711,0-16.547-7.0063-16.547-16.5691h-.01Z" fill="#fff"/>
+        <path d="M630.697.0005h6.623v29.9764l13.236-7.5625c4.532-2.5566,7.727-3.1129,11.9189-3.1129h7.398c9.043,0,15.995,7.1137,15.995,16.5692v25.6358c0,9.4555-6.942,16.5692-16.547,16.5692h-38.614V.0005h-.0099ZM673.833,71.7427c3.089,0,5.403-2.3322,5.403-5.4548V31.0893c0-3.1128-2.305-5.4548-5.403-5.4548h-12.258c-3.195,0-4.183-.1073-7.611,1.7857l-16.654,9.5629v34.7596h36.523Z" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="nav-pill">asco-breast-cancer-guideline</div>
+    <a href="artifact-explorer.html" class="nav-explorer">Browse Artifacts →</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="eyebrow">Pipeline Demo — 2026-06-15</div>
+    <h1>From raw guideline PDF to<br><span>computable FHIR</span>, end to end.</h1>
+    <p class="hero-sub">
+      A walkthrough of the Reason Health informatics skills framework applied to the
+      <strong>ASCO 2021 Neoadjuvant Chemotherapy, Endocrine Therapy, and Targeted Therapy for Breast Cancer</strong>
+      guideline. Starting from a single source PDF and ending with 64 FHIR R4 resources and CQL,
+      with every step reviewer-gated and fully traceable. All generated artifacts are embedded below for inspection.
+    </p>
+    <div class="stats">
+      <div class="stat"><div class="n">1</div><div class="l">Source PDF</div></div>
+      <div class="stat"><div class="n">13</div><div class="l">Concepts enriched</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">L2 artifacts</div></div>
+      <div class="stat"><div class="n">64</div><div class="l">FHIR resources</div></div>
+      <div class="stat"><div class="n">1</div><div class="l">CQL library</div></div>
+      <div class="stat"><div class="n">L3</div><div class="l">Final stage</div></div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-step"><div class="pipe-label">Raw PDF</div><div class="pipe-sub">source</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="pipe-label">L1 — Ingest</div><div class="pipe-sub">rh-inf-ingest</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="pipe-label">L2 — Extract</div><div class="pipe-sub">rh-inf-extract</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step active"><div class="pipe-label">L3 — Formalize</div><div class="pipe-sub">rh-inf-formalize</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="pipe-label">Package</div><div class="pipe-sub">reason.* bundle</div></div>
+  </div>
+
+  <!-- ═══ STAGE 1 — INGEST ═══ -->
+  <div class="stage-header">
+    <div class="stage-line"></div>
+    <div class="stage-label l1">Stage 1 — L1 Ingest</div>
+    <div class="stage-line"></div>
+  </div>
+
+  <div class="turn">
+    <div class="turn-head"><div class="avatar user">U</div><span class="turn-who">User<span class="turn-role">initiating full pipeline</span></span></div>
+    <div class="bubble user">
+      <p>Run the full cycle from ingest to formalize. When you reach concept enrichment and expansion, complete these steps and write approvals to the best of your judgement given the normalized content. When you reach artifact approval and selection phase, approve all artifacts and ensure there is a decision table and care pathway. Make sure CQL is fully authored and validated.</p>
+    </div>
+  </div>
+
+  <div class="turn">
+    <div class="turn-head"><div class="avatar agent">AI</div><span class="turn-who">Agent<span class="turn-role">rh-inf-ingest skill</span></span></div>
+    <div class="bubble agent">
+      <p>One source PDF in scope. Running ingest — registering, normalizing to Markdown, classifying, and annotating with 20 clinical concepts.</p>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills ingest implement + normalize</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills ingest implement sources/korde-et-al-2021-...asco-guideline.pdf --topic asco-breast-cancer-guideline
+rh-skills ingest normalize ... --name korde-et-al-2021-..._pdf</div>
+        <div class="tool-out">&#x2713; Registered: korde-et-al-2021-..._pdf
+&#x2713; Normalized: korde-et-al-2021-..._pdf.md  (text_extracted: true)</div>
+      </div>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills ingest classify</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills ingest classify korde-et-al-2021-..._pdf   --topic asco-breast-cancer-guideline   --type guideline --evidence-level reference-standard   --tags breast-cancer,neoadjuvant-therapy,medical-oncology</div>
+        <div class="tool-out">&#x2713; Classified: korde-et-al-2021-..._pdf  (type=guideline, evidence_level=reference-standard)</div>
+      </div>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills ingest annotate — 20 concepts</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills ingest annotate korde-et-al-2021-..._pdf --topic asco-breast-cancer-guideline   --concept 'Nonmetastatic breast cancer:condition'          --role inclusion-criterion   --concept 'Inflammatory breast cancer:condition'           --role inclusion-criterion   --concept 'Triple-negative breast cancer:condition'        --role inclusion-criterion   --concept 'HER2-positive breast cancer:condition'          --role inclusion-criterion   --concept 'HR-positive HER2-negative breast cancer:condition' --role inclusion-criterion   --concept 'Neoadjuvant chemotherapy:procedure'             --role intervention   --concept 'Trastuzumab:medication'                         --role intervention   --concept 'Carboplatin:medication'                         --role intervention   --concept 'Pathologic complete response:finding'           --role outcome   --concept 'Residual disease:finding'                       --role outcome   --concept 'Breast-conserving surgery:procedure'            --role outcome   ... (20 concepts total)</div>
+        <div class="tool-out">&#x2713; Annotated: korde-et-al-2021-..._pdf  (20 concepts written; 20 now in normalized front matter)</div>
+      </div>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills ingest verify</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills ingest verify asco-breast-cancer-guideline</div>
+        <div class="tool-out">Ingest readiness for &apos;asco-breast-cancer-guideline&apos;
+korde-et-al-2021-..._pdf: file=OK checksum=OK normalized=YES classified=YES annotated=YES
+normalized front matter concepts: VALID</div>
+      </div>
+
+      <p>Ingest verified clean. Moving to extract planning.</p>
+
+      <details class="file-exp"><summary>tracking.yaml — source registry (click to expand)</summary>
+      <div class="file-body"><pre>sources:
+  korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf:
+    file: sources/korde-et-al-2021-...asco-guideline.pdf
+    type: guideline
+    evidence_level: reference-standard
+    tags: [breast-cancer, neoadjuvant-therapy, medical-oncology]
+    normalized: sources/normalized/korde-et-al-2021-..._pdf.md
+    checksum: sha256:...
+    topic: asco-breast-cancer-guideline</pre></div></details>
+    </div>
+  </div>
+
+  <!-- ═══ STAGE 2 — EXTRACT ═══ -->
+  <div class="stage-header">
+    <div class="stage-line"></div>
+    <div class="stage-label l2">Stage 2 — L2 Extract (Structured Artifacts)</div>
+    <div class="stage-line"></div>
+  </div>
+
+  <div class="turn">
+    <div class="turn-head"><div class="avatar agent">AI</div><span class="turn-who">Agent<span class="turn-role">rh-inf-extract — extract plan</span></span></div>
+    <div class="bubble agent">
+      <p>Generating extraction plan. This creates the concept review packet and proposed L2 artifact set.</p>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills promote plan</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills promote plan asco-breast-cancer-guideline</div>
+        <div class="tool-out">&#x2713; Created: process/plans/concepts/             (20 concept CSV files)
+&#x2713; Created: process/plans/concepts-review-meta.yaml
+&#x2713; Created: process/plans/extract-plan.yaml
+&#x2713; Created: process/plans/extract-plan-readout.md
+
+Proposed artifacts: decision-table, concepts  (care-pathway not yet included)
+Concept review: pending-review  (20 concepts from 1 source)</div>
+      </div>
+
+      <p>Planner proposed 2 artifacts. The guideline has a clearly staged neoadjuvant workflow — I'll add <strong>care-pathway</strong> at approval. Now enriching all 13 codeable concepts via <strong>ReasonHub MCP</strong> across SNOMED CT, ICD-10-CM, and RxNorm.</p>
+    </div>
+  </div>
+
+  <div class="turn">
+    <div class="turn-head"><div class="avatar agent">AI</div><span class="turn-who">Agent<span class="turn-role">rh-inf-extract — concept enrichment via ReasonHub MCP</span></span></div>
+    <div class="bubble agent">
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot mcp"></div><span class="tool-name">rh-skills promote concept enrich ×13 — ReasonHub MCP concept search</span><span class="tool-tag mcp">ReasonHub MCP</span></div>
+        <div class="tool-cmd">rh-skills promote concept enrich asco-breast-cancer-guideline &apos;Triple-negative breast cancer&apos;   --candidate &apos;http://snomed.info/sct|706970001|Triple-negative breast cancer|0.0&apos;
+
+rh-skills promote concept enrich asco-breast-cancer-guideline &apos;Trastuzumab&apos;   --candidate &apos;http://www.nlm.nih.gov/research/umls/rxnorm|1922508|trastuzumab Injection|0.083&apos;   --candidate &apos;http://snomed.info/sct|387003001|Trastuzumab|0.0&apos;
+
+rh-skills promote concept enrich asco-breast-cancer-guideline &apos;Carboplatin&apos;   --candidate &apos;http://www.nlm.nih.gov/research/umls/rxnorm|40048|Carboplatin|0.0&apos;   --candidate &apos;http://snomed.info/sct|386905002|Carboplatin|0.0&apos;
+
+... (13 concepts enriched via SNOMED, ICD-10-CM, RxNorm lookups)</div>
+        <div class="tool-out">&#x2713; Enriched: Triple-negative breast cancer  (1 candidate)
+&#x2713; Enriched: HER2-positive breast cancer    (1 candidate)
+&#x2713; Enriched: Trastuzumab                    (2 candidates)
+&#x2713; Enriched: Carboplatin                    (2 candidates)
+&#x2713; Enriched: Pathologic complete response   (1 candidate)
+&#x2713; Enriched: Residual disease               (1 candidate)
+<span class="muted">... 7 more concepts enriched or flagged no-match</span></div>
+      </div>
+
+      <p>Codes returned from ReasonHub MCP — <span class="matched">11 matched</span>, 2 with no suitable code:</p>
+
+      <table>
+        <thead><tr><th>Concept</th><th>Role</th><th>System</th><th>Code</th><th>Display</th><th>Status</th></tr></thead>
+        <tbody><tr><td><strong>Inflammatory breast cancer</strong></td><td>condition</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>254840009</code></td><td>Inflammatory carcinoma of breast</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Locally advanced breast cancer</strong></td><td>condition</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>1082701000112100</code></td><td>Locally advanced breast cancer</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Triple-negative breast cancer</strong></td><td>condition</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>706970001</code></td><td>Triple-negative breast cancer</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>HER2-positive breast cancer</strong></td><td>condition</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>427685000</code></td><td>HER2-positive carcinoma of breast</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>HR-positive HER2-negative breast cancer</strong></td><td>condition</td><td><span class="sys-tag icd">ICD-10-CM</span></td><td class="code-val"><code>Z17.411</code></td><td>HR+ HER2− receptor status</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Neoadjuvant chemotherapy</strong></td><td>procedure</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>1259200004</code></td><td>Neoadjuvant antineoplastic chemotherapy</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Trastuzumab</strong></td><td>medication</td><td><span class="sys-tag rx">RxNorm</span></td><td class="code-val"><code>1922508</code></td><td>trastuzumab Injection</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Carboplatin</strong></td><td>medication</td><td><span class="sys-tag rx">RxNorm</span></td><td class="code-val"><code>40048</code></td><td>Carboplatin</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Pathologic complete response</strong></td><td>finding</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>1285139003</code></td><td>Complete response to neoadjuvant therapy</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Residual disease</strong></td><td>finding</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>456001000124109</code></td><td>Residual tumor present</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Breast-conserving surgery</strong></td><td>procedure</td><td><span class="sys-tag snomed">SNOMED</span></td><td class="code-val"><code>392021009</code></td><td>Lumpectomy of breast</td><td><span class="matched">✓ Matched</span></td></tr>
+<tr><td><strong>Nonmetastatic breast cancer</strong></td><td>condition</td><td>—</td><td class="code-val">—</td><td>No cross-system exact match; subtype concepts used</td><td><span class="no-match">— No match</span></td></tr>
+<tr><td><strong>Neoadjuvant endocrine therapy</strong></td><td>procedure</td><td>—</td><td class="code-val">—</td><td>No active exact code for combined concept</td><td><span class="no-match">— No match</span></td></tr></tbody>
+      </table>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills promote concept review — approve all + finalize</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills promote concept review asco-breast-cancer-guideline &apos;Triple-negative breast cancer&apos; --approve-all
+rh-skills promote concept review asco-breast-cancer-guideline &apos;Trastuzumab&apos; --approve-all
+rh-skills promote concept review asco-breast-cancer-guideline &apos;Carboplatin&apos; --approve-all
+... (11 concepts approved)
+rh-skills promote concept review asco-breast-cancer-guideline --finalize --reviewer &apos;Codex&apos; --force</div>
+        <div class="tool-out">&#x2713; concept_review.status: approved
+&#x2713; concepts approved: 11 with codes, 2 excluded (no match)
+Finalized by: Codex</div>
+      </div>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills promote approve + derive — 3 artifacts</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills promote approve asco-breast-cancer-guideline --artifact decision-table --decision approved
+rh-skills promote approve asco-breast-cancer-guideline --artifact care-pathway  --decision approved
+rh-skills promote approve asco-breast-cancer-guideline --artifact concepts      --decision approved --finalize --reviewer &apos;Codex&apos;
+
+rh-skills promote body-init asco-breast-cancer-guideline decision-table
+rh-skills promote body-init asco-breast-cancer-guideline care-pathway
+rh-skills promote derive asco-breast-cancer-guideline decision-table --body-file process/tmp/decision-table.yaml
+rh-skills promote derive asco-breast-cancer-guideline care-pathway   --body-file process/tmp/care-pathway.yaml
+rh-skills promote concept write asco-breast-cancer-guideline</div>
+        <div class="tool-out">&#x2713; decision-table: approved  &#x2713; care-pathway: approved  &#x2713; concepts: approved
+&#x2713; derived: structured/decision-table/decision-table.yaml  (5 events, 16 conditions, 22 actions, 18 rules)
+&#x2713; derived: structured/care-pathway/care-pathway.yaml      (5 phases, 12 steps, 8 transitions)
+&#x2713; derived: structured/concepts/concepts.yaml              (11 value sets)</div>
+      </div>
+
+      <p>Three L2 structured artifacts written. Inspect them:</p>
+
+      <details class="file-exp"><summary>structured/concepts/concepts.yaml — reviewed terminology, 11 value sets (click to expand)</summary><div class="file-body"><pre>id: concepts
+name: concepts
+title: Asco Breast Cancer Guideline Concept Catalog
+version: 1.0.0
+status: draft
+domain: terminology
+description: Deduplicated concept catalog derived from topic concept annotations
+  and reviewed for standardized coding.
+derived_from:
+- korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+artifact_type: terminology
+review_status: approved
+sections:
+  summary: Terminology review output derived from topic concept annotations. 
+    Each concept was deduplicated across sources before human review.
+  value_sets:
+  - id: breast-conserving-surgery
+    name: Breast-conserving surgery
+    concept_refs:
+    - breast-conserving-surgery
+  - id: carboplatin
+    name: Carboplatin
+    concept_refs:
+    - carboplatin
+  - id: her2-positive-breast-cancer
+    name: HER2-positive breast cancer
+    concept_refs:
+    - her2-positive-breast-cancer
+  - id: hr-positive-her2-negative-breast-cancer
+    name: HR-positive HER2-negative breast cancer
+    concept_refs:
+    - hr-positive-her2-negative-breast-cancer
+  - id: inflammatory-breast-cancer
+    name: Inflammatory breast cancer
+    concept_refs:
+    - inflammatory-breast-cancer
+  - id: locally-advanced-breast-cancer
+    name: Locally advanced breast cancer
+    concept_refs:
+    - locally-advanced-breast-cancer
+  - id: neoadjuvant-chemotherapy
+    name: Neoadjuvant chemotherapy
+    concept_refs:
+    - neoadjuvant-chemotherapy
+  - id: pathologic-complete-response
+    name: Pathologic complete response
+    concept_refs:
+    - pathologic-complete-response
+  - id: residual-disease
+    name: Residual disease
+    concept_refs:
+    - residual-disease
+  - id: trastuzumab
+    name: Trastuzumab
+    concept_refs:
+    - trastuzumab
+  - id: triple-negative-breast-c</pre></div></details>
+      <details class="file-exp"><summary>structured/decision-table/decision-table.yaml — 5 events, 16 conditions, 22 actions, 18 rules (click to expand)</summary><div class="file-body"><pre>id: decision-table
+name: decision-table
+title: Decision Table
+version: 1.0.0
+status: draft
+domain: decision table
+description: What recommendation-scoped triggers, local conditions, and actions 
+  form the decision logic?
+derived_from:
+- korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+artifact_type: decision-table
+clinical_question: What recommendation-scoped triggers, local conditions, and 
+  actions form the decision logic?
+sections:
+  summary: ASCO guidance organizes neoadjuvant therapy decisions around 
+    candidate selection, subtype-directed regimen planning, and treatment 
+    response monitoring for invasive nonmetastatic breast cancer.
+  pathway_phases:
+  - id: candidacy
+    label: Candidacy and treatment intent
+    description: Determine whether neoadjuvant systemic therapy is appropriate 
+      and what clinical goal it serves.
+  - id: monitoring
+    label: Response monitoring
+    description: Monitor patients receiving neoadjuvant therapy and interpret 
+      treatment response.
+  - id: tnbc
+    label: Triple-negative breast cancer regimen selection
+    description: Choose neoadjuvant treatment strategy for triple-negative 
+      breast cancer.
+  - id: hr-her2-negative
+    label: HR-positive HER2-negative regimen selection
+    description: Choose chemotherapy or endocrine downstaging strategy for 
+      HR-positive HER2-negative disease.
+  - id: her2-positive
+    label: HER2-positive regimen selection
+    description: Choose anti-HER2-based neoadjuvant treatment strategy.
+  events:
+  - id: assess-neoadjuvant-candidacy
+    label: Assess neoadjuvant candidacy
+    description: Initial multidisciplinary treatment planning for invasive 
+      nonmetastatic breast cancer.
+    phase: candidacy
+    trigger:
+      type: named-event
+      name: initial-breast-cancer-treatment-planning
+      source: multidisciplinary-oncology-evaluation
+  - id: monitor-neoadjuvant-response
+    label: Monitor tre</pre></div></details>
+      <details class="file-exp"><summary>structured/care-pathway/care-pathway.yaml — 5 phases, 12 steps, 8 transitions (click to expand)</summary><div class="file-body"><pre>id: care-pathway
+name: care-pathway
+title: Care Pathway
+version: 1.0.0
+status: draft
+domain: care pathway
+description: What clinical phases, sequencing, and transitions organize 
+  neoadjuvant therapy decisions for nonmetastatic breast cancer?
+derived_from:
+- korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf
+artifact_type: care-pathway
+clinical_question: What clinical phases, sequencing, and transitions organize 
+  neoadjuvant therapy decisions for nonmetastatic breast cancer?
+sections:
+  steps:
+  - id: neoadjuvant-breast-cancer-pathway
+    label: Neoadjuvant breast cancer treatment pathway
+    description: Overall pathway for evaluating, selecting, and monitoring 
+      neoadjuvant systemic therapy in invasive nonmetastatic breast cancer.
+    actor: multidisciplinary oncology team
+  - id: candidacy-phase
+    label: Candidacy and treatment intent
+    description: Determine whether neoadjuvant therapy is indicated and what 
+      clinical goal it serves.
+    actor: multidisciplinary oncology team
+    parent_id: neoadjuvant-breast-cancer-pathway
+  - id: candidacy-assessment-step
+    label: Establish neoadjuvant candidacy
+    description: Review inflammatory or locally advanced presentation, 
+      residual-disease driven adjuvant planning, downstaging goals, and surgery 
+      delay scenarios.
+    actor: multidisciplinary oncology team
+    parent_id: candidacy-phase
+    rule_ids:
+    - rule-multidisciplinary-management
+    - rule-r1-1-advanced-disease
+    - rule-r1-3-residual-disease-guided
+    - rule-r1-4-do</pre></div></details>
+    </div>
+  </div>
+
+  <!-- ═══ STAGE 3 — FORMALIZE ═══ -->
+  <div class="stage-header">
+    <div class="stage-line"></div>
+    <div class="stage-label l3">Stage 3 — L3 Formalize (FHIR R4 + CQL)</div>
+    <div class="stage-line"></div>
+  </div>
+
+  <div class="turn">
+    <div class="turn-head"><div class="avatar agent">AI</div><span class="turn-who">Agent<span class="turn-role">rh-inf-formalize — plan, approve, generate resources</span></span></div>
+    <div class="bubble agent">
+      <p>Generating formalize plan, approving strategies, and formalizing all three artifacts into FHIR R4 resources.</p>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills formalize — concepts → 11 ValueSets</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills formalize asco-breast-cancer-guideline concepts</div>
+        <div class="tool-out">Formalizing &apos;concepts&apos; using ValueSet strategy...
+  &#x2713; ValueSet-triple-negative-breast-cancer.json
+  &#x2713; ValueSet-her2-positive-breast-cancer.json
+  &#x2713; ValueSet-hr-positive-her2-negative-breast-cancer.json
+  &#x2713; ValueSet-neoadjuvant-chemotherapy.json
+  &#x2713; ValueSet-trastuzumab.json
+  &#x2713; ValueSet-carboplatin.json
+  ... (11 total)</div>
+      </div>
+
+      <details class="file-exp"><summary>computable/ValueSet-triple-negative-breast-cancer.json — actual file (click to expand)</summary><div class="file-body"><pre>{
+  &quot;resourceType&quot;: &quot;ValueSet&quot;,
+  &quot;id&quot;: &quot;triple-negative-breast-cancer&quot;,
+  &quot;url&quot;: &quot;http://example.org/fhir/ValueSet/triple-negative-breast-cancer&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;date&quot;: &quot;2026-06-15&quot;,
+  &quot;name&quot;: &quot;TripleNegativeBreastCancer&quot;,
+  &quot;title&quot;: &quot;Triple-negative breast cancer&quot;,
+  &quot;compose&quot;: {
+    &quot;include&quot;: [
+      {
+        &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+        &quot;concept&quot;: [
+          {
+            &quot;code&quot;: &quot;706970001&quot;,
+            &quot;display&quot;: &quot;Triple-negative breast cancer&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</pre></div></details>
+      <details class="file-exp"><summary>computable/ValueSet-neoadjuvant-chemotherapy.json — actual file (click to expand)</summary><div class="file-body"><pre>{
+  &quot;resourceType&quot;: &quot;ValueSet&quot;,
+  &quot;id&quot;: &quot;neoadjuvant-chemotherapy&quot;,
+  &quot;url&quot;: &quot;http://example.org/fhir/ValueSet/neoadjuvant-chemotherapy&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;date&quot;: &quot;2026-06-15&quot;,
+  &quot;name&quot;: &quot;NeoadjuvantChemotherapy&quot;,
+  &quot;title&quot;: &quot;Neoadjuvant chemotherapy&quot;,
+  &quot;compose&quot;: {
+    &quot;include&quot;: [
+      {
+        &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+        &quot;concept&quot;: [
+          {
+            &quot;code&quot;: &quot;1259200004&quot;,
+            &quot;display&quot;: &quot;Neoadjuvant antineoplastic chemotherapy&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</pre></div></details>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills formalize — care-pathway → 9 PlanDefinitions (workflow-definition)</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills formalize asco-breast-cancer-guideline care-pathway</div>
+        <div class="tool-out">  &#x2713; PlanDefinition-...-protocol.json
+  &#x2713; PlanDefinition-...-protocol-candidacy-phase.json
+  &#x2713; PlanDefinition-...-protocol-candidacy-assessment-step.json
+  &#x2713; PlanDefinition-...-protocol-monitoring-phase.json
+  &#x2713; PlanDefinition-...-protocol-subtype-planning-phase.json
+  &#x2713; PlanDefinition-...-protocol-tumor-feature-review-step.json
+  &#x2713; PlanDefinition-...-protocol-tnbc-planning-step.json
+  &#x2713; PlanDefinition-...-protocol-hr-her2-negative-planning-step.json
+  &#x2713; PlanDefinition-...-protocol-her2-positive-planning-step.json</div>
+      </div>
+
+      <details class="file-exp"><summary>computable/PlanDefinition-...-protocol-candidacy-phase.json — workflow-definition (actual file, click to expand)</summary><div class="file-body"><pre>{
+  &quot;resourceType&quot;: &quot;PlanDefinition&quot;,
+  &quot;meta&quot;: {
+    &quot;profile&quot;: [
+      &quot;http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategydefinition&quot;
+    ]
+  },
+  &quot;id&quot;: &quot;asco-breast-cancer-guideline-protocol-candidacy-phase&quot;,
+  &quot;url&quot;: &quot;http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-phase&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;date&quot;: &quot;2026-06-15&quot;,
+  &quot;name&quot;: &quot;AscoBreastCancerGuidelineProtocolCandidacyPhase&quot;,
+  &quot;title&quot;: &quot;Candidacy and treatment intent&quot;,
+  &quot;description&quot;: &quot;Determine whether neoadjuvant therapy is indicated and what clinical goal it serves.&quot;,
+  &quot;type&quot;: {
+    &quot;coding&quot;: [
+      {
+        &quot;code&quot;: &quot;workflow-definition&quot;,
+        &quot;display&quot;: &quot;Workflow Definition&quot;,
+        &quot;system&quot;: &quot;http://terminology.hl7.org/CodeSystem/plan-definition-type&quot;
+      }
+    ]
+  },
+  &quot;action&quot;: [
+    {
+      &quot;action&quot;: [
+        {
+          &quot;definitionCanonical&quot;: &quot;http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-candidacy-assessment-step&quot;,
+          &quot;description&quot;: &quot;Review inflammatory or locally advanced presentation, residual-disease driven adjuvant planning, downstaging goals, and surgery delay scenarios.&quot;,
+          &quot;id&quot;: &quot;candidacy-assessment-step&quot;,
+          &quot;title&quot;: &quot;Establish neoadjuvant candidacy&quot;
+        },
+        {
+          &quot;definitionCanonical&quot;: &quot;http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-protocol-tumor-feature-review-step&quot;,
+          &quot;description&quot;: &quot;Use histology, grade, stage, and receptor status to anchor treatment planning and avoid unsupported markers.&quot;,
+          &quot;id&quot;: &quot;tumor-feature-review-step&quot;,
+          &quot;title&quot;: &quot;Review standard tumor features&quot;
+        }
+      ],
+      &quot;description&quot;: &quot;Determine whether neoadjuvant therapy is indicated and what clinical goal it serves.&quot;,
+      &quot;id&quot;: &quot;candidacy-phase&quot;,
+      &quot;title&quot;: &quot;Candidacy and treatment intent&quot;
+    }
+  ]
+}</pre></div></details>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot cli"></div><span class="tool-name">rh-skills formalize — decision-table → 20 PlanDefs + 22 ActivityDefs + Library</span><span class="tool-tag cli">rh-skills CLI</span></div>
+        <div class="tool-cmd">rh-skills formalize asco-breast-cancer-guideline decision-table</div>
+        <div class="tool-out">  &#x2713; PlanDefinition-...-recommendation.json
+  &#x2713; PlanDefinition-...-recommendation-r1-1-advanced-disease.json
+  &#x2713; PlanDefinition-...-recommendation-r3-3-carboplatin.json
+  &#x2713; ActivityDefinition-offer-neoadjuvant-chemotherapy-for-advanced-disease.json
+  &#x2713; ActivityDefinition-consider-carboplatin-for-tnbc.json
+  &#x2713; ActivityDefinition-consider-pertuzumab-with-trastuzumab.json
+  <span class="muted">... (44 resources total)</span>
+  &#x2713; Library-asco-breast-cancer-guideline-recommendation-logic.json  (CQL stub embedded)</div>
+      </div>
+
+      <details class="file-exp"><summary>computable/PlanDefinition-...-recommendation-r3-3-carboplatin.json — ECA rule with CQL applicability conditions (actual file, click to expand)</summary><div class="file-body"><pre>{
+  &quot;resourceType&quot;: &quot;PlanDefinition&quot;,
+  &quot;meta&quot;: {
+    &quot;profile&quot;: [
+      &quot;http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition&quot;
+    ]
+  },
+  &quot;id&quot;: &quot;asco-breast-cancer-guideline-recommendation-r3-3-carboplatin&quot;,
+  &quot;url&quot;: &quot;http://example.org/fhir/PlanDefinition/asco-breast-cancer-guideline-recommendation-r3-3-carboplatin&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;date&quot;: &quot;2026-06-15&quot;,
+  &quot;name&quot;: &quot;AscoBreastCancerGuidelineRecommendationR33Carboplatin&quot;,
+  &quot;title&quot;: &quot;Consider carboplatin to increase pathologic complete response&quot;,
+  &quot;description&quot;: &quot;Choose neoadjuvant chemotherapy strategy for triple-negative breast cancer.&quot;,
+  &quot;type&quot;: {
+    &quot;coding&quot;: [
+      {
+        &quot;code&quot;: &quot;eca-rule&quot;,
+        &quot;display&quot;: &quot;ECA Rule&quot;,
+        &quot;system&quot;: &quot;http://terminology.hl7.org/CodeSystem/plan-definition-type&quot;
+      }
+    ]
+  },
+  &quot;library&quot;: [
+    &quot;http://example.org/fhir/Library/asco-breast-cancer-guideline-recommendation-logic&quot;
+  ],
+  &quot;action&quot;: [
+    {
+      &quot;condition&quot;: [
+        {
+          &quot;expression&quot;: {
+            &quot;expression&quot;: &quot;TnbcIsNodePositiveOrAtLeastT1c&quot;,
+            &quot;language&quot;: &quot;text/cql-identifier&quot;
+          },
+          &quot;kind&quot;: &quot;applicability&quot;
+        },
+        {
+          &quot;expression&quot;: {
+            &quot;expression&quot;: &quot;BenefitHarmBalanceFavorsCarboplatin&quot;,
+            &quot;language&quot;: &quot;text/cql-identifier&quot;
+          },
+          &quot;kind&quot;: &quot;applicability&quot;
+        }
+      ],
+      &quot;definitionCanonical&quot;: &quot;http://example.org/fhir/ActivityDefinition/consider-carboplatin-for-tnbc&quot;,
+      &quot;description&quot;: &quot;Carboplatin may be added as part of a neoadjuvant TNBC regimen after weighing potential benefits and harms.&quot;,
+      &quot;documentation&quot;: [
+        {
+          &quot;citation&quot;: &quot;Carboplatin may be offered in TNBC to increase the likelihood of pathologic complete response after balancing benefits and harms. Evidence: korde-et-al-2021-neoadjuvant-chemotherapy-endocrine-therapy-and-targeted-therapy-for-breast-cancer-asco-guideline_pdf: The Bottom Line, Recommendation 3.3&quot;,
+          &quot;label&quot;: &quot;claim-r3-3&quot;,
+          &quot;type&quot;: &quot;citation&quot;
+        }
+      ],
+      &quot;id&quot;: &quot;consider-carboplatin-for-tnbc&quot;,
+      &quot;title&quot;: &quot;Consider carboplatin to increase pathologic complete response&quot;,
+      &quot;trigger&quot;: [
+        {
+          &quot;name&quot;: &quot;tnbc-subtype-treatment-selection&quot;,
+          &quot;source&quot;: &quot;subtype-directed-oncology-planning&quot;,
+          &quot;type&quot;: &quot;named-event&quot;
+        }
+      ]
+    }
+  ]
+}</pre></div></details>
+
+      <div class="callout info">
+        Each <code>PlanDefinition</code> ECA rule references CQL expressions from the Library by identifier (e.g. <code>"TnbcIsNodePositiveOrAtLeastT1c"</code>) — this is the link between structured recommendation logic and executable CQL.
+      </div>
+    </div>
+  </div>
+
+  <!-- CQL authoring -->
+  <div class="turn">
+    <div class="turn-head"><div class="avatar agent">AI</div><span class="turn-who">Agent<span class="turn-role">rh-inf-cql skill — CQL authoring, validation, ELM compilation via rh CLI</span></span></div>
+    <div class="bubble agent">
+      <p>The formalization produced a Library with a CQL stub. Authoring the full condition logic, then validating and compiling to ELM using <code>rh-skills cql</code> — which delegates to the Rust <strong>rh</strong> CLI.</p>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot rust"></div><span class="tool-name">rh-skills cql validate → Rust rh CLI</span><span class="tool-tag rust">rh CLI (Rust)</span></div>
+        <div class="tool-cmd">rh-skills cql validate asco-breast-cancer-guideline AscoBreastCancerGuidelineRecommendationLogic</div>
+        <div class="tool-out">&#x2713; CQL is valid</div>
+      </div>
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot rust"></div><span class="tool-name">rh-skills cql translate → ELM JSON via Rust rh CLI</span><span class="tool-tag rust">rh CLI (Rust)</span></div>
+        <div class="tool-cmd">rh-skills cql translate asco-breast-cancer-guideline AscoBreastCancerGuidelineRecommendationLogic</div>
+        <div class="tool-out">2026-06-15T21:09:28Z  INFO rh::cql: &#x2713; Compiled to computable/AscoBreastCancerGuidelineRecommendationLogic.json
+&#x2713; ELM JSON written to process/elm/AscoBreastCancerGuidelineRecommendationLogic.elm.json
+&#x2713; CQL embedded in Library-asco-breast-cancer-guideline-recommendation-logic.json</div>
+      </div>
+
+      <details class="file-exp"><summary>computable/AscoBreastCancerGuidelineRecommendationLogic.cql — full library (actual file, click to expand)</summary><div class="file-body"><pre>/*
+  Library: AscoBreastCancerGuidelineRecommendationLogic
+  Version: 1.0.0
+  Purpose: Computable condition logic for ASCO neoadjuvant breast cancer recommendations.
+  Model: FHIR R4 4.0.1
+*/
+library AscoBreastCancerGuidelineRecommendationLogic version &#x27;1.0.0&#x27;
+
+using FHIR version &#x27;4.0.1&#x27;
+
+include FHIRHelpers version &#x27;4.0.1&#x27; called FHIRHelpers
+
+valueset &quot;InflammatoryBreastCancer&quot;: &#x27;http://example.org/fhir/ValueSet/inflammatory-breast-cancer&#x27; version &#x27;1.0.0&#x27;
+valueset &quot;LocallyAdvancedBreastCancer&quot;: &#x27;http://example.org/fhir/ValueSet/locally-advanced-breast-cancer&#x27; version &#x27;1.0.0&#x27;
+valueset &quot;TripleNegativeBreastCancer&quot;: &#x27;http://example.org/fhir/ValueSet/triple-negative-breast-cancer&#x27; version &#x27;1.0.0&#x27;
+valueset &quot;Her2PositiveBreastCancer&quot;: &#x27;http://example.org/fhir/ValueSet/her2-positive-breast-cancer&#x27; version &#x27;1.0.0&#x27;
+valueset &quot;HrPositiveHer2NegativeBreastCancer&quot;: &#x27;http://example.org/fhir/ValueSet/hr-positive-her2-negative-breast-cancer&#x27; version &#x27;1.0.0&#x27;
+valueset &quot;PathologicCompleteResponse&quot;: &#x27;http://example.org/fhir/ValueSet/pathologic-complete-response&#x27; version &#x27;1.0.0&#x27;
+valueset &quot;ResidualDisease&quot;: &#x27;http://example.org/fhir/ValueSet/residual-disease&#x27; version &#x27;1.0.0&#x27;
+
+parameter &quot;ResidualDiseaseWouldChangeAdjuvantTherapyInput&quot; Boolean default false
+parameter &quot;DownstagingGoalInput&quot; Boolean default false
+parameter &quot;SurgeryDelayContextInput&quot; Boolean default false
+parameter &quot;StandardTumorFeaturesAvailableInput&quot; Boolean default true
+parameter &quot;TnbcNodePositiveOrAtLeastT1cInput&quot; Boolean default false
+parameter &quot;TnbcCt1aOrCt1bN0Input&quot; Boolean default false
+parameter &quot;BenefitHarmFavorsCarboplatinInput&quot; Boolean default false
+parameter &quot;ChemotherapyDecisionWithoutSurgicalDataInput&quot; Boolean default false
+parameter &quot;PatientIsPostmenopausalInput&quot; Boolean default false
+parameter &quot;NoSurgeryIntendedInput&quot; Boolean default false
+parameter &quot;PatientIsPremenopausalInput&quot; Boolean default false
+parameter &quot;Her2PositiveHighRiskInput&quot; Boolean default false
+parameter &quot;Her2PositiveT1aOrT1bN0Input&quot; Boolean default false
+
+context Patient
+
+define &quot;Inflammatory Breast Cancer Conditions&quot;:
+  [Condition: &quot;InflammatoryBreastCancer&quot;]
+
+define &quot;Locally Advanced Breast Cancer Conditions&quot;:
+  [Condition: &quot;LocallyAdvancedBreastCancer&quot;]
+
+define &quot;Triple-negative Breast Cancer Conditions&quot;:
+  [Condition: &quot;TripleNegativeBreastCancer&quot;]
+
+define &quot;HER2-positive Breast Cancer Conditions&quot;:
+  [Condition: &quot;Her2PositiveBreastCancer&quot;]
+
+define &quot;HR-positive HER2-negative Breast Cancer Conditions&quot;:
+  [Condition: &quot;HrPositiveHer2NegativeBreastCancer&quot;]
+
+define &quot;Residual Disease Findings&quot;:
+  [Observation: &quot;ResidualDisease&quot;]
+
+define &quot;Pathologic Complete Response Findings&quot;:
+  [Observation: &quot;PathologicCompleteResponse&quot;]
+
+define &quot;Any Managed Breast Cancer Subtype&quot;:
+  exists(&quot;Inflammatory Breast Cancer Conditions&quot;)
+    or exists(&quot;Locally Advanced Breast Cancer Conditions&quot;)
+    or exists(&quot;Triple-negative Breast Cancer Conditions&quot;)
+    or exists(&quot;HER2-positive Breast Cancer Conditions&quot;)
+    or exists(&quot;HR-positive HER2-negative Breast Cancer Conditions&quot;)
+
+define &quot;InflammatoryOrLocallyAdvancedUnresectableDisease&quot;:
+  exists(&quot;Inflammatory Breast Cancer Conditions&quot;)
+    or exists(&quot;Locally Advanced Breast Cancer Conditions&quot;)
+
+define &quot;ResidualDiseaseResultWouldChangeAdjuvantTherapy&quot;:
+  &quot;ResidualDiseaseWouldChangeAdjuvantTherapyInput&quot;
+    or exists(&quot;Residual Disease Findings&quot;)
+
+define &quot;DownstagingOrSurgeryExtentReductionIsATreatmentGoal&quot;:
+  &quot;DownstagingGoalInput&quot;
+
+define &quot;SurgeryDelayIsPreferableOrUnavoidable&quot;:
+  &quot;SurgeryDelayContextInput&quot;
+
+define &quot;HistologyGradeStageAndErPrHer2AreAvailable&quot;:
+  &quot;StandardTumorFeaturesAvailableInput&quot;
+    and &quot;Any Managed Breast Cancer Subtype&quot;
+
+define &quot;TnbcIsNodePositiveOrAtLeastT1c&quot;:
+  exists(&quot;Triple-negative Breast Cancer Conditions&quot;)
+    and &quot;TnbcNodePositiveOrAtLeastT1cInput&quot;
+
+define &quot;TnbcIsCt1aOrCt1bN0&quot;:
+  exists(&quot;Triple-negative Breast Cancer Conditions&quot;)
+    and &quot;TnbcCt1aOrCt1bN0Input&quot;
+
+define &quot;BenefitHarmBalanceFavorsCarboplatin&quot;:
+  &quot;BenefitHarmFavorsCarboplatinInput&quot;
+
+define &quot;HrPositiveHer2NegativeSubtype&quot;:
+  exists(&quot;HR-positive HER2-negative Breast Cancer Conditions&quot;)
+
+define &quot;ChemotherapyDecisionCanBeMadeWithoutSurgicalPathologyOrGenomicTesting&quot;:
+  &quot;ChemotherapyDecisionWithoutSurgicalDataInput&quot;
+
+define &quot;PatientIsPostmenopausal&quot;:
+  &quot;PatientIsPostmenopausalInput&quot;
+
+define &quot;NoSurgeryIsIntended&quot;:
+  &quot;NoSurgeryIntendedInput&quot;
+
+define &quot;PatientIsPremenopausal&quot;:
+  &quot;PatientIsPremenopausalInput&quot;
+
+define &quot;Her2PositiveWithNodePositiveOrHighRiskNodeNegativeDisease&quot;:
+  exists(&quot;HER2-positive Breast Cancer Conditions&quot;)
+    and &quot;Her2PositiveHighRiskInput&quot;
+
+define &quot;Her2PositiveT1aOrT1bN0Disease&quot;:
+  exists(&quot;HER2-positive Breast Cancer Conditions&quot;)
+    and &quot;Her2PositiveT1aOrT1bN0Input&quot;
+</pre></div></details>
+    </div>
+  </div>
+
+  <!-- L3 validation + package -->
+  <div class="turn">
+    <div class="turn-head"><div class="avatar agent">AI</div><span class="turn-who">Agent<span class="turn-role">rh-inf-verify + package via rh CLI</span></span></div>
+    <div class="bubble agent">
+
+      <div class="tool-call">
+        <div class="tool-head"><div class="tool-dot rust"></div><span class="tool-name">rh-skills validate l3 + package</span><span class="tool-tag rust">rh CLI (Rust)</span></div>
+        <div class="tool-cmd">rh-skills validate asco-breast-cancer-guideline l3 concepts
+rh-skills validate asco-breast-cancer-guideline l3 care-pathway
+rh-skills validate asco-breast-cancer-guideline l3 decision-table
+rh-skills package asco-breast-cancer-guideline</div>
+        <div class="tool-out">VALID &#x2014; computable/*ValueSet*.json          (11 resources)
+VALID &#x2014; computable/*protocol*.json            (9 resources)
+VALID &#x2014; computable/*recommendation*.json + ActivityDefinitions + Library  (44 resources)
+
+package: reason.asco-breast-cancer-guideline v1.0.0
+resources: 64 FHIR JSON + 1 CQL
+&#x2713; Package built successfully</div>
+      </div>
+
+      <div class="callout success">
+        Pipeline complete. All 64 FHIR resources validated. Package <code>reason.asco-breast-cancer-guideline v1.0.0</code> ready.
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">1</div><div class="stat-lbl">Source PDF</div></div>
+        <div class="stat-card"><div class="stat-num">11</div><div class="stat-lbl">Concepts coded</div></div>
+        <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">L2 artifacts</div></div>
+        <div class="stat-card"><div class="stat-num">20</div><div class="stat-lbl">PlanDefinitions (ECA)</div></div>
+        <div class="stat-card"><div class="stat-num">9</div><div class="stat-lbl">PlanDefinitions (protocol)</div></div>
+        <div class="stat-card"><div class="stat-num">22</div><div class="stat-lbl">ActivityDefinitions</div></div>
+        <div class="stat-card"><div class="stat-num">11</div><div class="stat-lbl">ValueSets</div></div>
+        <div class="stat-card"><div class="stat-num">1</div><div class="stat-lbl">CQL Library + ELM</div></div>
+      </div>
+
+      <p style="margin-top:14px;color:var(--sub);">All computable output files from this run:</p>
+      <details class="file-exp"><summary>All 11 ValueSet resources (click to expand)</summary><div class="file-body"><ul class="file-link-list"><li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-breast-conserving-surgery.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-carboplatin.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-her2-positive-breast-cancer.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-hr-positive-her2-negative-breast-cancer.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-inflammatory-breast-cancer.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-locally-advanced-breast-cancer.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-neoadjuvant-chemotherapy.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-pathologic-complete-response.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-residual-disease.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-trastuzumab.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ValueSet-triple-negative-breast-cancer.json</code></li></ul></div></details>
+      <details class="file-exp"><summary>All 20 recommendation PlanDefinitions (click to expand)</summary><div class="file-body"><ul class="file-link-list"><li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-multidisciplinary-management.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-1-advanced-disease.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-2-standard-features.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-3-residual-disease-guided.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-4-downstaging.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r1-5-surgery-delay.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-1-monitoring.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-2-no-biomarkers.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r2-3-use-pcr.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-1-tnbc-eligible.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-2-tnbc-small-node-negative.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-3-carboplatin.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r3-4-no-ici.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-1-use-chemo.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-no-surgery.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-2-postmenopausal-endocrine.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r4-3-premenopausal.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-1-her2-high-risk.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation-r5-2-small-her2-positive.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-recommendation.json</code></li></ul></div></details>
+      <details class="file-exp"><summary>All 9 care-pathway protocol PlanDefinitions (click to expand)</summary><div class="file-body"><ul class="file-link-list"><li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-candidacy-assessment-step.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-candidacy-phase.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-her2-positive-planning-step.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-hr-her2-negative-planning-step.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-monitoring-phase.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-subtype-planning-phase.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-tnbc-planning-step.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol-tumor-feature-review-step.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/PlanDefinition-asco-breast-cancer-guideline-protocol.json</code></li></ul></div></details>
+      <details class="file-exp"><summary>All 22 ActivityDefinitions (click to expand)</summary><div class="file-body"><ul class="file-link-list"><li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-blood-and-tissue-biomarker-monitoring.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-neoadjuvant-therapy-for-small-her2-positive.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-neoadjuvant-therapy-for-small-tnbc.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-other-markers.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-premenopausal-neoadjuvant-endocrine-therapy.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-avoid-routine-immune-checkpoint-inhibitors.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-consider-carboplatin-for-tnbc.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-consider-pertuzumab-with-trastuzumab.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-coordinate-multidisciplinary-management.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-monitor-with-clinical-examination.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-anthracycline-taxane-for-tnbc.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-her2-directed-neoadjuvant-regimen.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-chemotherapy-for-advanced-disease.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-downstaging.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-residual-disease-guided-adjuvant-planning.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-neoadjuvant-for-surgery-delay.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-offer-postmenopausal-neoadjuvant-endocrine-therapy.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-baseline-informative-imaging.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-endocrine-therapy-for-disease-control.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-neoadjuvant-chemotherapy-without-surgical-data.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-pcr-to-guide-decisions.json</code></li>
+<li><code>topics/asco-breast-cancer-guideline/computable/ActivityDefinition-use-standard-tumor-features.json</code></li></ul></div></details>
+      <details class="file-exp"><summary>Library + CQL + ELM (click to expand)</summary><div class="file-body"><ul class="file-link-list"><li><code>topics/asco-breast-cancer-guideline/computable/Library-asco-breast-cancer-guideline-recommendation-logic.json</code></li><li><code>topics/asco-breast-cancer-guideline/computable/AscoBreastCancerGuidelineRecommendationLogic.cql</code></li></ul><ul class="file-link-list"><li><code>topics/asco-breast-cancer-guideline/process/elm/AscoBreastCancerGuidelineRecommendationLogic.elm.json</code></li></ul></div></details>
+    </div>
+  </div>
+
+  <!-- Artifact explorer callout -->
+  <div style="margin:24px 0;background:#051c1a;border:1px solid #2de9e066;border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>
+      <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--cyan);margin-bottom:4px">Interactive Artifact Browser</div>
+      <div style="font-size:15px;color:var(--sub)">Explore all <strong style="color:var(--text)">64 FHIR resources</strong> — ValueSets with coded concepts, ECA PlanDefinitions grouped by clinical phase, protocol PlanDefinitions, and ActivityDefinitions — with a visual care-pathway diagram.</div>
+    </div>
+    <a href="artifact-explorer.html" style="flex-shrink:0;font-family:var(--mono);font-size:13px;font-weight:600;border:1px solid var(--cyan);background:#2de9e014;color:var(--cyan);border-radius:999px;padding:8px 18px;text-decoration:none;white-space:nowrap;transition:background .15s" onmouseover="this.style.background='#2de9e030'" onmouseout="this.style.background='#2de9e014'">Browse Artifacts →</a>
+  </div>
+
+  <!-- Tool responsibilities -->
+  <div class="stage-header">
+    <div class="stage-line"></div>
+    <div class="stage-label" style="color:#a3c9c8;border-color:#0e5b59;background:#051a19;">How the Tools Work Together</div>
+    <div class="stage-line"></div>
+  </div>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-card-head"><div class="tdot cli"></div><span class="tool-card-name">rh-skills CLI</span></div>
+      <ul>
+        <li>Scaffold topics, register &amp; normalize sources</li>
+        <li>Generate ingest, extract, and formalize plans</li>
+        <li>Present plans for reviewer gating; record decisions</li>
+        <li>Drive concept review lifecycle (enrich &rarr; approve &rarr; write)</li>
+        <li>Derive L2 structured YAML from normalized sources</li>
+        <li>Orchestrate formalization strategy selection</li>
+        <li>Maintain <code>tracking.yaml</code> event log</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <div class="tool-card-head"><div class="tdot mcp"></div><span class="tool-card-name">ReasonHub MCP</span></div>
+      <ul>
+        <li>Semantic search across SNOMED CT, LOINC, RxNorm, ICD-10-CM</li>
+        <li>Returns ranked candidates with similarity scores</li>
+        <li>Verify codes are valid and active in live code systems</li>
+        <li>Check SNOMED subsumption relationships</li>
+        <li>Expand and validate FHIR ValueSet compositions</li>
+        <li>Surface discouraged codes and inactive concepts</li>
+      </ul>
+    </div>
+    <div class="tool-card">
+      <div class="tool-card-head"><div class="tdot rust"></div><span class="tool-card-name">rh CLI (Rust)</span></div>
+      <ul>
+        <li>Validate CQL syntax and semantics</li>
+        <li>Compile CQL to ELM JSON</li>
+        <li>Evaluate CQL expressions against FHIR Bundles</li>
+        <li>Validate FHIR R4 resource structure (L3 check)</li>
+        <li>Build FHIR NPM package bundles</li>
+        <li>Invoked via <code>rh-skills cql</code>, <code>rh-skills validate</code>, <code>rh-skills package</code></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="fi">
+    <span class="fm">rh-skills &nbsp;&middot;&nbsp; ReasonHub MCP &nbsp;&middot;&nbsp; rh CLI (Rust) &nbsp;&middot;&nbsp; 2026-06-15</span>
+    <span class="fm">ASCO Neoadjuvant Breast Cancer Guideline Demo</span>
+  </div>
+</footer>
+
+</body>
+</html>
